@@ -1,0 +1,5 @@
+LinkID,VehicleCategory,LOS1Speed,LOS2Speed,LOS3Speed,LOS4Speed
+link_a,VehicleCategory.PC,100,80,60,40
+link_a,VehicleCategory.LCV,90,70,50,20
+link_b,VehicleCategory.PC,60,50,40,10
+link_b,VehicleCategory.LCV,50,40,30,5

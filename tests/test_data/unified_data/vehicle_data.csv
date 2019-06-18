@@ -1,0 +1,3 @@
+VehicleName,VehicleCategory,NumberOfAxles
+pc vehicle_a,VehicleCategory.PC,
+lcv vehicle_b,VehicleCategory.LCV,

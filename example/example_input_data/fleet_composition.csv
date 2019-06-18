@@ -1,0 +1,3 @@
+VehName,VehCat,VehPercOfCat,NumberOfAxles
+pc vehicle_a,P,0.5,
+lcv vehicle_b,L,0.3,

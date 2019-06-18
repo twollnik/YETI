@@ -1,0 +1,17 @@
+VehCat,TrafficSituation,Speed_kmh
+pass. car,URB/MW-City/100/Freeflow,100
+pass. car,URB/MW-City/100/Heavy,80
+pass. car,URB/MW-City/100/Satur.,60
+pass. car,URB/MW-City/100/St+Go,40
+LCV,URB/MW-City/100/Freeflow,90
+LCV,URB/MW-City/100/Heavy,70
+LCV,URB/MW-City/100/Satur.,50
+LCV,URB/MW-City/100/St+Go,20
+pass. car,RUR/Distr/80/Freeflow,60
+pass. car,RUR/Distr/80/Heavy,50
+pass. car,RUR/Distr/80/Satur.,40
+pass. car,RUR/Distr/80/St+Go,10
+LCV,RUR/Distr/80/Freeflow,50
+LCV,RUR/Distr/80/Heavy,40
+LCV,RUR/Distr/80/Satur.,30
+LCV,RUR/Distr/80/St+Go,5

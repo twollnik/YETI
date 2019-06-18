@@ -1,0 +1,3 @@
+LinkID,Length_m,MaxSpeed_kmh,PC_Perc,LCV_Perc,HDV_Perc,UBus_Perc,Coach_Perc,MC_Perc,AreaCat,RoadCat
+link_a,100,100,0.1,0.3,0.2,0.3,0,0.1,1,5
+link_b,500,80,0.2,0.2,0.2,0.2,0,0.2,0,1

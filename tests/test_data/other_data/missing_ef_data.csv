@@ -1,0 +1,4 @@
+Pollutant,VehicleName
+PollutantType.VOC,pc vehicle_a
+PollutantType.VOC,lcv vehicle_b
+PollutantType.PM_Exhaust,lcv vehicle_b

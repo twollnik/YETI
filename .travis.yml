@@ -1,0 +1,20 @@
+# Disable sudo to speed up the build
+sudo: false
+
+dist: xenial
+
+language: python
+python:
+  - "3.6"
+  - "3.7"
+
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
+
+script:
+  - make test
+  - make test_docs
+  - make test_coverage
+
+after_success: codecov

@@ -1,0 +1,3 @@
+LinkID,Length,Speed,RoadType,AreaType,MaxSpeed
+link_a,0.1,30,RoadType.MW_City,AreaType.Urban,100
+link_b,0.5,30,RoadType.Distr,AreaType.Rural,80
