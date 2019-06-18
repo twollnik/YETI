@@ -3,13 +3,14 @@ YETI - Yet Another Emissions From Traffic Inventory
 
 |Build Status| |Coverage| |Docs| |Python version| |License|
 
-.. |Build Status| image:: https://travis-ci.com/twollnik/iass-emission-calc.svg?token=gnbYkLmcyP7Nq2nBe5Ys&branch=master
-   :target: https://travis-ci.com/twollnik/iass-emission-calc
-.. |Docs| image:: https://img.shields.io/badge/docs-stable-success.svg
-   :target: https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/
+.. |Build Status| image:: https://travis-ci.com/twollnik/YETI.svg?branch=master
+    :target: https://travis-ci.com/twollnik/YETI
+.. |Docs| image:: https://readthedocs.org/projects/iass-yeti/badge/?version=latest
+    :target: https://iass-yeti.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 .. |Python version| image:: https://img.shields.io/badge/Python%20version-3.6%20and%20above-lightgrey.svg
-.. |Coverage| image:: https://codecov.io/gh/twollnik/iass-emission-calc/branch/master/graph/badge.svg?token=mr44XEAIG5
-   :target: https://codecov.io/gh/twollnik/iass-emission-calc
+.. |Coverage| image:: https://codecov.io/gh/twollnik/YETI/branch/master/graph/badge.svg?token=mr44XEAIG5
+   :target: https://codecov.io/gh/twollnik/YETI
 .. |License| image:: https://img.shields.io/badge/license-GPLv3-blue.svg
 
 
@@ -20,7 +21,7 @@ YETI supports common emission calculation methodologies like COPERT or HBEFA. It
 work with data for the City of Berlin, but is flexible enough to be adopted to different datasets and regions.
 
 This README is intended as a first introduction to the project. For more detailed information,
-see the `docs <https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/>`_.
+see the `docs <https://iass-yeti.readthedocs.io/en/latest//>`_.
 
 .. contents:: Contents
     :local:
@@ -41,7 +42,7 @@ run the tests on your computer. If they pass, you are good to go.
 
 2. Clone the GitHub repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Clone the GitHub repositiory by running ``git clone https://github.com/twollnik/iass-emission-calc.git`` on the command line.
+Clone the GitHub repositiory by running ``git clone https://github.com/twollnik/YETI.git`` on the command line.
 You need to have git installed for this step. If you don't have git, get it `here <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git/>`_.
 
 These directories will be downloaded: ``code``, ``diagrams``, ``docs``, ``example``, and ``tests``.
@@ -61,7 +62,7 @@ We have included example configuration files and example data for you to try out
 in the folder ``example/``. To run the demo, execute the following command on the command line from the
 repository root directory: ``python -m run_yeti -c example/example_configs/copert_hot_config.yaml``. Instead of the
 ``copert_hot_config.yaml`` you can use any of the
-`config files <https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/>`_ in ``example/example_configs/``.
+`config files <https://iass-yeti.readthedocs.io/en/latest/user/config.html/>`_ in ``example/example_configs/``.
 
 
 .. usage-start-do-not-remove
@@ -78,13 +79,13 @@ project root directory. Run the script from the command line:
 repository root directory.
 
 ``run_yeti.py`` uses a configuration file in `YAML format <https://en.wikipedia.org/wiki/YAML>`_
-where a `Strategy <https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/user/what_is_strategy.html/>`_
+where a `Strategy <https://iass-yeti.readthedocs.io/en/latest/user/what_is_strategy.html>`_
 for the emission calculation method is defined together with all the necessary input/output file
 locations and other parameters.
 
 You may specify the location of the config file: ``python -m run_yeti -c path/to/config.yaml``.
 If you don't specify a location for the config file explicitly, the path ``./config.yaml`` is used.
-`Look here <https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/user/config.html>`_
+`Look here <https://iass-yeti.readthedocs.io/en/latest/user/config.html>`_
 for more detailed information what should be included in the config file.
 
 Run ``python -m run_yeti --help`` for short usage information.
@@ -134,7 +135,7 @@ The data that you are working with is likely in a different
 format than our ``input_data``, however chances are that you can
 tranform your data to fit the format of the ``unified_data`` class. If this is the
 case, you only need to
-`write a function to convert your data <https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/developer/add_load_input_data_function.html>`_ to
+`write a function to convert your data <https://iass-yeti.readthedocs.io/en/latest/developer/add_load_input_data_function.html>`_ to
 ``unified_data``. Once this is done you can use YETI with your data and
 don't need to adapt any other part of the system.
 
@@ -145,7 +146,7 @@ The data requirements depend on how you want to calculate emissions. For
 example calculating emissions with the COPERT methodology requires
 different input data than a calculation with the HBEFA methodology.
 
-Take a look at the `docs <https://iass-iass-emission-calc.readthedocs-hosted.com/en/latest/user/what_is_strategy.html>`_
+Take a look at the `docs <https://iass-yeti.readthedocs.io/en/latest/user/what_is_strategy.html>`_
 page of the Strategy you want to use to find out about the data requirements for that Strategy.
 
 File format

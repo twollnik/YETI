@@ -5,8 +5,7 @@ The documentation for YETI is written in `reStructuredText <https://en.wikipedia
 using `Sphinx <http://www.sphinx-doc.org/en/master/>`_. Please familiarize yourself with the basics of rst and Sphinx
 before updating the docs.
 
-Each page of the documentation corresponds to one rst file in the
-`docs folder <https://github.com/twollnik/iass-emission-calc/tree/master/docs>`_.
+Each page of the documentation corresponds to one rst file in the folder ``docs/``.
 You can look at the rst sourcecode of existing documentation pages by clicking on "View page source"
 in the top right corner of the page.
 

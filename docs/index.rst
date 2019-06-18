@@ -11,7 +11,7 @@ in the :ref:`configuration file <config>`.
 YETI was originally built for the City of Berlin, but is flexible enough to be adopted to different datasets.
 Find out how to customize YETI for your needs in the developer section. Start here: :ref:`Process`
 
-The code for YETI can be found on `GitHub <https://github.com/twollnik/iass-emission-calc/>`_.
+The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
 
 .. toctree::
    :maxdepth: 1
