@@ -23,7 +23,6 @@ input_emission_factors:     example/example_input_data/copert_emission_factors.c
 input_los_speeds:           example/example_input_data/los_speeds.csv
 input_traffic_data:         example/example_input_data/traffic_data.csv
 input_vehicle_mapping:      example/example_input_data/vehicle_mapping.csv
-input_cold_ef_table:        example/example_input_data/cold_emission_factors.csv
 input_nh3_emission_factors: example/example_input_data/nh3_tier2_emission_factors.csv
 input_nh3_mapping:          example/example_input_data/nh3_mapping.csv
 
