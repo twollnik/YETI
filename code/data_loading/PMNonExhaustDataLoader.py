@@ -20,4 +20,4 @@ class PMNonExhaustDataLoader(DataLoader):
                                   nh3_ef_data: pd.DataFrame,
                                   nh3_mapping_data: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
-        return (pd.DataFrame(), pd.DataFrame())
+        return (None, None)

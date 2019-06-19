@@ -46,11 +46,4 @@ class HbefaDataLoader(DataLoader):
 
     def load_los_speeds_data(self, link_data: pd.DataFrame, los_speeds_data: pd.DataFrame):
 
-        return pd.DataFrame({
-            "LinkID": [],
-            "VehicleCategory": [],
-            "LOS1": [],
-            "LOS2": [],
-            "LOS3": [],
-            "LOS4": []
-        })
+        return None
