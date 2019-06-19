@@ -13,6 +13,7 @@ YETI - Yet Another Emissions From Traffic Inventory
    :target: https://codecov.io/gh/twollnik/YETI
    :alt: Test coverage
 .. |License| image:: https://img.shields.io/badge/license-GPLv3-blue.svg
+   :target: https://github.com/twollnik/YETI/blob/master/LICENSE
 
 
 YETI is a tool for bottom-up traffic emission calculation. It helps you create high-resolution
