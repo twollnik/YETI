@@ -11,7 +11,7 @@ def save_dataframes(output_folder: str, data_dict: Dict[str, pd.DataFrame]) -> D
         file = f"{output_folder}/{name}"
         if file.endswith(".csv") is False:
             file = file + ".csv"
-        dataframe.to_csv(file)
+        dataframe.to_csv(file, index=False)
         data_dict[name] = file
     return data_dict
 

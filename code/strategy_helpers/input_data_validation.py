@@ -39,7 +39,7 @@ def validate_dataset(file: str, shorthand: str, data: pd.DataFrame = None) -> bo
         return False
 
     if data is None:
-        data = pd.read_csv(file)
+        data = pd.read_csv(file, dtype=str)
 
     # check that the data contains all the non-optional columns
     expected_columns = [
