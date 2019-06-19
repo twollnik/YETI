@@ -7,7 +7,7 @@ Data validation is done by the ``validation_function``, as specified in the conf
 write your own ``validation_function``.
 
 How is a ``validation_function`` called?
-------------------------------------
+----------------------------------------
 
 A validation function is called with the single argument ``kwargs``:
 
