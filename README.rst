@@ -54,6 +54,7 @@ from the repository root directory.
 If you want to do development work you should also install dev dependencies:  ``pip install -r requirements-dev.txt``.
 
 .. installation-end-do-not-remove
+.. demo-start-do-not-remove
 
 Demo
 ----
@@ -64,7 +65,7 @@ repository root directory: ``python -m run_yeti -c example/example_configs/coper
 ``copert_hot_config.yaml`` you can use any of the
 `config files <https://iass-yeti.readthedocs.io/en/latest/user/config.html/>`_ in ``example/example_configs/``.
 
-
+.. demo-end-do-not-remove
 .. usage-start-do-not-remove
 
 Usage
