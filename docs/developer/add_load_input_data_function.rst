@@ -16,7 +16,7 @@ input_data. It does these four things:
 
 It is likely that you can change the input_data loading behaviour without having to write much code yourself.
 We provide the class ``DataLoader`` that is extensible and can likely be adapted to your needs without
-too much effort. More info below.
+too much effort. More info :ref:`below <use-data-loader>`.
 
 Example
 -------
@@ -42,7 +42,7 @@ How is the function called?
 ---------------------------
 
 The ``load_input_data_function`` is called with a single argument: ``kwargs``. ``kwargs`` is a
-dictionary that contains everything from the config file.
+dictionary that contains all arguments from the config file.
 
 For example, if your config file looks like this:
 
@@ -105,8 +105,10 @@ Then the return dictionary of the function should look like this:
     }
 
 Note that the ``load_unified_data_function`` that is specified in the config will be called after the
-``load_input_data_function``. Therefore the keys in the return dictionary must match the keyword arguments
+``load_input_data_function``. The keys in the return dictionary must match the keyword arguments
 that the ``load_unified_data_function`` expects as input.
+
+.. _use-data-loader:
 
 Use the existing ``DataLoader``
 -------------------------------
@@ -117,26 +119,20 @@ format. We also provide the function ``save_dataframes`` to save the unified_dat
 return dictionary.
 
 The ``DataLoader`` is originally designed to work with input_data as requried by the
-:doc:`CopertHotStrategy <copert_hot_strategy>` and output unified_data as required by the
-``CopertHotStrategy``. We will now discuss how to adapt the ``DataLoader`` to you data requirements.
+:doc:`CopertHotStrategy <../user/copert_hot_strategy>` and output unified_data as required by the
+``CopertHotStrategy``. We will now discuss how to adapt the ``DataLoader`` to your data requirements.
 
-There are three usage scenarios:
+There are two usage scenarios:
 
 1. One of your input_data files has a different format.
 2. You don't use all the unified_data files that are used by the ``CopertHotStrategy``.
-3. You want to use additional unified_data files.
 
+We will take a detailed look at the two usage scenarios a bit later on the page. For now
+we want to look at what they have in common:
 
-1. One of your input_data files has a different format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You need to subclass the ``DataLoader`` and use the new class in the ``load_input_data_function``. For example:
 
-This means that you will need to change
-
-1. How the input_data is read from file.
-2. How one or multiple unified_data files are constructed.
-
-For this you will need a ``DataLoader`` subclass so that you can change the behaviour of the ``DataLoader``. This
-is an example ``DataLoader`` subclass:
+Let's say you wrote the ``MyDataLoader`` that extends the ``DataLoader`` to fit your needs:
 
 .. code-block:: python
 
@@ -146,14 +142,52 @@ is an example ``DataLoader`` subclass:
 
         ...
 
+Now you want to use ``MyDataLoader`` in the ``load_input_data_function``:
+
+.. code-block:: python
+
+    from path.to.MyDataLoader import MyDataLoader
+    from code.strategy_helpers.helpers import save_dataframes
+
+    def load_input_data(**kwargs):
+
+        output_folder = kwargs["output_folder"]
+        loader = MyDataLoader(**kwargs)
+        data = loader.load_data(use_nh3_ef=False)
+        (link_data, vehicle_data, traffic_data, los_speeds_data, emission_factor_data, _) = data
+
+        unified_data_file_paths = save_dataframes(
+            output_folder,
+            {
+                "unified_emission_factors": emission_factor_data,
+                "unified_los_speeds": los_speeds_data,
+                "unified_vehicle_data": vehicle_data,
+                "unified_link_data": link_data,
+                "unified_traffic_data": traffic_data
+             }
+        )
+        return unified_data_file_paths
+
+Now we will take a look at the two usage scenarios mentioned before.
+
+1. One of your input_data files has a different format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This means that you will need to change
+
+1. How the input_data is read from file.
+2. How one or multiple unified_data files are constructed.
+
+For this you will need a ``DataLoader`` subclass so that you can change the behaviour of the ``DataLoader``.
+
 1. Change how the input_data is read from file.
 '''''''''''''''''''''''''''''''''''''''''''''''
 
 The class ``FileDataLoader`` is responsible for loading input_data from file. To change how input_data
-is loaded you should subclass the ``FileDataLoader``, override relevant methods and make the ``DataLoader``
+is loaded you should subclass the ``FileDataLoader``, override relevant methods and make your ``DataLoader``
 use the new ``FileDataLoader``
 
-First, here is **how to subclass the ``FileDataLoader``:**
+First, here is **how to subclass the FileDataLoader:**
 
 .. code-block:: python
 
@@ -168,13 +202,13 @@ Secondly, these are the **methods you can override:**
 
 .. code-block:: python
 
-    load_link_data_from_file()  # override this method to change how input_data link data is loaded from file
-    load_fleet_comp_data_from_file()  # override this method to change how input_data fleet composition data is loaded from file
-    load_traffic_count_data_from_file()  # override this method to change how input_data traffic data is loaded from file
-    load_emission_factor_data_from_file()  # override this method to change how input_data emission factor data is loaded from file
-    load_los_speeds_data_from_file()  # override this method to change how input_data los_speeds data is loaded from file
-    load_vehicle_mapping_data_from_file()  # override this method to change how input_data vehicle mapping data is loaded from file
-    load_nh3_ef_data_from_file_if_wanted(use_nh3_ef)  # override this method to change how input_data tier 2 NH3 emission factor data is loaded from file
+    load_link_data_from_file(self)  # override this method to change how input_data link data is loaded from file
+    load_fleet_comp_data_from_file(self)  # override this method to change how input_data fleet composition data is loaded from file
+    load_traffic_count_data_from_file(self)  # override this method to change how input_data traffic data is loaded from file
+    load_emission_factor_data_from_file(self)  # override this method to change how input_data emission factor data is loaded from file
+    load_los_speeds_data_from_file(self)  # override this method to change how input_data los_speeds data is loaded from file
+    load_vehicle_mapping_data_from_file(self)  # override this method to change how input_data vehicle mapping data is loaded from file
+    load_nh3_ef_data_from_file_if_wanted(self, use_nh3_ef)  # override this method to change how input_data tier 2 NH3 emission factor data is loaded from file
 
 The ``self`` argument to the functions will give you access to these attributes:
 
@@ -203,7 +237,7 @@ For example, here is how you would change the way that link data is loaded from 
             link_data = ...  # read the link data from file
             return link_data
 
-The last thing you need to do is to **make the ``DataLoader`` use the new ``FileDataLoader``:**
+The last thing you need to do is to **make your DataLoader use the new MyFileDataLoader:**
 
 .. code-block:: python
 
@@ -268,3 +302,25 @@ For example if your input_data traffic data format changes, you will need to ove
             unified_traffic_data = ...
 
             return unified_traffic_data
+
+2. You don't use all the unified_data files that are used by the ``CopertHotStrategy``.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If this is the case you should override the method that constructs the unified_data file that
+you don't want to use. Let the method return None. For example say you don't want to use emission factor
+data:
+
+.. code-block:: python
+
+    from code.data_loading.DataLoader import DataLoader
+
+    class MyDataLoader(DataLoader):
+
+        load_emission_factor_data(self,
+                              use_nh3_ef: bool,
+                              fleet_comp_data: pd.DataFrame,
+                              vehicle_mapping_data: pd.DataFrame,
+                              ef_data: pd.DataFrame,
+                              nh3_ef_data: pd.DataFrame,
+                              nh3_mapping_data: pd.DataFrame):
+
+            return None
