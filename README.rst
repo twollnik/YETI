@@ -77,7 +77,7 @@ Run the model
 ^^^^^^^^^^^^^
 
 All interactions with YETI use the script ``run_yeti.py``. Run the script on the command line:
-``python -m run_yeti``. Make sure that you run the script from the
+``python -m run_yeti``. Make sure to run the script from the
 repository root directory.
 
 ``run_yeti.py`` uses a configuration file in `YAML format <https://en.wikipedia.org/wiki/YAML>`_
@@ -89,6 +89,9 @@ You may specify the location of the config file: ``python -m run_yeti -c path/to
 If you don't specify a location for the config file explicitly, the path ``./config.yaml`` is used.
 Look `here <https://iass-yeti.readthedocs.io/en/latest/user/config.html>`_
 for more detailed information what should be included in the config file.
+
+You can pass the argument ``-q`` to run YETI in quiet mode: ``python -m run_yeti -q``. In quiet mode no DEBUG information
+will be displayed.
 
 Run ``python -m run_yeti --help`` for short usage information.
 
