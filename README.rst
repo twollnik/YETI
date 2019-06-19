@@ -11,6 +11,7 @@ YETI - Yet Another Emissions From Traffic Inventory
 .. |Python version| image:: https://img.shields.io/badge/Python%20version-3.6%20and%20above-lightgrey.svg
 .. |Coverage| image:: https://codecov.io/gh/twollnik/YETI/branch/master/graph/badge.svg?token=mr44XEAIG5
    :target: https://codecov.io/gh/twollnik/YETI
+   :alt: Test coverage
 .. |License| image:: https://img.shields.io/badge/license-GPLv3-blue.svg
 
 
