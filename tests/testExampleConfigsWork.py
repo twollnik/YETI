@@ -12,7 +12,8 @@ class TestCalcAvgDailyEmissions(TestCase):
 
     def setUp(self) -> None:
 
-        os.chdir("..")
+        if not "tests" in os.listdir("."):
+            os.chdir("..")
         self.start_time = time.time()
 
     def tearDown(self) -> None:
