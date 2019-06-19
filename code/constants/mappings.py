@@ -25,12 +25,12 @@ ROAD_CAT_FROM_ENUM = {
 }
 
 VEH_CAT_MAPPING = {
-            "pass. car": VehicleCategory.PC,
-            "LCV": VehicleCategory.LCV,
-            "coach": VehicleCategory.Coach,
-            "urban bus": VehicleCategory.UBus,
-            "motorcycle": VehicleCategory.MC,
-            "HGV": VehicleCategory.HDV,
+            "pass. car": "VehicleCategory.PC",
+            "LCV": "VehicleCategory.LCV",
+            "coach": "VehicleCategory.Coach",
+            "urban bus": "VehicleCategory.UBus",
+            "motorcycle": "VehicleCategory.MC",
+            "HGV": "VehicleCategory.HDV",
 }
 
 # Mapping the VehicleCategoriy enumerations to the vehicle categories used in the

@@ -133,8 +133,8 @@ class LosSpeedsDataLoader:
 
         moped_speeds = defaultdict(dict)
         for val in df_parts.values():
-            if val["VehicleCategory"] == VehicleCategory.MC:
-                val["VehicleCategory"] = VehicleCategory.Moped
+            if val["VehicleCategory"] == "VehicleCategory.MC":
+                val["VehicleCategory"] = "VehicleCategory.Moped"
                 moped_speeds[(val["LinkID"], val["VehicleCategory"])] = val
 
         return moped_speeds
