@@ -35,8 +35,14 @@ in attributes gives you a lot more flexibility in the implementation.
 Strategies collaborate with data handling functions
 ---------------------------------------------------
 
-The functions ``load_input_data_function`` and ``load_unified_data_function`` are used to load the
-data that is required by the Strategy.
+The functions ``load_input_data_function`` and ``load_unified_data_function`` (as specified in the config)
+are used to load the data that is required by the Strategy.
+
+``load_input_data_function`` is a function that reads the input_data for the Strategy from file, converts it to
+unified_data format and saves the constructed unified_data to file. :doc:`more <add_load_input_data_function>`
+
+``load_unified_data_function`` has the simple job of reading the required unified_data for the Strategy from
+file. :doc:`more <add_load_unified_data_function>`
 
 Each Strategy has a corresponding ``load_input_data_function`` and ``load_unified_data_function``.
 If you write your own Strategy you may have to also write new data loading functions.

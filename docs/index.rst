@@ -18,6 +18,7 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    :caption: User Documentation
 
    user/installation_setup
+   user/demo
    user/usage
    user/config
    user/data_formats

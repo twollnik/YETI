@@ -20,24 +20,25 @@ Data validation checks the format of the given files:
 - Percentage columns contain percentage values
 
 Eather mode can use data validation. Data validation is done by a function designed specifically for data validation.
-We provide validation functions for most strategies. If you want to add data validation for your own Strategies
+We provide validation functions for some Strategies. If you want to add data validation for your own Strategies
 and datasets, look here: :ref:`add-validation-function`
 
 Specify the validation function to be used in the config:
 
 .. code-block:: yaml
 
-    validation_function: path.to.the.validation.function
+    validation_function: path.to.the.validation_function
 
-If you do not want to use data validation, simply don't include the above statement in your config.
+You may not want to use data validation or no validation function may exists for the desired Strategy.
+If that is the case simply don't include the above statement in your config to skip validation.
 
 
 Load input_data and convert it to unified_data
 ----------------------------------------------
 This is the part where input_data is converted to unified_data. It is **only relevant for mode input_data**.
 The conversion is done by a function. Which function you want to use depends on the format of your input_data
-and on which Strategy you are looking to use. We provide functions to load and convert ``input_data`` for the
-Berlin ``input_data`` that we were working with and for all Strategies.
+and on which Strategy you are looking to use. We provide functions to load and convert ``input_data``
+for the input_data we were using for all Strategies.
 
 If you want to work with your own dataset, **you will likely have to write your own function** for this.
 Look here for information on how to do that: :ref:`add-load-input-data-function`
@@ -46,7 +47,7 @@ Specify the function to be used in the config:
 
 .. code-block:: yaml
 
-    load_input_data_function: path.to.the.input.data.loading.function
+    load_input_data_function: path.to.the.input_data_loading_function
 
 Note that the product of this step are multiple files containing the ``unified_data``. The files
 will be loaded into memory in the next step.
@@ -61,7 +62,7 @@ Just like two steps above, this step is done by a function. You can specify the 
 
 .. code-block:: yaml
 
-    load_unified_data_function: path.to.the.unified.data.loading.function
+    load_unified_data_function: path.to.the.unified_data_loading_function
 
 If you are working with data that can be converted to fit the unified_data format, you should not have to write your own
 function for this step. If you do need to adapt how the unified_data is loaded from file, look here:

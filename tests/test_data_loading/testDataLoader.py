@@ -118,7 +118,7 @@ class TestDataLoader(TestCase):
 
         self.assertTrue(df_equal(link_data, link_data_pre))
         self.assertTrue(df_equal(vehicle_data, vehicle_data_pre))
-        self.assertTrue(los_speeds_data.empty)
+        self.assertTrue(los_speeds_data is None)
         self.assertTrue(df_equal(traffic_data, traffic_data_pre))
         self.assertTrue(df_equal(emission_factor_data, emission_factor_data_pre))
 
