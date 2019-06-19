@@ -57,8 +57,9 @@ What to put in the config.yaml
 ------------------------------
 If you want to use the ``CopertHotFixedSpeedStrategy`` for the your calculations, you need to set
 the following options in your ``config.yaml``.
-Don't forget to add the parameters specified here: :doc:`config`
-Also please note that we currently don't provide validation functions for this Strategy.
+Don't forget to add the parameters specified here: :doc:`config`.
+
+Please note that we currently don't provide validation functions for this Strategy.
 
 If using mode ``input_data``:
 '''''''''''''''''''''''''''''

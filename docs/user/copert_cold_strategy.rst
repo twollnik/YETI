@@ -12,7 +12,7 @@ to the road types or area types that you want to exclude.
 Possible road types to be excluded are: ``MW-Nat.``, ``MW-City``, ``Trunk-Nat.``, ``Trunk-City``, ``Distr``,
 ``Local``, and ``Access``. Area types that can be excluded are ``Rural`` and ``Urban``.
 
-During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy``, because
+During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy`` because
 cold emissions depend on hot emissions.
 
 Output of a model run with this Strategy are three csv files:
@@ -45,13 +45,13 @@ This is the cold ef table as provided by EEA recommendations.
 
 - *Pollutant*: One of the following: ``CO``, ``NOx``, or ``VOC``.
 - *VehSegment*: A vehicle segment. One of the following: ``Mini``, ``Small``, ``Medium``, or ``Large-SUV-Executive``.
-- *MinSpeed*: The minimum speed the A,B and C in this row are valid for.
-- *MaxSpeed*: The maximum speed the A,B and C in this row are valid for.
-- *MinTemp*: The minimum temperature the A,B and C in this row are valid for.
-- *MaxTemp*: The maximum temperature the A,B and C in this row are valid for.
-- *A*: The A factor for the cold ef calculation.
-- *B*: The B factor for the cold ef calculation.
-- *C*: The C factor for the cold ef calculation.
+- *MinSpeed*: The minimum speed the A,B and C values in this row are valid for.
+- *MaxSpeed*: The maximum speed the A,B and C values in this row are valid for.
+- *MinTemp*: The minimum temperature the A,B and C values in this row are valid for.
+- *MaxTemp*: The maximum temperature the A,B and C values in this row are valid for.
+- *A*: The A parameter for the cold ef calculation.
+- *B*: The B parameter for the cold ef calculation.
+- *C*: The C parameter for the cold ef calculation.
 
 *Example*:
 

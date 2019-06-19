@@ -5,7 +5,7 @@ The ``CopertHotStrategy`` implements emission calculation with the
 `EEA Tier 1 methodology <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_ for hot exhaust emissions
 using `COPERT <http://www.emisia.com/utilities/copert/>`_ emission factors.
 
-It uses speed-dependent emission factors with flexible speeds dependant on the level of service.
+This Strategy uses speed-dependent emission factors with flexible speeds dependent on the level of service.
 When developing YETI we had access to speed data that depended on the level of service, so we chose
 to get the speed used for the COPERT emission factor calculation from there. If your speed data has a different format,
 you can :ref:`add your own Strategy <add-strategy>` to work with your speed data.
@@ -57,7 +57,7 @@ speed of a vehicle for a particular level of service.
 - *TrafficSituation*: Each value in this column is a String describing a particular
   traffic situation in the format ``{area type}/{road type}/{max speed}/{level of service}``.
   Acceptable area types are ``URB`` and ``RUR``. For level of service choose one of these values
-  ``Freeflow``, ``Heavy``, ``Satur``, or ``St+Go``. Possible road types are as follows. Please note that the
+  ``Freeflow``, ``Heavy``, ``Satur.``, or ``St+Go``. Possible road types are as follows. Please note that the
   possible road types are hard coded. If you are using different road definitions, the easiest would be to map them
   to the definitions used by YETI and work with the YETI definitions.
 
@@ -77,7 +77,7 @@ speed of a vehicle for a particular level of service.
     # Example traffic situations
     URB/MW-City/70/Freeflow   # Freeflow is the first level of service (LOS 1)
     URB/MW-City/70/Heavy      # Heavy is the second level of service (LOS 2)
-    URB/MW-City/70/Satur      # Satur is the third level of service (LOS 3)
+    URB/MW-City/70/Satur.     # Satur. is the third level of service (LOS 3)
     URB/MW-City/70/St+Go      # St+Go is the fourth level of service (LOS 4)
 
 - *Speed_kmh*: The speed for a vehicle of category VehCat driving in the corresponding TrafficSituation.
@@ -101,7 +101,8 @@ pass. car URB/MW-City/70/St+Go    30
 
 **emission factor data** |br|
 This dataset contains the necessary attributes to calculate speed dependent emission factors
-to be used in the calculation of hot exhaust emissions according to EEA methodology.
+to be used in the calculation of hot exhaust emissions according to
+`EEA methodology <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_.
 
 *Example*:
 
@@ -225,7 +226,7 @@ used.
     VehicleCategory.MC
 
 - *LOSxSpeed*: The average speed of vehicles belonging to the given vehicle category at the given link
-  for the first x of service. Currently implemented levels of service: ``1`` (Freeflow), ``2`` (Heavy),
+  for the x level of service. Currently implemented levels of service: ``1`` (Freeflow), ``2`` (Heavy),
   ``3`` (Satur.), and ``4`` (St+Go).
 
 *Example*:
@@ -248,7 +249,7 @@ all vehicles in the fleet.
 It can contain the optional column EF giving you the option to use fixed emission factors that are independent of speed.
 Values in EF will be used as the emission factor for the given vehicle and pollutant
 and will take precedence over the emission factor calculation with the copert methodology. If you want to
-used fixed emission factors for some vehicles and speed-depend emission factors for other vehicles, you can
+use fixed emission factors for some vehicles and speed-depend emission factors for other vehicles, you can
 leave the EF blank for the vehicles that you want to use speed-dependent copert emission factors for.
 
 - *VehicleName*: The name of a vehicle class. Needs to match the vehicle names in ``unified vehicle data >> VehicleName``

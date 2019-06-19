@@ -7,7 +7,7 @@ How does it work?
 Overview
 --------
 
-.. image:: ../../diagrams/YETI-high-level-process.png
+.. image:: ../../diagrams/high-level-process.png
 
 
 Validation

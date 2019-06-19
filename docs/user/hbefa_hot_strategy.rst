@@ -26,7 +26,7 @@ Just like the link data required for the other Strategies. See :ref:`here <link-
 --------
 
 **traffic data** |br|
-Like the :ref:`traffic data for the other strategies <traffic-data-explained>`.
+Just like the traffic data required for the other strategies. See :ref:`here <traffic-data-explained>`.
 
 --------
 
@@ -51,7 +51,7 @@ A dataset with HBEFA emission factors.
 
 - *TrafficSit*: A String describing a particular traffic situation in the format ``{area type}/{road type}/{max speed}/{level of service}``.
   Acceptable area types are ``URB`` and ``RUR``. For level of service choose one of these values
-  ``Freeflow``, ``Heavy``, ``Satur``, or ``St+Go``. Possible road types are
+  ``Freeflow``, ``Heavy``, ``Satur.``, or ``St+Go``. Possible road types are
 
 .. code-block:: yaml
 
@@ -68,7 +68,7 @@ A dataset with HBEFA emission factors.
     # Example traffic situations
     URB/MW-City/70/Freeflow   # Freeflow is the first level of service (LOS 1)
     URB/MW-City/70/Heavy      # Heavy is the second level of service (LOS 2)
-    URB/MW-City/70/Satur      # Satur is the third level of service (LOS 3)
+    URB/MW-City/70/Satur.     # Satur. is the third level of service (LOS 3)
     URB/MW-City/70/St+Go      # St+Go is the fourth level of service (LOS 4)
 
 - *Subsegment*: A vehicle name. The values in Subsegment need to match the values in ``fleet composition data >> VehName``
@@ -82,7 +82,7 @@ Component TrafficSit              Subsegment             EFA
 ========= ======================= ====================== ===
 NOx       URB/MW-City/70/Freeflow PC petrol <1.4L Euro-1 1.5
 NOx       URB/MW-City/70/Heavy    PC petrol <1.4L Euro-1 1.6
-NOx       URB/MW-City/70/Satur    PC petrol <1.4L Euro-1 1.7
+NOx       URB/MW-City/70/Satur.   PC petrol <1.4L Euro-1 1.7
 NOx       URB/MW-City/70/St+Go    PC petrol <1.4L Euro-1 1.8
 ========= ======================= ====================== ===
 
@@ -103,7 +103,7 @@ Just like the unified link data required for the other Strategies. See :ref:`her
 --------
 
 **unified traffic data** |br|
-Like the :ref:`unified traffic data for the other strategies <unified-traffic-data-explained>`.
+Just like the unified traffic data required for the other strategies. See :ref`here <unified-traffic-data-explained>`.
 
 --------
 

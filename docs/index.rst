@@ -1,7 +1,7 @@
 Welcome to YETI - Yet Another Emissions From Traffic Inventory's documentation!
 ===============================================================================
 
-YETI is a tool for bottom-up traffic emission calculation. It helps you create high-resolution
+YETI is a tool for street level bottom-up traffic emission calculation. It helps you create high-resolution
 traffic emission inventories.
 
 YETI supports common emission calculation methodologies like COPERT or HBEFA. The methodologies

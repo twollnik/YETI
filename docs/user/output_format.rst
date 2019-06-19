@@ -29,4 +29,4 @@ Output location
 ---------------
 
 In the config file you specify an ``output_folder``. The model outputs will be in the specified ``output_folder`` in
-files following this naming convention: ``{optional prefix if there are multiple output files}PollutantType.{pollutant}_{timestamp}.csv``.
+files following this naming convention: ``{optional prefix if there are multiple output files}_PollutantType.{pollutant}_{timestamp}.csv``.

@@ -7,9 +7,9 @@ Sources for PM non-exhaust emissions are tyre wear, brake wear and road surface 
 It uses a global assumption about the load_factor for trucks. You need to specify the assumed load_factor
 in the configuration file as a number between 0 and 1.
 
-The Strategy calculates total suspended particles (TSP), PM10, and PM25 emissions independently
+This Strategy calculates total suspended particles (TSP), PM10, and PM25 emissions independently
 for tyre wear, brake wear, and road surface emissions. Then it will add up the emissions
-from all sources to obtain total PM non-exhaust emissions for TSP, PM10, and PM25.
+from all sources to obtain total PM non-exhaust emissions for TSP, PM10, and PM25 and output the result.
 
 Output of a model run with this Strategy are three csv files:
 

@@ -56,7 +56,7 @@ Output of the validation_function
 
 What you want the ``validation_function`` to output is up to you.
 
-The ``validation_function``s that we provide print warnings whenever a validation check fails. This means
+The validation functions that we provide print warnings whenever a validation check fails. This means
 that YETI will keep running even if the validation fails.
 You can print warnings with ``logging.warning("..")``, as shown in the example above.
 

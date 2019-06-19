@@ -4,11 +4,10 @@
     :start-after: data-requirements-start-do-not-remove
     :end-before: data-requirements-end-do-not-remove
 
-
 input_data
 ^^^^^^^^^^
 
-All Strategies need the following three ``input_data`` datasets:
+All Strategies need the following three ``input_data`` files:
 
 .. image:: ../../diagrams/input_data.png
 
@@ -19,7 +18,7 @@ All Strategies need the following three ``input_data`` datasets:
 **link data**
 
 This is a file with data about the street links in the region you are examining. Each street link corresponds to one line
-in the link data file:
+in the link data file. These are the columns:
 
 - *LinkID*: The unique ID for the street link
 - *AreaCat*: The area category for the street link. Currently allowed area categories are:
@@ -60,6 +59,8 @@ LinkID AreaCat RoadCat MaxSpeed_kmh PC_Perc LCV_Perc HDV_Perc Coach_Perc UBus_Pe
 
 .. _traffic-data-explained:
 
+--------------
+
 **traffic data**
 
 This file contains the total vehicle count at for each street link, direction, day type and hour. It also contains
@@ -84,10 +85,8 @@ the distribution of traffic across the different levels of service. It has these
 
 - *Hour*: A number between 0 and 23.
 - *VehCount*: The total number of cars at the given street link for the given day type, hour and direction.
-- *LOS1Percentage*: The percentage of traffic attributed to the first level of service, Freeflow.
-- *LOS2Percentage*: The percentage of traffic attributed to the second level of service, Heavy.
-- *LOS3Percentage*: The percentage of traffic attributed to the third level of service, Saturated.
-- *LOS4Percentage*: The percentage of traffic attributed to the fourth level of service, Stop and Go.
+- *LOSxPerc*: The percentage of traffic attributed to the x level of service. Currently implemented levels
+  of service: 1 (Freeflow), 2 (Heavy), 3 (Satur.), and 4 (St+Go).
 
 *Example*:
 
@@ -99,6 +98,8 @@ LinkID Dir DayType Hour VehCount LOS1Percentage LOS2Percentage LOS3Percentage LO
 ====== === ======= ==== ======== ============== ============== ============== ==============
 
 .. _fleet-comp-data-explained:
+
+--------------
 
 **fleet composition data**
 
@@ -148,7 +149,7 @@ All Strategies work with these ``unified_data`` datasets:
 **unified link data**
 
 This is a file with data about the street links in the region you are examining. Each street link
-corresponds to one line in the unified link data file:
+corresponds to one line in the unified link data file. It has these columns:
 
 - *LinkID*: The unique ID for the street link
 - *RoadType*: The road type for the street link. Possible road categories are:
@@ -183,6 +184,8 @@ LinkID AreaType       RoadType         MaxSpeed
 
 .. _unified-traffic-data-explained:
 
+--------------
+
 **unified traffic data**
 
 This file contains vehicle count data for every vehicle in unified vehicle data and for each street link, direction,
@@ -209,6 +212,8 @@ day type and hour. It has these columns:
 - *vehicle i*: The number of vehicles belonging to class ``vehicle i`` at the street link for the
   given day type, hour and direction. The file needs to contain vehicle count columns for
   all vehicle names in the unified vehicle data.
+- *LOSxPercentage*: The percentage of traffic attributed to the x level of service. Currently implemented levels
+  of service: 1 (Freeflow), 2 (Heavy), 3 (Satur.), and 4 (St+Go).
 
 *Example*
 
@@ -221,6 +226,8 @@ LinkID Dir   DayType          Hour PC petrol <1.4L Euro-1 LCV diesel M+N1-I Euro
 
 
 .. _unified-vehicle-data-explained:
+
+--------------
 
 **unified vehicle data**
 

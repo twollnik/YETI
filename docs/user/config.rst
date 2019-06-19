@@ -4,7 +4,8 @@ Configuring YETI
 ================
 
 The configuration arguments for a YETI run are stored in a `YAML file <https://en.wikipedia.org/wiki/YAML>`_.
-The configuration file (sometimes referred to as "config.yaml") contains all the configurations for a model run.
+The configuration file (sometimes referred to as "config file" or "config.yaml") contains all the configurations
+for a model run.
 
 What goes in the configuration file depends on the Strategy used for the run. You can find example configuration
 files for most strategies in the folder ``example/example_configs/``.
@@ -12,6 +13,10 @@ We encourage you to adapt the example configuration files to your needs instead 
 scratch.
 
 A YETI config file contains the following:
+
+.. contents::
+    :local:
+    :backlinks: none
 
 Mode
 ----
@@ -71,7 +76,7 @@ Possible functions are:
   format you are working with.
   If you don't specify a ``validation_function`` in the configuration file, validation is skipped.
 
-Take a look at the docs page for the strategy you want to use to see which functions you should pass in
+Take a look at the docs page for the strategy you want to use to see which functions you should specify in
 the configuration file or consult the example configs in ``example/example_configs/``.
 
 *Example*:
@@ -105,24 +110,22 @@ If you are using ``mode`` ``unified_data``, this argument is ignored.
 .. code-block:: yaml
 
     output_folder:                   emission_output/
-    output_folder_for_unified_data   new_unified_data/
+    output_folder_for_unified_data:  unified_data_new/
 
 Optional config arguments
 -------------------------
 
-**links_to_use**
-
-You may specify a list of link IDs that should be used for this run. All links that are not in the given list will be
-ignored. Example:
+**links_to_use** |br|
+You may specify a list of ``LinkID`` s that should be used for this run. All links with IDs that are not in the
+given list will be ignored. Example:
 
 .. code-block:: yaml
 
-    links_to_use:   [42_123, 64_586]   # 42_123 and 64_586 are two link IDs
+    links_to_use:   [42_123, 64_586]   # 42_123 and 64_586 are two link IDs from the link data
 
-**use_n_traffic_data_rows**
-
+**use_n_traffic_data_rows** |br|
 An integer that specifies how many rows of the traffic data should be used for the run. This config option is
-particularly useful for test runs. Example:
+particularly useful for quick test runs. Example:
 
 .. code-block:: yaml
 
@@ -135,5 +138,9 @@ Strategy-specific config arguments
 Each Strategy comes with a set of required and optional configuration arguments. For example the ``CopertColdStrategy``
 requires that a ``temperature`` is specified in the config.
 
-You can find out which configuration arguments are needed or possible for each Strategy in the Strategy's
+You can find out which configuration arguments are needed or possible for each Strategy on the Strategy's
 documentation page.
+
+.. |br| raw:: html
+
+    <br>
