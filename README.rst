@@ -14,7 +14,7 @@ YETI - Yet Another Emissions From Traffic Inventory
 .. |License| image:: https://img.shields.io/badge/license-GPLv3-blue.svg
 
 
-YETI is a tool for bottom-up traffic emission calculation. It helps you create high-resolution
+YETI is a tool for street level bottom-up traffic emission calculation. It helps you create high-resolution
 traffic emission inventories.
 
 YETI supports common emission calculation methodologies like COPERT or HBEFA. It was originally built to
@@ -37,8 +37,8 @@ Installation and Setup
 This project requires Python 3.6 or above. You can find our your Python version by running
 ``python --version`` on the command line. If your Python version is below 3.6, please upgrade to a newer version.
 
-Note that YETI is tested for Python 3.6 and 3.7. However it should also work with newer Python versions. When in doubt,
-run the tests on your computer. If they pass, you are good to go.
+Note that YETI is tested for Python 3.6 and 3.7. However it should also work with newer Python versions. When in doubt
+run the tests on your computer. If they pass you are good to go.
 
 2. Clone the GitHub repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -74,8 +74,7 @@ Usage
 Run the model
 ^^^^^^^^^^^^^
 
-All interactions with YETI use the script ``run_yeti.py`` from the
-project root directory. Run the script from the command line:
+All interactions with YETI use the script ``run_yeti.py``. Run the script on the command line:
 ``python -m run_yeti``. Make sure that you run the script from the
 repository root directory.
 
@@ -86,7 +85,7 @@ locations and other parameters.
 
 You may specify the location of the config file: ``python -m run_yeti -c path/to/config.yaml``.
 If you don't specify a location for the config file explicitly, the path ``./config.yaml`` is used.
-`Look here <https://iass-yeti.readthedocs.io/en/latest/user/config.html>`_
+Look `here <https://iass-yeti.readthedocs.io/en/latest/user/config.html>`_
 for more detailed information what should be included in the config file.
 
 Run ``python -m run_yeti --help`` for short usage information.
@@ -99,11 +98,11 @@ Run the tests
 
 We include Python unit tests to test most of the YETI code. If you modified the code and want to see if
 it still works, you may want to execute the tests. Note that the tests are also run on our test
-server automatically every time you push to the GitHub repository.
+server (`Travis CI <https://travis-ci.com/twollnik/YETI/>`_)automatically every time someone pushes to
+the GitHub repository.
 
 Execute the tests by running ``make test`` on the command line from the repository root
 directory.
-
 Note that `GNU Make <https://www.gnu.org/software/make/>`_ needs to be installed on your computer for
 this to work. If you don't have GNU Make installed, you can run the tests with
 ``python -m unittest tests/*/test*.py tests/test*.py``.
@@ -114,10 +113,10 @@ this to work. If you don't have GNU Make installed, you can run the tests with
 Data Requirements
 ------------------
 
-YETI is a street level model. The road network you want to calculate emissions for needs to be
+YETI is a street level model. This means that the road network you want to calculate emissions for needs to be
 divided into street links.
 
-For example datasets, take a look at ``example/example_input_data`` and ``example/example_unified_data``.
+Find example datasets in ``example/example_input_data`` and ``example/example_unified_data``.
 
 The two data classes
 ^^^^^^^^^^^^^^^^^^^^
@@ -126,18 +125,19 @@ We differentiate between ``input_data`` and ``unified_data``.
 
 ``input_data`` is data in the format that we were using at the start of
 this project. It is not ideal for the calculations and needs to be
-transformed to a different format to be suitable for the emissions
+transformed to a different format more suitable for the emissions
 calculation.
 
-``unified_data`` is data in a unified format. We provide functions to
+``unified_data`` is data in a unified format. It defines a layer of abstraction between the
+input_data and the emission calculation. We provide functions to
 transform ``input_data`` to ``unified_data`` for all Strategies.
 
 The data that you are working with is likely in a different
 format than our ``input_data``, however chances are that you can
 tranform your data to fit the format of the ``unified_data`` class. If this is the
 case, you only need to
-`write a function to convert your data <https://iass-yeti.readthedocs.io/en/latest/developer/add_load_input_data_function.html>`_ to
-``unified_data``. Once this is done you can use YETI with your data and
+`write a function to convert your data <https://iass-yeti.readthedocs.io/en/latest/developer/add_load_input_data_function.html>`_
+to ``unified_data``. Once this is done you can use YETI with your data and
 don't need to adapt any other part of the system.
 
 Data requirements depend on Strategy
@@ -169,8 +169,8 @@ Anyhow, all contributions should follow these guidelines:
 - All new features should be tested. YETI uses the built-in ``unittest`` module.
   If you are new to testing in Python, this website is a good starting point:
   `unittest introduction <http://pythontesting.net/framework/unittest/unittest-introduction/>`_.
-- We follow a green build policy. This means that all the tests need to succeed on the test server
-  before a Pull Request can be merged.
+- We follow a green build policy. This means that all the tests should succeed on the
+  `test server <https://travis-ci.com/twollnik/YETI/>`_ before a Pull Request is merged.
 
 .. contributing-end-do-not-remove
 
