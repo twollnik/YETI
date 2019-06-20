@@ -152,7 +152,11 @@ class Model:
 
     def load_unified_data(self, unified_file_locations):
 
-        unified_data_dataframes = self.unified_data_load_function(**unified_file_locations)
+        kwargs = {
+            **self.config_dict,
+            **unified_file_locations
+        }
+        unified_data_dataframes = self.unified_data_load_function(**kwargs)
         return unified_data_dataframes
 
     def calculate_emissions_with_user_defined_strategy(self, unified_data_dataframes):

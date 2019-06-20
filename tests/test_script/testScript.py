@@ -150,6 +150,24 @@ class TestScript(TestCase):
 
         self.assertLessEqual(len(logging.warning.call_args_list), 1)
 
+    def test_use_n_traffic_data_rows_works(self):
+
+        try:
+            shutil.rmtree(f"output_config6")
+        except FileNotFoundError:
+            pass
+
+        sys.argv = f"run_yeti.py -c test_config6.yaml".split()
+        execfile(f"../../run_yeti.py")
+
+        for filename in os.listdir("output_config6"):
+            if filename.startswith("emissions_PollutantType.NOx"):
+                emissions_file_name = filename
+
+        num_lines = sum(1 for line in open(f"output_config6/{emissions_file_name}"))
+
+        self.assertEqual(6, num_lines)
+
 
 def execfile(filepath, globals=None, locals=None):
     if globals is None:
