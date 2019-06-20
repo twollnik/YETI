@@ -1,5 +1,6 @@
 from collections import defaultdict
 from itertools import chain, product
+from copy import copy
 
 import pandas as pd
 
@@ -134,8 +135,9 @@ class LosSpeedsDataLoader:
         moped_speeds = defaultdict(dict)
         for val in df_parts.values():
             if val["VehicleCategory"] == "VehicleCategory.MC":
-                val["VehicleCategory"] = "VehicleCategory.Moped"
-                moped_speeds[(val["LinkID"], val["VehicleCategory"])] = val
+                val_moped = copy(val)
+                val_moped["VehicleCategory"] = "VehicleCategory.MOPED"
+                moped_speeds[(val["LinkID"], val["VehicleCategory"])] = val_moped
 
         return moped_speeds
 

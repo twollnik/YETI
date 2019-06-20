@@ -8,6 +8,15 @@ from tests.helper import df_equal
 
 class TestLosSpeedsDataLoader(TestCase):
 
+    def setUp(self) -> None:
+
+        self.link_data = pd.DataFrame.from_dict({
+            "LinkID": ["linkA"],
+            "AreaCat": ["1"],
+            "RoadCat": ["5"],
+            "MaxSpeed_kmh": ["100"]
+        })
+
     def test_load_data(self):
 
         if os.path.isfile("./tests/test_data/input_data/shape_data.csv"):
@@ -30,6 +39,69 @@ class TestLosSpeedsDataLoader(TestCase):
 
         self.assertTrue(df_equal(los_speeds_data_no_speed_in_link_data, los_speeds_data_expected))
 
+    def test_veh_category_coach(self):
+
+        los_speeds_data = pd.DataFrame.from_dict({
+            "VehCat": ["coach"],
+            "TrafficSituation": ["URB/MW-City/100/Freeflow"],
+            "Speed_kmh": [20]
+        })
+        loader = LosSpeedsDataLoader(
+            link_data=self.link_data,
+            los_speeds_data=los_speeds_data
+        )
+        unified_los_speeds_data = loader.load_data()
+        vehicle_category_in_unified_data = unified_los_speeds_data.iloc[0]["VehicleCategory"]
+
+        self.assertEqual("VehicleCategory.COACH", vehicle_category_in_unified_data)
+
+    def test_vehicle_category_urban_bus(self):
+
+        los_speeds_data = pd.DataFrame.from_dict({
+            "VehCat": ["urban bus"],
+            "TrafficSituation": ["URB/MW-City/100/Freeflow"],
+            "Speed_kmh": [20]
+        })
+        loader = LosSpeedsDataLoader(
+            link_data=self.link_data,
+            los_speeds_data=los_speeds_data
+        )
+        unified_los_speeds_data = loader.load_data()
+        vehicle_category_in_unified_data = unified_los_speeds_data.iloc[0]["VehicleCategory"]
+
+        self.assertEqual("VehicleCategory.UBUS", vehicle_category_in_unified_data)
+
+    def test_vehicle_category_motorcycle(self):
+
+        los_speeds_data = pd.DataFrame.from_dict({
+            "VehCat": ["motorcycle"],
+            "TrafficSituation": ["URB/MW-City/100/Freeflow"],
+            "Speed_kmh": [20]
+        })
+        loader = LosSpeedsDataLoader(
+            link_data=self.link_data,
+            los_speeds_data=los_speeds_data
+        )
+        unified_los_speeds_data = loader.load_data()
+
+        self.assertEqual("VehicleCategory.MC", unified_los_speeds_data.iloc[0]["VehicleCategory"])
+        self.assertEqual("VehicleCategory.MOPED", unified_los_speeds_data.iloc[1]["VehicleCategory"])
+
+    def test_vehicle_category_HGV(self):
+
+        los_speeds_data = pd.DataFrame.from_dict({
+            "VehCat": ["HGV"],
+            "TrafficSituation": ["URB/MW-City/100/Freeflow"],
+            "Speed_kmh": [20]
+        })
+        loader = LosSpeedsDataLoader(
+            link_data=self.link_data,
+            los_speeds_data=los_speeds_data
+        )
+        unified_los_speeds_data = loader.load_data()
+        vehicle_category_in_unified_data = unified_los_speeds_data.iloc[0]["VehicleCategory"]
+
+        self.assertEqual("VehicleCategory.HDV", vehicle_category_in_unified_data)
 
 if __name__ == "__main__":
     main()
