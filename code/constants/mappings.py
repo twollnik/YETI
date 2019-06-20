@@ -27,8 +27,8 @@ ROAD_CAT_FROM_ENUM = {
 VEH_CAT_MAPPING = {
             "pass. car": "VehicleCategory.PC",
             "LCV": "VehicleCategory.LCV",
-            "coach": "VehicleCategory.Coach",
-            "urban bus": "VehicleCategory.UBus",
+            "coach": "VehicleCategory.COACH",
+            "urban bus": "VehicleCategory.UBUS",
             "motorcycle": "VehicleCategory.MC",
             "HGV": "VehicleCategory.HDV",
 }
