@@ -42,7 +42,7 @@ class TestScript(TestCase):
         self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_link_data.csv"))
         self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_traffic_data.csv"))
 
-        self.assertLessEqual(len(logging.warning.call_args_list), 1)
+        logging.warning.assert_not_called()
 
     def test_config2(self):
 
@@ -120,7 +120,7 @@ class TestScript(TestCase):
                 file_header = fp.readline()
                 self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
 
-        self.assertLessEqual(len(logging.warning.call_args_list), 1)
+        logging.warning.assert_not_called()
 
     def test_config5(self):
 
@@ -148,7 +148,7 @@ class TestScript(TestCase):
                 file_header = fp.readline()
                 self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
 
-        self.assertLessEqual(len(logging.warning.call_args_list), 1)
+        logging.warning.assert_not_called()
 
     def test_use_n_traffic_data_rows_works(self):
 
