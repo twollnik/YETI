@@ -164,7 +164,7 @@ class Model:
         emission_calc_config = {
             **self.config_dict,
             **unified_data_dataframes,
-            "emission_calculation_function": self.strategy_class().calculate_emissions
+            "Strategy": self.strategy_class
         }
         StrategyInvoker().calculate_and_save_emissions(self.emissions_output_folder, **emission_calc_config)
 

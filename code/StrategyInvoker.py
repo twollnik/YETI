@@ -32,6 +32,7 @@ class StrategyInvoker:
         self.vehicle_dict = None
         self.traffic_and_link_data = None
 
+        self.strategy = None
         self.emissions_store = []
 
     def calculate_and_save_emissions(self, emissions_output_folder, save_interval_in_rows: int = 10000, **kwargs):
@@ -45,8 +46,7 @@ class StrategyInvoker:
             self.display_progress(i)
 
             try:
-                # user defined function called here
-                emissions = self.emission_calculation_function(row, self.vehicle_dict, **kwargs)
+                emissions = self.strategy.calculate_emissions(row, self.vehicle_dict, **kwargs)
                 emissions_row = self.associate_emissions_with_time_and_location_info(emissions, row)
                 self.add_row_to_emissions_store(emissions_row)
 
@@ -61,9 +61,14 @@ class StrategyInvoker:
 
     def initialize(self, emissions_output_folder, **kwargs):
 
+        self.initialize_strategy(**kwargs)
         self.initialize_attributes(emissions_output_folder, **kwargs)
         self.initialize_traffic_and_link_data()
         self.initialize_vehicle_dict()
+
+    def initialize_strategy(self, **kwargs):
+
+        self.strategy = kwargs["Strategy"]()
 
     def initialize_attributes(self, emissions_output_folder, **kwargs):
 

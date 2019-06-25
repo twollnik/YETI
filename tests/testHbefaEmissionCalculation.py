@@ -21,7 +21,7 @@ class testHbefaEmissionCalculation(TestCase):
             save_interval_in_rows=5,
             emissions_output_folder="temp",
             pollutant="PollutantType.NOx",
-            emission_calculation_function=HbefaHotStrategy().calculate_emissions,
+            Strategy=HbefaHotStrategy,
             calculate_emissions=HbefaHotStrategy().calculate_emissions,
             link_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/link_data.csv"),
             traffic_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/traffic_data.csv"),

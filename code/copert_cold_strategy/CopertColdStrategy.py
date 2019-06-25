@@ -90,6 +90,7 @@ class CopertColdStrategy:
         self.store_row_data_in_attribute(traffic_and_link_data_row)
 
         hot_emissions = self.calculate_hot_emissions(pollutant)
+
         hot_ef_dict = self.get_hot_ef_from_hot_emissions(hot_emissions)
 
         if self.should_exclude_link_from_cold_emission_calculation(**kwargs) or self.temperature_is_very_high():
@@ -224,8 +225,8 @@ class CopertColdStrategy:
             total_emissions: Dict[str, float]) -> Dict[str, Dict[str, float]]:
 
         return {
-            "hot": hot_emissions,
             "cold": cold_emissions,
+            "hot": hot_emissions,
             "total": total_emissions
         }
 
