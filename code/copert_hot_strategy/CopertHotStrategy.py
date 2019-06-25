@@ -49,14 +49,19 @@ class CopertHotStrategy:
                             pollutant: str,
                             **kwargs):
 
-        if self.is_not_initialized():
-            self.initialize(**kwargs)
+        self.initialize_if_necessary(kwargs)
+        self.delete_emissions_from_last_call_to_this_function()
 
         for vehicle_name, vehicle_category in vehicle_dict.items():
             self.calculate_emissions_for_vehicle(
                 traffic_and_link_data_row, vehicle_name, vehicle_category, pollutant, **kwargs)
 
         return self.emissions
+
+    def initialize_if_necessary(self, kwargs):
+
+        if self.is_not_initialized():
+            self.initialize(**kwargs)
 
     def is_not_initialized(self):
 
@@ -81,6 +86,10 @@ class CopertHotStrategy:
             (row["VehicleName"], row["Pollutant"], row["Slope"], row["Load"]): row.to_dict()
             for _, row in ef_data.iterrows()
         }
+
+    def delete_emissions_from_last_call_to_this_function(self):
+
+        self.emissions = {}
 
     def calculate_emissions_for_vehicle(
             self, traffic_and_link_data_row, vehicle_name, vehicle_category, pollutant, **kwargs):

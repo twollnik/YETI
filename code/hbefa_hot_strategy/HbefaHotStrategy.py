@@ -43,6 +43,7 @@ class HbefaHotStrategy:
 
 
         self.initialize_if_necessary(**kwargs)
+        self.delete_emissions_from_last_call_to_this_function()
 
         traffic_situation = self.get_traffic_situation(traffic_and_link_data_row)
 
@@ -68,6 +69,10 @@ class HbefaHotStrategy:
             (row["Pollutant"], row["TrafficSituation"], row["VehicleName"]): row["EF"]
             for _, row in ef_data.iterrows()
         }
+
+    def delete_emissions_from_last_call_to_this_function(self):
+
+        self.emissions = {}
 
     def calculate_emissions_for_vehicle(self, traffic_and_link_data_row, vehicle_name, traffic_situation, pollutant,
                                         **kwargs):

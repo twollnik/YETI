@@ -26,7 +26,7 @@ class TestSpeed(TestCase):
         emissions_file = StrategyInvoker().calculate_and_save_emissions(
             emissions_output_folder="temp",
             pollutant="PollutantType.NOx",
-            emission_calculation_function=CopertHotFixedSpeedStrategy().calculate_emissions,
+            Strategy=CopertHotFixedSpeedStrategy,
             link_data=link_data,
             traffic_data=traffic_data,
             vehicle_data=vehicle_data,

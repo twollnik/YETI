@@ -60,10 +60,6 @@ class CopertHotFixedSpeedStrategy(CopertHotStrategy):
         if hasattr(self, "ef_dict") is False:
             self.__init__(**kwargs)
 
-    def delete_emissions_from_last_call_to_this_function(self):
-
-        self.emissions = {}
-
     def calculate_emissions_for_vehicle(
             self, traffic_and_link_data_row, vehicle_name, vehicle_category, pollutant, **kwargs):
         """ Calculate emissions for the given vehicle_name.
