@@ -9,6 +9,7 @@ import sys
 import time
 import logging
 import re
+import pandas as pd
 
 
 class TestCalcAvgDailyEmissions(TestCase):
@@ -55,6 +56,21 @@ class TestCalcAvgDailyEmissions(TestCase):
         execfile(f"run_yeti.py")
 
         logging.warning.assert_not_called()
+
+        # ------- test that the hot emissions data does not have the same values in all rows --------
+        for root, dirs, files in os.walk(".", topdown=False):
+            for file_ in files:
+                full_path = os.path.join(root, file_)
+                stat = os.stat(full_path)
+
+                if stat.st_mtime > self.start_time and file_.startswith("hot"):
+                    hot_emissions = pd.read_csv(full_path)
+                    break
+
+        emission_values = [(row["pc vehicle_a"], row["lcv vehicle_b"]) for _, row in hot_emissions.iterrows()]
+        unique_emission_values = set(emission_values)
+        self.assertGreater(len(unique_emission_values), 2)
+
 
     def test_copert_hot_fixed_speed_config(self):
 
