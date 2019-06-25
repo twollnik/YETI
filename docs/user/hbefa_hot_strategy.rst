@@ -38,6 +38,9 @@ Just like the fleet composition data required for the other Strategies. See :ref
 **hbefa emission factor data** |br|
 A dataset with HBEFA emission factors.
 
+Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+will encounter errors in the emission calculation.
+
 - *Component*: A pollutant. Accepted pollutants are:
 
 .. code-block:: yaml
@@ -114,6 +117,9 @@ Just like the unified link data required for the other Strategies. See :ref:`her
 
 **unified hbefa emission factor data** |br|
 A dataset with HBEFA emission factors.
+
+Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+will encounter errors in the emission calculation.
 
 - *Pollutant*: A pollutant. Accepted pollutants are:
 

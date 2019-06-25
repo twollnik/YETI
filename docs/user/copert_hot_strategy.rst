@@ -104,6 +104,9 @@ This dataset contains the necessary attributes to calculate speed dependent emis
 to be used in the calculation of hot exhaust emissions according to
 `EEA methodology <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_.
 
+Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+will encounter errors in the emission calculation.
+
 *Example*:
 
 ====== ============== ========== ============ ========== ========= ==== ===== ==== ============ ============ ===== ==== ===== ===== ======= ==== === ===== =============
@@ -251,6 +254,9 @@ Values in EF will be used as the emission factor for the given vehicle and pollu
 and will take precedence over the emission factor calculation with the copert methodology. If you want to
 use fixed emission factors for some vehicles and speed-depend emission factors for other vehicles, you can
 leave the EF blank for the vehicles that you want to use speed-dependent copert emission factors for.
+
+Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+will encounter errors in the emission calculation.
 
 - *VehicleName*: The name of a vehicle class. Needs to match the vehicle names in ``unified vehicle data >> VehicleName``
   exactly.
