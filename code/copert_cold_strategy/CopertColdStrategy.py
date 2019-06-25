@@ -83,14 +83,10 @@ class CopertColdStrategy:
             - "total" : total emissions data frame
         """
 
-        if self.is_not_initialized():
-            self.store_data_in_attributes(vehicle_dict, **kwargs)
-            self.split_vehicles_into_groups(vehicle_dict)
-
+        self.initialize_if_necessary(kwargs, vehicle_dict)
         self.store_row_data_in_attribute(traffic_and_link_data_row)
 
         hot_emissions = self.calculate_hot_emissions(pollutant)
-
         hot_ef_dict = self.get_hot_ef_from_hot_emissions(hot_emissions)
 
         if self.should_exclude_link_from_cold_emission_calculation(**kwargs) or self.temperature_is_very_high():
@@ -102,6 +98,12 @@ class CopertColdStrategy:
         emissions = self.join_emissions_into_one_dict(hot_emissions, cold_emissions, total_emissions)
 
         return emissions
+
+    def initialize_if_necessary(self, kwargs, vehicle_dict):
+
+        if self.is_not_initialized():
+            self.store_data_in_attributes(vehicle_dict, **kwargs)
+            self.split_vehicles_into_groups(vehicle_dict)
 
     def is_not_initialized(self) -> bool:
 

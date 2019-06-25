@@ -1,8 +1,9 @@
-from datetime import datetime
-
 import logging
 import os
+from datetime import datetime
+
 import pandas as pd
+
 
 class StrategyInvoker:
 
