@@ -21,6 +21,8 @@ The yellow key symbols next to some column names indicate that the column is par
 `primary key <https://www.techopedia.com/definition/5547/primary-key/>`_ of
 the dataset. (Note that the linked article mentions relational databases. Don't get distracted by that, we
 work with csv files.)
+Key symbols with a little arrow indicate that the column is a `foreign key <https://www.techopedia.com/definition/7272/foreign-key>`_
+for a different dataset. If a column does not have a key symbol, it is not part of the primary key of the dataset.
 
 Note that the column names for the datasets are fixed. You should adapt your datasets to fit the column
 names shown in the diagram.
