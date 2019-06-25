@@ -175,7 +175,7 @@ class StrategyInvoker:
     def save_dataframe_to_file(self, data, file):
 
         with open(file, "a") as fp:
-            data.to_csv(fp, header=self.use_header, index_label=False)
+            data.to_csv(fp, header=self.use_header, index_label=False, index=False)
 
     def associate_emissions_with_time_and_location_info(self, emissions, row):
 
