@@ -9,7 +9,7 @@ It uses global assumptions about the average length of a trip (in km/h) and the 
 Also in the configuration file you may specify some road types and area types that will be excluded
 from the cold emission calculation. This means that cold emissions will be zero for all vehicles at links that belong
 to the road types or area types that you want to exclude.
-Possible road types to be excluded are: ``MW-Nat.``, ``MW-City``, ``Trunk-Nat.``, ``Trunk-City``, ``Distr``,
+Possible road types to be excluded are: ``MW_Nat``, ``MW_City``, ``Trunk_Nat``, ``Trunk_City``, ``Distr``,
 ``Local``, and ``Access``. Area types that can be excluded are ``Rural`` and ``Urban``.
 
 During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy`` because
@@ -112,7 +112,7 @@ If using mode ``input_data``:
 
     ltrip:                        12  # the average length of a trip in km/h
     temperature:                  15  # the average ambient temperature in °C
-    exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, Trunk-City]
+    exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, TrunkCity]
     exclude_area_types:           [Rural]    # Or: [Urban]
 
 If using mode ``unified_data``:
