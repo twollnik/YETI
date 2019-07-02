@@ -178,33 +178,3 @@ Anyhow, all contributions should follow these guidelines:
   `test server <https://travis-ci.com/twollnik/YETI/>`_ before a Pull Request is merged.
 
 .. contributing-end-do-not-remove
-
---------------
-
-This Section will be removed in a future version:
-
-Emission calculation formula
-----------------------------
-
-The emissions are calculated according to the basis equation: E (g/h for
-VehClass) = l \* nVeh \* EF
-
-Emissions are determined per street segment (sst, for each traffic
-direction and depending on its type and area), per hour (h) of a day
-type (dt, 4 different ones accounted for), per driving mode (dm, 4
-different LOS), for a vehicle class (VehClass = combination of Category,
-Technology, Euro standard and Fuel).
-
-With the data available for the city of Berlin the number of Vehicles is
-determined by nVeh = QKfz \* LOSxPerc \* "Cat"14\_DTV \* Anteil
-
-Currently ef is calculate for each VehClass according to COPERT method
-as described above (4.i.) and velocity (speed\_kmh) for the each driving
-mode LOS is taken from HBEFA database
-
-Using the naming of vars this means that: E = length\_m \* VehCount \*
-LOSx\_Perc \* Catx\_Perc \* VehPercofCat \* EF
-
-Note on Units: lenght is then converted to km EF is in g/km nVeh is
-number of vehicles from a certain class (per street per driving mode per
-hour)
