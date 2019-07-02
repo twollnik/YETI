@@ -71,7 +71,7 @@ All ``unified_data`` required by the ``CopertHotStrategy`` is also required for 
 Additional requirements:
 
 - A file with cold emission factors is required, as :ref:`described above <cold-ef-data-explained>`.
-- A vehicle mapping file is required. It need to be in :ref:`this format <mapping-data-explained>`.
+- A vehicle mapping file is required. It needs to be in :ref:`this format <mapping-data-explained>`.
 
 Supported Pollutants
 --------------------
@@ -91,7 +91,7 @@ If you want to use the ``CopertColdStrategy`` for your calculations, you need to
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
-Please note that we currently don't provide validation functions for this Strategy.
+Please note that we currently only provide a validation function for mode unified_data.
 
 If using mode ``input_data``:
 '''''''''''''''''''''''''''''
@@ -123,6 +123,7 @@ If using mode ``unified_data``:
     strategy:                     code.copert_cold_strategy.CopertColdStrategy.CopertColdStrategy
     load_input_data_function:     code.copert_cold_strategy.load_input_data.load_copert_cold_input_data
     load_unified_data_function:   code.copert_cold_strategy.load_unified_data.load_copert_cold_unified_data
+    validation_function:          code.copert_cold_strategy.validate.validate_copert_cold_unified_files
 
     unified_emission_factors:     path/to/unified_ef_data.csv
     unified_los_speeds:           path/to/unified_los_speed_data.csv

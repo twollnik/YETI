@@ -112,6 +112,7 @@ class TestCalcAvgDailyEmissions(TestCase):
     def test_copert_cold_config_mode_unified_data(self):
 
         change_config_mode_to_unified_data("example/example_configs/copert_cold_config.yaml", "config_changed.yaml")
+        update_validation_function("config_changed.yaml", "code.copert_cold_strategy.validate.validate_copert_cold_unified_files")
 
         try:
             sys.argv = f"run_yeti.py -c config_changed.yaml".split()
@@ -119,7 +120,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         except Exception as e:
             raise e
         else:
-            logging.warning.assert_not_called()
+            logging.warning.assert_called_once()
         finally:
             os.remove("config_changed.yaml")
 

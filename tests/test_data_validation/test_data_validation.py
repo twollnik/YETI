@@ -11,6 +11,7 @@ from code.strategy_helpers.validate_unified_data import validate_unified_link_da
 from code.copert_hot_strategy.validate import validate_unified_copert_ef_data, validate_unified_los_speeds_data, \
     validate_copert_unified_files
 from code.copert_hot_fixed_speed_strategy.validate import validate_copert_fixed_speed_unified_files
+from code.copert_cold_strategy.validate import validate_cold_ef_table, validate_veh_mapping, validate_copert_cold_unified_files
 
 
 class TestDataValidation(TestCase):
@@ -235,6 +236,35 @@ class TestDataValidation(TestCase):
             unified_vehicle_data = f"{self.init_path}/test_data/unified_data/vehicle_data.csv",
             unified_link_data = f"{self.init_path}/test_data/unified_data/link_data.csv",
             unified_traffic_data = f"{self.init_path}/test_data/unified_data/traffic_data.csv"
+        )
+        logging.warning.assert_called_once()
+
+    def test_validate_cold_ef_table(self):
+
+        logging.warning = MagicMock()
+
+        validate_cold_ef_table(f"{self.init_path}/test_data/input_data/TableColdEF_minmax.csv")
+        logging.warning.assert_not_called()
+
+    def test_validate_veh_mapping(self):
+
+        logging.warning = MagicMock()
+
+        validate_veh_mapping(f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv")
+        logging.warning.assert_not_called()
+
+    def test_validate_copert_cold_unified_files(self):
+
+        logging.warning = MagicMock()
+
+        validate_copert_cold_unified_files(
+            unified_emission_factors = f"{self.init_path}/test_data/unified_data/emission_factor_data.csv",
+            unified_vehicle_data = f"{self.init_path}/test_data/unified_data/vehicle_data.csv",
+            unified_link_data = f"{self.init_path}/test_data/unified_data/link_data.csv",
+            unified_traffic_data = f"{self.init_path}/test_data/unified_data/traffic_data.csv",
+            unified_los_speeds=f"{self.init_path}/test_data/unified_data/los_speeds_data.csv",
+            unified_cold_ef_table = f"{self.init_path}/test_data/input_data/TableColdEF_minmax.csv",
+            unified_vehicle_mapping = f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv"
         )
         logging.warning.assert_called_once()
 
