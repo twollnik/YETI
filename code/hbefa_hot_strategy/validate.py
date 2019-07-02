@@ -2,7 +2,7 @@ import logging
 
 from code.constants.column_names import FLEET_COMP_VEH_NAME, HBEFA_EF_VEH_NAME
 from code.constants.mappings import INPUT_DATA_TO_SHORTHAND_MAPPING
-from code.strategy_helpers.input_data_validation import validate_dataset, check_mapping
+from code.strategy_helpers.validation_helpers import validate_dataset, check_mapping
 
 
 def validate_hbefa_input_files(**kwargs):

@@ -30,7 +30,7 @@ pollutant:                  PollutantType.NOx
 strategy:                   code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
 load_input_data_function:        code.hbefa_hot_strategy.load_input_data.load_hbefa_input_data
 load_unified_data_function:      code.hbefa_hot_strategy.load_unified_data.load_hbefa_unified_data
-validation_function:    code.copert_hot_strategy.validate.file_paths_are_valid
+#validation_function:    code.copert_hot_strategy.validate.validate_copert_unified_files
 links_to_use:               []
 output_folder:              ./output_hbefa
 output_folder_for_unified_data: temp_unified_data

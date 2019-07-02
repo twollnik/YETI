@@ -203,7 +203,7 @@ class TestDataValidation(TestCase):
         logging.warning = MagicMock()
 
         validate_unified_copert_ef_data(f"{self.init_path}/test_data/unified_data/emission_factor_data.csv")
-        logging.warning.assert_not_called()
+        logging.warning.assert_called_once()
 
     def test_validate_unified_los_speeds_data(self):
 
@@ -223,7 +223,7 @@ class TestDataValidation(TestCase):
             unified_link_data = f"{self.init_path}/test_data/unified_data/link_data.csv",
             unified_traffic_data = f"{self.init_path}/test_data/unified_data/traffic_data.csv"
         )
-        logging.warning.assert_not_called()
+        logging.warning.assert_called_once()
 
 
 if __name__ == '__main__':
