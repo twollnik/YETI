@@ -1,8 +1,11 @@
 from unittest import TestCase, main
+from unittest.mock import MagicMock
 import os
 import pandas as pd
+import numpy as np
+import logging
 
-from code.strategy_helpers.input_data_validation import validate_dataset, check_mapping
+from code.strategy_helpers.input_data_validation import validate_dataset, check_mapping, check_does_not_contain_nan
 
 
 class TestDataValidation(TestCase):
@@ -117,6 +120,22 @@ class TestDataValidation(TestCase):
         })
         self.assertTrue(check_mapping('f1', 'f2', ['a'], ['c'], df5, df6))
         self.assertRaises(Exception, check_mapping, df5, df6, ['a'], ['d'], 'f1', 'f2')
+
+    def test_check_does_not_contain_nan(self):
+
+        logging.warning = MagicMock()
+
+        df = pd.DataFrame(np.random.randn(10, 6))
+
+        self.assertTrue(check_does_not_contain_nan("abc", df))
+
+        # Make a few areas have NaN values
+        df.iloc[1:3, 1] = np.nan
+        df.iloc[5, 3] = np.nan
+        df.iloc[7:9, 5] = np.nan
+
+        self.assertFalse(check_does_not_contain_nan("abc", df))
+        logging.warning.assert_called_once()
 
 
 if __name__ == '__main__':

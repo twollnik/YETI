@@ -165,3 +165,10 @@ def check_categories_are_correct(file: str, df: pd.DataFrame, column_name: str, 
     return True
 
 
+def check_does_not_contain_nan(file: str, df: pd.DataFrame):
+
+    if df.isnull().values.any():
+        logging.warning(f"{file}: The data in this file contains NaN values when it shouldn't. "
+                        f"(this means that some of the cells are empty).")
+        return False
+    return True
