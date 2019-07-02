@@ -5,8 +5,9 @@ import pandas as pd
 import numpy as np
 import logging
 
-from code.strategy_helpers.input_data_validation import *
-from code.copert_hot_strategy.validate import validate_unified_link_data
+from code.strategy_helpers.validation_helpers import *
+from code.strategy_helpers.validate_unified_data import validate_unified_link_data, validate_unified_vehicle_data, \
+    validate_unified_traffic_data
 
 
 class TestDataValidation(TestCase):
@@ -172,6 +173,27 @@ class TestDataValidation(TestCase):
         logging.warning.reset_mock()
 
         self.assertTrue(check_column_values_above_zero("abc", df, ["e", "f"]))
+        logging.warning.assert_not_called()
+
+    def test_validate_unified_link_data(self):
+
+        logging.warning = MagicMock()
+
+        validate_unified_link_data(f"{self.init_path}/test_data/unified_data/link_data.csv")
+        logging.warning.assert_not_called()
+
+    def test_validate_unified_vehicle_data(self):
+
+        logging.warning = MagicMock()
+
+        validate_unified_vehicle_data(f"{self.init_path}/test_data/unified_data/vehicle_data.csv")
+        logging.warning.assert_not_called()
+
+    def test_validate_unified_traffic_data(self):
+
+        logging.warning = MagicMock()
+
+        validate_unified_traffic_data(f"{self.init_path}/test_data/unified_data/traffic_data.csv")
         logging.warning.assert_not_called()
 
 
