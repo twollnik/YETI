@@ -33,7 +33,7 @@ def validate_copert_input_files(**kwargs):
                       to_cols=[NH3_EF_VEH_CAT, NH3_EF_VEH_SEG, NH3_EF_FUEL, NH3_EF_EURO])
 
 
-def validate_copert_unified_files(**kwargs) -> bool:
+def validate_copert_unified_files(**kwargs):
 
     ef_file = kwargs["unified_emission_factors"]
     los_speeds_file = kwargs["unified_los_speeds"]
@@ -49,7 +49,7 @@ def validate_copert_unified_files(**kwargs) -> bool:
 
     check_mapping(link_file, los_speeds_file, from_cols=["LinkID"], to_cols=["LinkID"])
     check_mapping(link_file, traffic_file, from_cols=["LinkID"], to_cols=["LinkID"])
-    check_mapping(vehicle_file, ef_file, from_cols=["VehicleName"], to_cols="VehicleName")
+    check_mapping(vehicle_file, ef_file, from_cols=["VehicleName"], to_cols=["VehicleName"])
 
 
 def validate_unified_copert_ef_data(filename):
@@ -62,7 +62,10 @@ def validate_unified_copert_ef_data(filename):
                                         "ReductionPerc"])
     check_categories_are_correct(filename, data, "Pollutant", [str(poll) for poll in PollutantType])
 
-    data_excluding_nh3_tier2 = data[data["EF"].isnull()]
+    if "EF" in data.columns:
+        data_excluding_nh3_tier2 = data[data["EF"].isnull()]
+    else:
+        data_excluding_nh3_tier2 = data
     check_column_values_above_zero(filename, data_excluding_nh3_tier2, ["MaxSpeed", "MinSpeed"])
     check_is_perc_column(filename, data_excluding_nh3_tier2, "ReductionPerc")
 

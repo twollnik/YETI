@@ -96,6 +96,8 @@ class TestCalcAvgDailyEmissions(TestCase):
     def test_copert_hot_config_mode_unified_data(self):
 
         change_config_mode_to_unified_data("example/example_configs/copert_hot_config.yaml", "config_changed.yaml")
+        update_validation_function("config_changed.yaml",
+                                   "code.copert_hot_strategy.validate.validate_copert_unified_files")
 
         try:
             sys.argv = f"run_yeti.py -c config_changed.yaml".split()
@@ -103,7 +105,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         except Exception as e:
             raise e
         else:
-            logging.warning.assert_not_called()
+            logging.warning.assert_called_once()
         finally:
             os.remove("config_changed.yaml")
 
@@ -121,10 +123,10 @@ class TestCalcAvgDailyEmissions(TestCase):
         finally:
             os.remove("config_changed.yaml")
 
-
     def test_copert_hot_fixed_speed_config_mode_unified_data(self):
 
         change_config_mode_to_unified_data("example/example_configs/copert_hot_fixed_speed_config.yaml", "config_changed.yaml")
+        update_validation_function("config_changed.yaml", "code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_unified_files")
 
         try:
             sys.argv = f"run_yeti.py -c config_changed.yaml".split()
@@ -132,7 +134,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         except Exception as e:
             raise e
         else:
-            logging.warning.assert_not_called()
+            logging.warning.assert_called_once()
         finally:
             os.remove("config_changed.yaml")
 
@@ -185,6 +187,22 @@ def change_config_mode_to_unified_data(input_file, output_file):
 
     with open(output_file, "w") as fp:
         fp.write(new_config_contents)
+
+
+def update_validation_function(input_file, validation_function):
+
+    with open(input_file) as fp:
+        config_contents = fp.read()
+
+    if "validation_function" in config_contents:
+        new_config_contents = re.sub(r"validation_function:[\s\t]+[\.\w]+",
+                                     f"validation_function:  {validation_function}",
+                                     config_contents)
+    else:
+        new_config_contents = config_contents + f"\nvalidation_function:  {validation_function}"
+    with open("config_changed.yaml", "w") as fp:
+        fp.write(new_config_contents)
+
 
 if __name__ == "__main__":
     main()
