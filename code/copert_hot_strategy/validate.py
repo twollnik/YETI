@@ -1,9 +1,9 @@
-import logging
-import os
-
 from code.constants.column_names import *
+from code.constants.enumerations import PollutantType, VehicleCategory
 from code.constants.mappings import INPUT_DATA_TO_SHORTHAND_MAPPING
-from code.strategy_helpers.input_data_validation import validate_dataset, check_mapping
+from code.strategy_helpers.validation_helpers import *
+from code.strategy_helpers.validate_unified_data import validate_unified_vehicle_data, \
+    validate_unified_link_data, validate_unified_traffic_data
 
 
 def validate_copert_input_files(**kwargs):
@@ -33,15 +33,46 @@ def validate_copert_input_files(**kwargs):
                       to_cols=[NH3_EF_VEH_CAT, NH3_EF_VEH_SEG, NH3_EF_FUEL, NH3_EF_EURO])
 
 
-def file_paths_are_valid(**kwargs) -> bool:
+def validate_copert_unified_files(**kwargs) -> bool:
 
-    files_are_valid = (
-        os.path.isfile(kwargs["unified_emission_factors"]) and
-        os.path.isfile(kwargs["unified_los_speeds"]) and
-        os.path.isfile(kwargs["unified_vehicle_data"]) and
-        os.path.isfile(kwargs["unified_link_data"]) and
-        os.path.isfile(kwargs["unified_traffic_data"])
-    )
-    if files_are_valid is False:
-        raise RuntimeError("Paths to unified_.. files are not valid. Please check the configuration yaml.")
-    return True
+    ef_file = kwargs["unified_emission_factors"]
+    los_speeds_file = kwargs["unified_los_speeds"]
+    vehicle_file = kwargs["unified_vehicle_data"]
+    link_file = kwargs["unified_link_data"]
+    traffic_file = kwargs["unified_traffic_data"]
+
+    validate_unified_link_data(link_file)
+    validate_unified_vehicle_data(vehicle_file)
+    validate_unified_copert_ef_data(ef_file)
+    validate_unified_los_speeds_data(los_speeds_file)
+    validate_unified_traffic_data(traffic_file)
+
+    check_mapping(link_file, los_speeds_file, from_cols=["LinkID"], to_cols=["LinkID"])
+    check_mapping(link_file, traffic_file, from_cols=["LinkID"], to_cols=["LinkID"])
+    check_mapping(vehicle_file, ef_file, from_cols=["VehicleName"], to_cols="VehicleName")
+
+
+def validate_unified_copert_ef_data(filename):
+
+    data = pd.read_csv(filename)
+
+    check_separator_is_comma(filename)
+    check_column_names(filename, data, ["VehicleName", "Pollutant", "Mode", "Load", "Slope", "MinSpeed", "MaxSpeed",
+                                        "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Hta", "Thita", "Zita",
+                                        "ReductionPerc"])
+    check_categories_are_correct(filename, data, "Pollutant", [str(poll) for poll in PollutantType])
+
+    data_excluding_nh3_tier2 = data[data["EF"].isnull()]
+    check_column_values_above_zero(filename, data_excluding_nh3_tier2, ["MaxSpeed", "MinSpeed"])
+    check_is_perc_column(filename, data_excluding_nh3_tier2, "ReductionPerc")
+
+
+def validate_unified_los_speeds_data(filename):
+
+    data = pd.read_csv(filename)
+
+    check_separator_is_comma(filename)
+    check_column_names(filename, data, ["LinkID", "VehicleCategory", "LOS1Speed", "LOS2Speed", "LOS3Speed", "LOS4Speed"])
+    check_does_not_contain_nan(filename, data)
+    check_categories_are_correct(filename, data, "VehicleCategory", [str(veh_cat) for veh_cat in VehicleCategory])
+    check_column_values_above_zero(filename, data, ["LOS1Speed", "LOS2Speed", "LOS3Speed", "LOS4Speed"])
