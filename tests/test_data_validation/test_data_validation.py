@@ -12,6 +12,7 @@ from code.copert_hot_strategy.validate import validate_unified_copert_ef_data, v
     validate_copert_unified_files
 from code.copert_hot_fixed_speed_strategy.validate import validate_copert_fixed_speed_unified_files
 from code.copert_cold_strategy.validate import validate_cold_ef_table, validate_veh_mapping, validate_copert_cold_unified_files
+from code.hbefa_hot_strategy.validate import validate_unified_hbefa_emission_factor_data
 
 
 class TestDataValidation(TestCase):
@@ -267,6 +268,13 @@ class TestDataValidation(TestCase):
             unified_vehicle_mapping = f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv"
         )
         logging.warning.assert_called_once()
+
+    def test_validate_unified_hbefa_emission_factor_data(self):
+
+        logging.warning = MagicMock()
+
+        validate_unified_hbefa_emission_factor_data(f"{self.init_path}/test_data/unified_data/hbefa_ef_data.csv")
+        logging.warning.assert_not_called()
 
 
 if __name__ == '__main__':

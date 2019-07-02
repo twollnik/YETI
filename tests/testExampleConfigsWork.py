@@ -142,6 +142,7 @@ class TestCalcAvgDailyEmissions(TestCase):
     def test_hbefa_hot_config_mode_unified_data(self):
 
         change_config_mode_to_unified_data("example/example_configs/hbefa_hot_config.yaml", "config_changed.yaml")
+        update_validation_function("config_changed.yaml", "code.hbefa_hot_strategy.validate.validate_hbefa_unified_files")
 
         try:
             sys.argv = f"run_yeti.py -c config_changed.yaml".split()
