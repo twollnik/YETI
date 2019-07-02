@@ -5,7 +5,8 @@ import pandas as pd
 import numpy as np
 import logging
 
-from code.strategy_helpers.input_data_validation import validate_dataset, check_mapping, check_does_not_contain_nan
+from code.strategy_helpers.input_data_validation import *
+from code.copert_hot_strategy.validate import validate_unified_link_data
 
 
 class TestDataValidation(TestCase):
@@ -16,6 +17,13 @@ class TestDataValidation(TestCase):
             self.init_path = "./tests"
         else:
             self.init_path = ".."
+
+        # The logger's warning function is mocked in the tests. To recover the function after the test, save it in an instance var.
+        self.logging_warning_function = logging.warning
+
+    def tearDown(self) -> None:
+
+        logging.warning = self.logging_warning_function
 
     def test_validate_format(self):
 
@@ -136,6 +144,35 @@ class TestDataValidation(TestCase):
 
         self.assertFalse(check_does_not_contain_nan("abc", df))
         logging.warning.assert_called_once()
+
+
+    def test_check_column_values_above_zero(self):
+
+        logging.warning = MagicMock()
+
+        df = pd.DataFrame(np.random.rand(10, 6), columns=["a", "b", "c", "d", "e", "f"])
+
+        self.assertTrue(check_column_values_above_zero("abc", df, "b"))
+        logging.warning.assert_not_called()
+
+        df.iloc[2, 1] = 0
+        self.assertFalse(check_column_values_above_zero("abc", df, "b"))
+        logging.warning.assert_called_once()
+
+        logging.warning.reset_mock()
+
+        df.iloc[5, 1] = -20
+        self.assertFalse(check_column_values_above_zero("abc", df, "b"))
+        logging.warning.assert_called_once()
+
+        logging.warning.reset_mock()
+
+        self.assertFalse(check_column_values_above_zero("abc", df, ["b", "c"]))
+        logging.warning.assert_called_once()
+        logging.warning.reset_mock()
+
+        self.assertTrue(check_column_values_above_zero("abc", df, ["e", "f"]))
+        logging.warning.assert_not_called()
 
 
 if __name__ == '__main__':
