@@ -31,8 +31,6 @@ def validate_dataset(file: str, shorthand: str, data: pd.DataFrame = None) -> bo
 
     file = os.path.abspath(file)
 
-    logging.debug(f"Validating the file {file}")
-
     # check file format (header exists and seperator is ',')
     is_comma_separated = check_separator_is_comma(file)
     if is_comma_separated is False:
