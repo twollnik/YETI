@@ -1,8 +1,7 @@
 import logging
 import pandas as pd
 
-from code.constants.column_names import FLEET_COMP_VEH_NAME, HBEFA_EF_VEH_NAME
-from code.constants.mappings import INPUT_DATA_TO_SHORTHAND_MAPPING
+from code.constants.column_names import *
 from code.constants.enumerations import PollutantType
 from code.strategy_helpers.validation_helpers import validate_dataset, check_mapping, check_categories_are_correct, \
     check_column_names, check_separator_is_comma, check_does_not_contain_nan
@@ -12,18 +11,24 @@ from code.strategy_helpers.validate_unified_data import validate_unified_link_da
 
 def validate_hbefa_input_files(**kwargs):
 
-    kwargs_to_validate = [
-        (key, value) for key, value in kwargs.items() if key.startswith("input_")
-    ]
-    logging.debug(
-        "Files to be validated: \n\t{}".format('\n\t'.join([f"{key}: {value}" for key, value in kwargs_to_validate])))
-    for key, value in kwargs_to_validate:
-        shorthand = INPUT_DATA_TO_SHORTHAND_MAPPING[key] if key != "input_emission_factors" else "HBEFA_EF"
-        if validate_dataset(value, shorthand) is True:
-            logging.debug(f"File {value} validated successfully.")
+    link_data_file = kwargs["input_link_data"]
+    fleet_comp_file = kwargs["input_fleet_composition"]
+    emission_factor_file = kwargs["input_emission_factors"]
+    traffic_data_file = kwargs["input_traffic_data"]
 
-    check_mapping(kwargs["input_fleet_composition"], kwargs["input_emission_factors"],
-                  from_cols=[FLEET_COMP_VEH_NAME], to_cols=[HBEFA_EF_VEH_NAME])
+    logging.debug(f"Files to be validated: \n"
+                  f"\t{link_data_file}\n"
+                  f"\t{fleet_comp_file}\n"
+                  f"\t{emission_factor_file}\n"
+                  f"\t{traffic_data_file}\n")
+
+    validate_dataset(link_data_file, "SHAPE")
+    validate_dataset(fleet_comp_file, "FLEET_COMP")
+    validate_dataset(emission_factor_file, "HBEFA_EF")
+    validate_dataset(traffic_data_file, "TRAFFIC_COUNT")
+
+    check_mapping(fleet_comp_file, emission_factor_file, from_cols=[FLEET_COMP_VEH_NAME], to_cols=[HBEFA_EF_VEH_NAME])
+    check_mapping(link_data_file, traffic_data_file, from_cols=[SHAPE_LINK_ID], to_cols=[TRAFFIC_COUNT_LINK_ID])
 
 
 def validate_hbefa_unified_files(**kwargs):

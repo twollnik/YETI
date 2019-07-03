@@ -85,14 +85,3 @@ LOWERCASE_POLLUTANT_NAMES_TO_POLLUTANT_ENUMERATION_TYPES = {
     "voc": "VOC",
     "pm_exhaust": "PM_Exhaust"
 }
-
-INPUT_DATA_TO_SHORTHAND_MAPPING = {
-    "input_link_data": "SHAPE",
-    "input_fleet_composition": "FLEET_COMP",
-    "input_emission_factors": "EF",
-    "input_los_speeds": "LOS_SPEED",
-    "input_traffic_data": "TRAFFIC_COUNT",
-    "input_vehicle_mapping": "MAP",
-    "input_nh3_emission_factors": "NH3_EF",
-    "input_nh3_mapping": "NH3_MAP"
-}
