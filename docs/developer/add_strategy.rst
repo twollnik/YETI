@@ -22,7 +22,7 @@ A Strategy is a Python class that is defined in a ``.py`` file. Each Strategy ne
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],
-                                pollutant: str,
+                                pollutants: List[str],
                                 **kwargs):
 
             # Put the emission calculation logic here.
@@ -137,7 +137,7 @@ use it to iterate over all vehicles. For example:
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],
-                                pollutant: str,
+                                pollutants: List[str],
                                 **kwargs):
 
             ...
@@ -153,9 +153,9 @@ use it to iterate over all vehicles. For example:
 
 The ``vehicle_dict`` is constructed from the unified vehicle data by the ``StrategyInvoker`` class.
 
-``pollutant``
-^^^^^^^^^^^^^
-A String. The pollutant as specified in the configuration file.
+``pollutants``
+^^^^^^^^^^^^^^
+A List of Strings. The pollutants as specified in the configuration file.
 
 ``**kwargs``
 ^^^^^^^^^^^^
@@ -176,7 +176,7 @@ config options for your Strategy. An example for using a config parameter in the
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],
-                                pollutant: str,
+                                pollutants: List[str],
                                 **kwargs):
 
             average_slope = kwargs["average_slope"]
@@ -211,7 +211,7 @@ An example for using a return value of the ``load_unified_data_function`` in the
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],
-                                pollutant: str,
+                                pollutants: List[str],
                                 **kwargs):
 
             some_dataset = kwargs["some_dataset"]
@@ -223,15 +223,16 @@ As discussed above, the Strategy's function ``calculate_emissions`` is called on
 obtained from joining the link data and the traffic data in an SQL-style fashion.
 
 Each call to ``calculate_emissions`` should return the emissions for one row in the output emissions dataframe(s) as
-a dictionary.
+a dictionary. It is important to note that you should return the emissions for all pollutants.
 
 The ``StrategyInvoker`` will associate the emissions with the right link ID, day type, hour and direction and
 save the emissions to disc.
 
-One emissions file
-^^^^^^^^^^^^^^^^^^
-Most Strategies want to output a single csv file with emission data. To do so, a Strategy should return one dictionary
-with emissions on each call to ``calculate_emissions``.
+One emissions file per pollutant
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Most Strategies want to output a single csv file for each pollutant with emission data for that pollutant.
+To do so, a Strategy should return one dictionary with emissions per pollutant in the parameter ``pollutants``
+on each call to ``calculate_emissions``.
 
 For example:
 
@@ -251,47 +252,81 @@ Let's say ``calculate_emissions`` was called with this ``traffic_and_link_data_r
     "LCV diesel M+N1-I Euro-2": 0.0023999999
     }
 
-It should return a dictionary in this format:
+Also let's say that the parameter pollutants is ``[PollutantType.NOx, PollutantType.CO]``.
+
+The Strategy should then return a dictionary in this format:
 
 .. code-block:: python
 
     {
-    "PC petrol <1.4L Euro-1":   some_emissions_value,
-    "LCV diesel M+N1-I Euro-2": some_other_emissions_value
+    "PollutantType.NOx": {
+        "PC petrol <1.4L Euro-1":   some_emissions_value_for_NOx,
+        "LCV diesel M+N1-I Euro-2": some_other_emissions_value_for_NOx
+        },
+    "PollutantType.CO": {
+        "PC petrol <1.4L Euro-1":   some_emissions_value_for_CO,
+        "LCV diesel M+N1-I Euro-2": some_other_emissions_value_for_CO
+        }
     }
 
-This will result in the following row being added to the emissions dataframe that is saved to disc:
+This will result in the following rows being added to the emissions dataframes that are saved to disc:
 
-====== ===== ================ ==== ====================== ==========================
-LinkID Dir   DayType          Hour PC petrol <1.4L Euro-1 LCV diesel M+N1-I Euro-2
-====== ===== ================ ==== ====================== ==========================
-42_123 Dir.L DayType.MONtoTHU 0    some_emissions_value   some_other_emissions_value
-====== ===== ================ ==== ====================== ==========================
+NOx emissions:
 
-Multiple emission files
-^^^^^^^^^^^^^^^^^^^^^^^
-Some Strategies want to output multiple emissions files. For example the ``PMNonExhaustStrategy`` outputs three
-emission files; one file per particle type.
+====== ===== ================ ==== ============================ ==================================
+LinkID Dir   DayType          Hour PC petrol <1.4L Euro-1 LCV   diesel M+N1-I Euro-2
+====== ===== ================ ==== ============================ ==================================
+42_123 Dir.L DayType.MONtoTHU 0    some_emissions_value_for_NOx some_other_emissions_value_for_NOx
+====== ===== ================ ==== ============================ ==================================
 
-How many emission files are created depends on the output of ``calculate_emissions``. If you want to output multiple
-emissions files, ``calculate_emissions`` needs to output a nested dictionary in this format:
+CO emissions:
+
+====== ===== ================ ==== ============================ ==================================
+LinkID Dir   DayType          Hour PC petrol <1.4L Euro-1 LCV   diesel M+N1-I Euro-2
+====== ===== ================ ==== ============================ ==================================
+42_123 Dir.L DayType.MONtoTHU 0    some_emissions_value_for_CO  some_other_emissions_value_for_CO
+====== ===== ================ ==== ============================ ==================================
+
+Multiple emission files per pollutant
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Some Strategies want to output multiple emissions files per pollutant. This can be done by adding more
+dictionaries to the return dictionary.
+
+For example:
+
+Let's say that ``calculate_emissions`` is called with the same ``pollutants`` and ``traffic_and_link_data`` as in
+the example above.
+If we want the Strategy to output two emissions files per pollutant, we should return a dictionary like this:
 
 .. code-block:: python
 
     {
-    "emission_type_A":
+    "PollutantType.NOx_type_A":
         {
-        "PC petrol <1.4L Euro-1": some type a emissions value,
-        "LCV diesel M+N1-I Euro-2": some other type a emissions value,
+        "PC petrol <1.4L Euro-1": some type a emissions value for NOx,
+        "LCV diesel M+N1-I Euro-2": some other type a emissions value for NOx,
         ...
         },
-    "emission_type_B":
+    "PollutantType.NOx_type_B":
         {
-        "PC petrol <1.4L Euro-1": some type b emissions value,
-        "LCV diesel M+N1-I Euro-2": some other type b emissions value,
+        "PC petrol <1.4L Euro-1": some type b emissions value for NOx,
+        "LCV diesel M+N1-I Euro-2": some other type b emissions value for NOx,
+        ...
+        },
+    "PollutantType.CO_type_A":
+        {
+        "PC petrol <1.4L Euro-1": some type a emissions value for CO,
+        "LCV diesel M+N1-I Euro-2": some other type a emissions value for CO,
+        ...
+        },
+    "PollutantType.CO_type_B":
+        {
+        "PC petrol <1.4L Euro-1": some type b emissions value for CO,
+        "LCV diesel M+N1-I Euro-2": some other type b emissions value for CO,
         ...
         }
     }
 
-This will create two emissions files, one with type a emissions and one with type b emissions. The names
-of the output emission files are prefixed with the corresponding keys of the outer dictionary.
+This will create two emissions files per pollutant, one with type a emissions and one with type b emissions. You don't need
+to stick to the names "type_A" and "type_B". Also you can return as many nested dictionaries as you want to create
+as many emissions files as you want.

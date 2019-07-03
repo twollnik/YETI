@@ -36,20 +36,20 @@ if you are looking to use ``input_data`` or
 
 if you want to use ``unified_data``.
 
-Pollutant
----------
+Pollutants
+----------
 
-The pollutant you want to calculate emissions for. Add this line to your configuration file:
+The list of pollutants you want to calculate emissions for. Add this line to your configuration file:
 
 .. code-block:: yaml
 
-    pollutant: PollutantType.{pollutant}
+    pollutants: [PollutantType.{pollutant1}, PollutantType.{pollutant2}, ...]
 
 For example:
 
 .. code-block:: yaml
 
-    pollutant: PollutantType.NOx
+    pollutants: [PollutantType.NOx]
 
 
 Note that different Strategies support different pollutants. Find out what pollutants a Strategy supports on the

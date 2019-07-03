@@ -44,14 +44,19 @@ Supported pollutants
 
 .. code-block:: yaml
 
-    # add one of the following lines to your config.yaml
-    pollutant:  PollutantType.NOx
-    pollutant:  PollutantType.CO
-    pollutant:  PollutantType.NH3
-    pollutant:  PollutantType.VOC
-    pollutant:  PollutantType.PM_Exhaust
+    PollutantType.NOx
+    PollutantType.CO
+    PollutantType.NH3
+    PollutantType.VOC
+    PollutantType.PM_Exhaust
 
-Make sure to include emission factors for the pollutant you are using in the emission factor data.
+Set the pollutants for a run in your config file. For example:
+
+.. code-block:: yaml
+
+    pollutants:          [PollutantType.CO, PollutantType.NOx]
+
+Make sure to include emission factors for the pollutants you are using in the emission factor data.
 
 What to put in the config.yaml
 ------------------------------
