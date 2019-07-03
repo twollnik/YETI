@@ -2,7 +2,7 @@
 
 # -------- run configurations ----------
 
-mode:                       input_data  # feel free to change the mode to unified_data
+mode:                       input_data  # feel free to change the mode to unified_data. (Don't forget to change the validation function)
 
 pollutants:                 [PollutantType.PM_Non_Exhaust]
 strategy:                   code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy

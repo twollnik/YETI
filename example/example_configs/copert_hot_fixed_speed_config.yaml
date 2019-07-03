@@ -2,7 +2,7 @@
 
 # -------- run configurations ----------
 
-mode:                       input_data  # feel free to change the mode to unified_data
+mode:                       input_data  # feel free to change the mode to unified_data. (Don't forget to change the validation function)
 
 pollutants:                 [PollutantType.NOx]
 strategy:                   code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
