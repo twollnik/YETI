@@ -11,7 +11,7 @@ load_unified_data_function: code.copert_hot_strategy.load_unified_data.load_cope
 
 # If you change the mode to unified_data, set the validation function to code.copert_hot_strategy.validate.file_paths_are_valid:
 # validation_function:        code.copert_hot_strategy.validate.file_paths_are_valid
-validation_function:        code.copert_hot_strategy.validate.validate_copert_input_files
+validation_function:        code.copert_hot_strategy.validate.validate_copert_unified_files
 
 output_folder:              example_output_copert_hot
 
@@ -24,11 +24,11 @@ input_los_speeds:           ../data/los_speeds_data.csv
 input_traffic_data:         ../data/traffic_data.csv
 input_vehicle_mapping:      ../data/mapping_data.csv
 
-unified_emission_factors:   example/example_unified_data/copert_emission_factors.csv
-unified_los_speeds:         example/example_unified_data/los_speeds.csv
-unified_vehicle_data:       example/example_unified_data/vehicle_data.csv
-unified_link_data:          example/example_unified_data/link_data.csv
-unified_traffic_data:       example/example_unified_data/traffic_data.csv
+unified_emission_factors:   example_output_copert_cold/unified_emission_factors.csv
+unified_los_speeds:         example_output_copert_cold/unified_los_speeds.csv
+unified_vehicle_data:       example_output_copert_cold/unified_vehicle_data.csv
+unified_link_data:          example_output_copert_cold/unified_link_data.csv
+unified_traffic_data:       example_output_copert_cold/unified_traffic_data.csv
 
 # -------- strategy specific parameters -----------
 
