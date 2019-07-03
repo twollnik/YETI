@@ -4,7 +4,7 @@
 
 mode:                       input_data  # feel free to change the mode to unified_data
 
-pollutant:                  PollutantType.NOx
+pollutants:                 [PollutantType.NOx]
 strategy:                   code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
 load_input_data_function:   code.copert_hot_strategy.load_input_data.load_copert_input_data
 load_unified_data_function: code.copert_hot_strategy.load_unified_data.load_copert_unified_data

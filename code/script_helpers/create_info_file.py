@@ -12,7 +12,7 @@ def get_info_text_by_mode(mode, timestamp, start_time, end_time, config_dict):
 
     newline = "\n"
 
-    pollutant = config_dict["pollutant"]
+    pollutants = config_dict["pollutants"]
     strategy = config_dict["strategy"]
     load_input_data_function = config_dict["load_input_data_function"]
     load_unified_data_function = config_dict["load_unified_data_function"]
@@ -28,7 +28,7 @@ def get_info_text_by_mode(mode, timestamp, start_time, end_time, config_dict):
         "\n"
         f"time of run: {timestamp}\n"
         f"duration of run: {(end_time - start_time) / 60} min\n"
-        f"pollutant: {pollutant}\n"
+        f"pollutants: {pollutants}\n"
         f"output folder: {output_folder}\n"
         f"unified data output folder: {config_dict.get('output_folder_for_unified_data')}\n"
         f"use nh3 tier 2 ef: {use_nh3_tier2_ef}\n"
