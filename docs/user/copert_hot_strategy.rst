@@ -25,6 +25,9 @@ Data requirements for mode ``input_data``
 **link data** |br|
 Just like the link data required for the other Strategies. Look :ref:`here <link-data-explained>`.
 
+Make sure that the combination of AreaCat, RoadCat and MaxSpeed_kmh matches a traffic situation in the
+los speeds data.
+
 -------
 
 **traffic data** |br|
@@ -196,6 +199,9 @@ Data requirements for mode ``unified_data``
 
 **unified link data** |br|
 Just like the unified link data required for the other Strategies. See :ref:`here <unified-link-data-explained>`.
+
+Make sure that the combination of AreaType, RoadType and MaxSpeed matches a traffic situation in the
+los speeds data.
 
 --------
 
