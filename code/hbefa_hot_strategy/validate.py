@@ -38,6 +38,12 @@ def validate_hbefa_unified_files(**kwargs):
     link_file = kwargs["unified_link_data"]
     traffic_file = kwargs["unified_traffic_data"]
 
+    logging.debug(f"Files to be validated: \n"
+                  f"\t{ef_file}\n"
+                  f"\t{vehicle_file}\n"
+                  f"\t{link_file}\n"
+                  f"\t{traffic_file}\n")
+
     validate_unified_link_data(link_file)
     validate_unified_vehicle_data(vehicle_file)
     validate_unified_traffic_data(traffic_file)
