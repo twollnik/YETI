@@ -38,7 +38,7 @@ Just like the fleet composition data required for the other Strategies. See :ref
 **hbefa emission factor data** |br|
 A dataset with HBEFA emission factors.
 
-Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+Note that this dataset needs to contain values for the pollutants you are using, otherwise you
 will encounter errors in the emission calculation.
 
 - *Component*: A pollutant. Accepted pollutants are:
@@ -118,7 +118,7 @@ Just like the unified link data required for the other Strategies. See :ref:`her
 **unified hbefa emission factor data** |br|
 A dataset with HBEFA emission factors.
 
-Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+Note that this dataset needs to contain values for the pollutants you are using, otherwise you
 will encounter errors in the emission calculation.
 
 - *Pollutant*: A pollutant. Accepted pollutants are:
@@ -155,14 +155,19 @@ Supported pollutants
 
 .. code-block:: yaml
 
-    # add one of the following lines to your config.yaml
-    pollutant:  PollutantType.NOx
-    pollutant:  PollutantType.CO
-    pollutant:  PollutantType.NH3
-    pollutant:  PollutantType.VOC
-    pollutant:  PollutantType.PM_Exhaust
+    PollutantType.NOx
+    PollutantType.CO
+    PollutantType.NH3
+    PollutantType.VOC
+    PollutantType.PM_Exhaust
 
-Make sure to include emission factors for the pollutant you are using in the emission factor data.
+Set the pollutants for a run in your config file. For example:
+
+.. code-block:: yaml
+
+    pollutants:          [PollutantType.CO, PollutantType.NOx]
+
+Make sure to include emission factors for the pollutants you are using in the emission factor data.
 
 What to put in the config.yaml
 ------------------------------

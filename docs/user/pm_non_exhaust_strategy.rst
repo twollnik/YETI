@@ -87,7 +87,7 @@ The only pollutant supported by this Strategy is ``PollutantType.PM_Non_Exhaust`
 
 .. code-block:: yaml
 
-    pollutant:              PollutantType.PM_Non_Exhaust
+    pollutants:              [PollutantType.PM_Non_Exhaust]
 
 What to put in the config.yaml
 ------------------------------
