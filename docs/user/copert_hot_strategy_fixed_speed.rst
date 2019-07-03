@@ -59,8 +59,6 @@ If you want to use the ``CopertHotFixedSpeedStrategy`` for the your calculations
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`.
 
-Please note that we currently don't provide validation functions for this Strategy.
-
 If using mode ``input_data``:
 '''''''''''''''''''''''''''''
 
@@ -69,6 +67,7 @@ If using mode ``input_data``:
     strategy:                        code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
     load_input_data_function:        code.copert_hot_fixed_speed_strategy.load_input_data.load_copert_fixed_speed_input_data
     load_unified_data_function:      code.copert_hot_fixed_speed_strategy.load_unified_data.load_copert_fixed_speed_unified_data
+    validation_function:             code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_input_files
 
     # if you want to use a global speed for all links, include this:
     v:                            50
@@ -94,6 +93,7 @@ If using mode ``unified_data``:
 
     strategy:                        code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
     load_unified_data_function:      code.copert_hot_fixed_speed_strategy.load_unified_data.load_copert_fixed_speed_unified_data
+    validation_function:             code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_unified_files
 
     # if you want to use a global speed for all links, include this:
     v:                            50

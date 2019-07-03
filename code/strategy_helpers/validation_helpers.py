@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 import csv
 import logging
@@ -30,8 +30,6 @@ def validate_dataset(file: str, shorthand: str, data: pd.DataFrame = None) -> bo
     """
 
     file = os.path.abspath(file)
-
-    logging.debug(f"Validating the file {file}")
 
     # check file format (header exists and seperator is ',')
     is_comma_separated = check_separator_is_comma(file)
@@ -165,3 +163,24 @@ def check_categories_are_correct(file: str, df: pd.DataFrame, column_name: str, 
     return True
 
 
+def check_does_not_contain_nan(file: str, df: pd.DataFrame):
+
+    if df.isnull().values.any():
+        logging.warning(f"{file}: The data in this file contains NaN values where it shouldn't. "
+                        f"(this means that some of the cells are empty).")
+        return False
+    return True
+
+
+def check_column_values_above_zero(file: str, df: pd.DataFrame, column: Union[str, List]):
+
+    if isinstance(column, list):
+        for col in column:
+            return check_column_values_above_zero(file, df, col)
+
+    column_values = pd.to_numeric(df[column])
+    all_values_positive = all(column_values > 0)
+    if all_values_positive is False:
+        logging.warning(f"{file}: The column {column} should contain only positive numbers.")
+        return False
+    return True

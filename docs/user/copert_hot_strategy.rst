@@ -25,6 +25,9 @@ Data requirements for mode ``input_data``
 **link data** |br|
 Just like the link data required for the other Strategies. Look :ref:`here <link-data-explained>`.
 
+Make sure that the combination of AreaCat, RoadCat and MaxSpeed_kmh matches a traffic situation in the
+los speeds data.
+
 -------
 
 **traffic data** |br|
@@ -197,6 +200,9 @@ Data requirements for mode ``unified_data``
 **unified link data** |br|
 Just like the unified link data required for the other Strategies. See :ref:`here <unified-link-data-explained>`.
 
+Make sure that the combination of AreaType, RoadType and MaxSpeed matches a traffic situation in the
+los speeds data.
+
 --------
 
 **unified vehicle data** |br|
@@ -342,7 +348,7 @@ If using mode ``unified_data``:
 
     strategy:                     code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
     load_unified_data_function:   code.copert_hot_strategy.load_unified_data.load_copert_unified_data
-    validation_function:          code.script_helpers.validate_files.file_paths_are_valid
+    validation_function:          code.script_helpers.validate_files.validate_copert_unified_files
 
     unified_emission_factors:     path/to/unified_ef_data.csv
     unified_los_speeds:           path/to/unified_los_speed_data.csv

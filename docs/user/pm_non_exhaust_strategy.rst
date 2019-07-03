@@ -95,8 +95,6 @@ If you want to use the ``PMNonExhaustStrategy`` for your calculations, you need 
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
-Please note that we currently don't provide validation functions for this Strategy.
-
 If using mode ``input_data``:
 '''''''''''''''''''''''''''''
 
@@ -105,6 +103,7 @@ If using mode ``input_data``:
     strategy:                     code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
     load_input_data_function:     code.pm_non_exhaust_strategy.load_input_data.load_pm_non_exhaust_input_data
     load_unified_data_function:   code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data
+    validation_function:          code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_input_files
 
     input_link_data:              path/to/link_data.csv
     input_fleet_composition:      path/to/fleet_composition_data.csv
@@ -120,6 +119,7 @@ If using mode ``unified_data``:
 
     strategy:                     code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
     load_unified_data_function:   code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data
+    validation_function:          code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_unified_files
 
     unified_link_data:            path/to/unified_link_data.csv
     unified_vehicle_data:         path/to/unified_vehicle_data.csv

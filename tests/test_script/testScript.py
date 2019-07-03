@@ -92,7 +92,7 @@ class TestScript(TestCase):
             or
             os.path.isfile(f"output_copert_with_speed/emissions_PollutantType.NOx_{datetime.now().strftime('%Y-%m-%d_%Hh-%Mmin')}.csv"))
 
-        logging.warning.assert_not_called()
+        logging.warning.assert_called_once()
 
     def test_config4(self):
 

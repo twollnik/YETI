@@ -189,12 +189,11 @@ If using mode ``input_data``:
 If using mode ``unified_data``:
 '''''''''''''''''''''''''''''''
 
-Please note that we currently do not provide a validation function for mode ``unified_data``.
-
 .. code-block:: yaml
 
     strategy:                     code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
     load_unified_data_function:   code.hbefa_hot_strategy.load_unified_data.load_hbefa_unified_data
+    validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_unified_files
 
     unified_emission_factors:     path/to/unified_hbefa_ef_data.csv
     unified_vehicle_data:         path/to/unified_vehicle_data.csv
