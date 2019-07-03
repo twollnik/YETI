@@ -12,7 +12,7 @@ class TestHbefaStrategy(TestCase):
             "vehA": "VehicleCategory.PC",
             "vehB": "VehicleCategory.LCV"
         }
-        pollutant = "PollutantType.NOx"
+        pollutants = ["PollutantType.NOx"]
         emission_factor_data = pd.DataFrame({
             "VehicleName": ["vehA", "vehA", "vehA", "vehA", "vehB", "vehB", "vehB", "vehB"],
             "Pollutant": ["PollutantType.NOx", "PollutantType.NOx", "PollutantType.NOx", "PollutantType.NOx",
@@ -47,10 +47,10 @@ class TestHbefaStrategy(TestCase):
 
         strategy = HbefaHotStrategy()
         emissions_actual = strategy.calculate_emissions(
-            row_dict, vehicle_dict, pollutant,
+            row_dict, vehicle_dict, pollutants,
             emission_factor_data=emission_factor_data)
 
-        self.assertEqual(emissions_expected, emissions_actual)
+        self.assertEqual(emissions_expected, emissions_actual["PollutantType.NOx"])
 
 if __name__ == '__main__':
     main()

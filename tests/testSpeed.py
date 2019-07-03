@@ -23,9 +23,9 @@ class TestSpeed(TestCase):
         link_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/link_data_with_speed.csv")
         traffic_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/traffic_data.csv")
 
-        emissions_file = StrategyInvoker().calculate_and_save_emissions(
+        StrategyInvoker().calculate_and_save_emissions(
             emissions_output_folder="temp",
-            pollutant="PollutantType.NOx",
+            pollutants=["PollutantType.NOx"],
             Strategy=CopertHotFixedSpeedStrategy,
             link_data=link_data,
             traffic_data=traffic_data,
@@ -34,7 +34,7 @@ class TestSpeed(TestCase):
             los_speeds_data=los_speeds_data
         )
 
-        emissions_actual = pd.read_csv(emissions_file)
+        emissions_actual = pd.read_csv("temp/PollutantType.NOx_emissions.csv")
         shutil.rmtree("temp")
 
         self.assertEqual(len(emissions_actual), 288)

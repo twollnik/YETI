@@ -58,7 +58,6 @@ class StrategyInvoker:
                 self.save_emissions()
 
         self.save_emissions()
-        return self.output_file
 
     def initialize(self, emissions_output_folder, **kwargs):
 

@@ -63,7 +63,7 @@ class TestCalcAvgDailyEmissions(TestCase):
                 full_path = os.path.join(root, file_)
                 stat = os.stat(full_path)
 
-                if stat.st_mtime > self.start_time and file_.startswith("hot"):
+                if stat.st_mtime > self.start_time and "hot" in file_:
                     hot_emissions = pd.read_csv(full_path)
                     break
 

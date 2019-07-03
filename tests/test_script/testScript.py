@@ -26,16 +26,12 @@ class TestScript(TestCase):
 
         sys.argv = f"run_yeti.py -c test_config.yaml".split()
         logging.warning = MagicMock()
-        timestamp1 = datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
 
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir(f"./output_mode_input_data/"))
         self.assertTrue(os.path.isfile(f"./output_mode_input_data/run_info.txt"))
-        self.assertTrue(
-            os.path.isfile(f"./output_mode_input_data/emissions_PollutantType.NOx_{timestamp1}.csv")
-            or
-            os.path.isfile(f"./output_mode_input_data/emissions_PollutantType.NOx_{datetime.now().strftime('%Y-%m-%d_%Hh-%Mmin')}.csv"))
+        self.assertTrue(os.path.isfile(f"./output_mode_input_data/PollutantType.NOx_emissions.csv"))
         self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_emission_factors.csv"))
         self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_los_speeds.csv"))
         self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_vehicle_data.csv"))
@@ -54,17 +50,12 @@ class TestScript(TestCase):
 
         sys.argv = f"run_yeti.py -c test_config2.yaml".split()
 
-        timestamp1 = datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
         logging.warning = MagicMock()
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir(f"output_hbefa/"))
         self.assertTrue(os.path.isfile(f"output_hbefa/run_info.txt"))
-        self.assertTrue(
-            os.path.isfile(f"output_hbefa/emissions_PollutantType.NOx_{timestamp1}.csv")
-            or
-            os.path.isfile(f"output_hbefa/emissions_PollutantType.NOx_{datetime.now().strftime('%Y-%m-%d_%Hh-%Mmin')}.csv"))
-        self.assertTrue(os.path.isfile(f"output_hbefa/emissions_PollutantType.NOx_{timestamp1}.csv"))
+        self.assertTrue(os.path.isfile(f"output_hbefa/PollutantType.NOx_emissions.csv"))
         self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_emission_factors.csv"))
         self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_vehicle_data.csv"))
         self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_link_data.csv"))
@@ -81,16 +72,12 @@ class TestScript(TestCase):
 
         sys.argv = f"run_yeti.py -c test_config3.yaml".split()
         logging.warning = MagicMock()
-        timestamp1 = datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
 
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir(f"output_copert_with_speed/"))
         self.assertTrue(os.path.isfile(f"output_copert_with_speed/run_info.txt"))
-        self.assertTrue(
-            os.path.isfile(f"output_copert_with_speed/emissions_PollutantType.NOx_{timestamp1}.csv")
-            or
-            os.path.isfile(f"output_copert_with_speed/emissions_PollutantType.NOx_{datetime.now().strftime('%Y-%m-%d_%Hh-%Mmin')}.csv"))
+        self.assertTrue(os.path.isfile(f"output_copert_with_speed/PollutantType.NOx_emissions.csv"))
 
         logging.warning.assert_called_once()
 
@@ -103,19 +90,18 @@ class TestScript(TestCase):
 
         sys.argv = f"run_yeti.py -c test_config4.yaml".split()
         logging.warning = MagicMock()
-        timestamp1 = datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
 
         execfile(f"../../run_yeti.py")
 
-        self.assertTrue(os.path.isdir(f"output_copert_cold/"))
-        self.assertTrue(os.path.isfile(f"output_copert_cold/run_info.txt"))
-        self.assertTrue(os.path.isfile(f"output_copert_cold/cold_emissions_PollutantType.NOx_{timestamp1}.csv"))
-        self.assertTrue(os.path.isfile(f"output_copert_cold/hot_emissions_PollutantType.NOx_{timestamp1}.csv"))
-        self.assertTrue(os.path.isfile(f"output_copert_cold/total_emissions_PollutantType.NOx_{timestamp1}.csv"))
+        self.assertTrue(os.path.isdir("output_copert_cold/"))
+        self.assertTrue(os.path.isfile("output_copert_cold/run_info.txt"))
+        self.assertTrue(os.path.isfile("output_copert_cold/PollutantType.NOx_cold_emissions.csv"))
+        self.assertTrue(os.path.isfile("output_copert_cold/PollutantType.NOx_hot_emissions.csv"))
+        self.assertTrue(os.path.isfile("output_copert_cold/PollutantType.NOx_total_emissions.csv"))
 
-        for file in [f"output_copert_cold/cold_emissions_PollutantType.NOx_{timestamp1}.csv",
-                     f"output_copert_cold/hot_emissions_PollutantType.NOx_{timestamp1}.csv",
-                     f"output_copert_cold/total_emissions_PollutantType.NOx_{timestamp1}.csv"]:
+        for file in ["output_copert_cold/PollutantType.NOx_cold_emissions.csv",
+                     "output_copert_cold/PollutantType.NOx_hot_emissions.csv",
+                     "output_copert_cold/PollutantType.NOx_total_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
                 self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
@@ -131,19 +117,18 @@ class TestScript(TestCase):
 
         sys.argv = f"run_yeti.py -c test_config5.yaml".split()
         logging.warning = MagicMock()
-        timestamp1 = datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
 
         execfile(f"../../run_yeti.py")
 
-        self.assertTrue(os.path.isdir(f"output_pm_non_exhaust/"))
-        self.assertTrue(os.path.isfile(f"output_pm_non_exhaust/run_info.txt"))
-        self.assertTrue(os.path.isfile(f"output_pm_non_exhaust/TSP_emissions_PollutantType.PM_Non_Exhaust_{timestamp1}.csv"))
-        self.assertTrue(os.path.isfile(f"output_pm_non_exhaust/PM10_emissions_PollutantType.PM_Non_Exhaust_{timestamp1}.csv"))
-        self.assertTrue(os.path.isfile(f"output_pm_non_exhaust/PM25_emissions_PollutantType.PM_Non_Exhaust_{timestamp1}.csv"))
+        self.assertTrue(os.path.isdir("output_pm_non_exhaust/"))
+        self.assertTrue(os.path.isfile("output_pm_non_exhaust/run_info.txt"))
+        self.assertTrue(os.path.isfile("output_pm_non_exhaust/TSP_emissions.csv"))
+        self.assertTrue(os.path.isfile("output_pm_non_exhaust/PM10_emissions.csv"))
+        self.assertTrue(os.path.isfile("output_pm_non_exhaust/PM25_emissions.csv"))
 
-        for file in [f"output_pm_non_exhaust/TSP_emissions_PollutantType.PM_Non_Exhaust_{timestamp1}.csv",
-                     f"output_pm_non_exhaust/PM10_emissions_PollutantType.PM_Non_Exhaust_{timestamp1}.csv",
-                     f"output_pm_non_exhaust/PM25_emissions_PollutantType.PM_Non_Exhaust_{timestamp1}.csv"]:
+        for file in ["output_pm_non_exhaust/TSP_emissions.csv",
+                     "output_pm_non_exhaust/PM10_emissions.csv",
+                     "output_pm_non_exhaust/PM25_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
                 self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
@@ -160,11 +145,7 @@ class TestScript(TestCase):
         sys.argv = f"run_yeti.py -c test_config6.yaml".split()
         execfile(f"../../run_yeti.py")
 
-        for filename in os.listdir("output_config6"):
-            if filename.startswith("emissions_PollutantType.NOx"):
-                emissions_file_name = filename
-
-        num_lines = sum(1 for line in open(f"output_config6/{emissions_file_name}"))
+        num_lines = sum(1 for line in open("output_config6/PollutantType.NOx_emissions.csv"))
 
         self.assertEqual(6, num_lines)
 

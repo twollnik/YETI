@@ -13,7 +13,6 @@ class TestCopertHotStrategy(TestCase):
             "vehA": "VehicleCategory.PC",
             "vehB": "VehicleCategory.LCV"
         }
-        pollutant = "PollutantType.NOx"
         los_speeds_data = pd.DataFrame({
             "LinkID": ["linkA", "linkA"],
             "VehicleCategory": ["VehicleCategory.PC", "VehicleCategory.LCV"],
@@ -55,10 +54,10 @@ class TestCopertHotStrategy(TestCase):
 
         strategy = CopertHotStrategy()
         emissions_actual = strategy.calculate_emissions(
-            row_dict, vehicle_dict, pollutant, los_speeds_data=los_speeds_data,
+            row_dict, vehicle_dict, ["PollutantType.NOx"], los_speeds_data=los_speeds_data,
             emission_factor_data=emission_factor_data)
 
-        self.assertEqual(emissions_expected, emissions_actual)
+        self.assertEqual(emissions_expected, emissions_actual["PollutantType.NOx"])
 
 if __name__ == '__main__':
     main()

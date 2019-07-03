@@ -36,6 +36,7 @@ class TestCopertColdStrategy(TestCase):
             "vehB": "VehicleCategory.LCV"
         }
         self.pollutant = "PollutantType.NOx"
+        self.pollutants = ["PollutantType.NOx"]
         self.los_speeds_data = pd.DataFrame({
             "LinkID": ["linkA", "linkA"],
             "VehicleCategory": ["VehicleCategory.PC", "VehicleCategory.LCV"],
@@ -91,7 +92,7 @@ class TestCopertColdStrategy(TestCase):
         emissions1 = strategy.calculate_emissions(
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
-            pollutant=self.pollutant,
+            pollutants=self.pollutants,
             unified_cold_ef_table=self.cold_ef_table,
             unified_los_speeds=self.los_speeds_data,
             unified_vehicle_mapping=self.veh_mapping_no_index_set,
@@ -102,13 +103,13 @@ class TestCopertColdStrategy(TestCase):
         emissions2 = strategy.calculate_emissions(
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
-            pollutant=self.pollutant
+            pollutants=self.pollutants
         )
 
-        self.assertTrue(all(item in emissions1 for item in ["hot", "cold", "total"]))
-        self.assertTrue(all(item in emissions1["hot"] for item in ["vehA", "vehB"]))
-        self.assertTrue(all(item in emissions1["cold"] for item in ["vehA", "vehB"]))
-        self.assertTrue(all(item in emissions1["total"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
+        self.assertTrue(all(item in emissions1[f"{self.pollutant}_hot"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1[f"{self.pollutant}_cold"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
         self.assertEqual(emissions1, emissions2)
 
@@ -129,7 +130,7 @@ class TestCopertColdStrategy(TestCase):
         emissions1 = strategy.calculate_emissions(
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
-            pollutant=self.pollutant,
+            pollutants=self.pollutants,
             unified_cold_ef_table=self.cold_ef_table,
             unified_los_speeds=self.los_speeds_data,
             unified_vehicle_mapping=veh_mapping_no_index_set,
@@ -140,13 +141,13 @@ class TestCopertColdStrategy(TestCase):
         emissions2 = strategy.calculate_emissions(
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
-            pollutant=self.pollutant
+            pollutants=self.pollutants
         )
 
-        self.assertTrue(all(item in emissions1 for item in ["hot", "cold", "total"]))
-        self.assertTrue(all(item in emissions1["hot"] for item in ["vehA", "vehB"]))
-        self.assertTrue(all(item in emissions1["cold"] for item in ["vehA", "vehB"]))
-        self.assertTrue(all(item in emissions1["total"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
+        self.assertTrue(all(item in emissions1[f"{self.pollutant}_hot"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1[f"{self.pollutant}_cold"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
         self.assertEqual(emissions1, emissions2)
 
@@ -204,7 +205,7 @@ class TestCopertColdStrategy(TestCase):
         emissions = strategy.calculate_emissions(
             traffic_and_link_data_row={**self.row_dict, "RoadType": "RoadType.MW_City", "AreaType": "AreaType.Urban"},
             vehicle_dict=self.vehicle_dict,
-            pollutant=self.pollutant,
+            pollutants=self.pollutants,
             unified_cold_ef_table=self.cold_ef_table,
             unified_los_speeds=self.los_speeds_data,
             unified_vehicle_mapping=self.veh_mapping_no_index_set,
@@ -215,9 +216,9 @@ class TestCopertColdStrategy(TestCase):
             exclude_area_types=["AreaType.Urban"]
         )
 
-        self.assertTrue(all(item in emissions for item in ["hot", "cold", "total"]))
-        self.assertTrue(all(emissions["cold"][item] == 0 for item in ["vehA", "vehB"]))
-        self.assertEqual(emissions["hot"], emissions["total"])
+        self.assertTrue(all(item in emissions for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
+        self.assertTrue(all(emissions[f"{self.pollutant}_cold"][item] == 0 for item in ["vehA", "vehB"]))
+        self.assertEqual(emissions[f"{self.pollutant}_hot"], emissions[f"{self.pollutant}_total"])
 
     def test_zero_emissions_for_all_vehicles(self):
 
@@ -264,11 +265,12 @@ class TestCopertColdStrategy(TestCase):
     def test_join_emissions_into_one_dict(self):
 
         expected = {
-            'hot': {'a': 1},
-            'cold': {'b': 2},
-            'total': {'c': 3}
+            'Poll_hot': {'a': 1},
+            'Poll_cold': {'b': 2},
+            'Poll_total': {'c': 3}
         }
-        self.assertEqual(expected, self.strategy.join_emissions_into_one_dict({'a': 1}, {'b': 2}, {'c': 3}))
+        self.strategy.add_emissions_to_assembly_attribute("Poll", {'a': 1}, {'b': 2}, {'c': 3})
+        self.assertEqual(expected, self.strategy.emissions)
 
     def test_calculate_cold_emissions(self):
 
@@ -576,9 +578,9 @@ class TestCopertColdStrategy(TestCase):
             "vehA": 1156.8796043417367,
             "vehB": 85.46364280124679
         }
-        emissions_actual = self.strategy.calculate_hot_emissions(self.pollutant)
+        emissions_actual = self.strategy.calculate_hot_emissions(self.pollutants)
 
-        self.assertEqual(emissions_expected, emissions_actual)
+        self.assertEqual(emissions_expected, emissions_actual[self.pollutant])
 
     def test_calculate_cold_emissions_diesel_pc(self):
 

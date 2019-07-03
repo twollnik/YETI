@@ -13,7 +13,6 @@ class TestCopertHotFixedSpeedStrategy(TestCase):
             "vehA": "VehicleCategory.PC",
             "vehB": "VehicleCategory.LCV"
         }
-        pollutant = "PollutantType.NOx"
         emission_factor_data = pd.DataFrame({
             "VehicleName": ["vehA", "vehB"],
             "Pollutant": ["PollutantType.NOx", "PollutantType.NOx"],
@@ -41,6 +40,7 @@ class TestCopertHotFixedSpeedStrategy(TestCase):
             "LOS4Percentage": 1,
             "Speed": 10
         }
+        pollutants = ["PollutantType.NOx"]
 
         emissions_expected_speed_20 = {
             "vehA": 336.8125,
@@ -48,8 +48,8 @@ class TestCopertHotFixedSpeedStrategy(TestCase):
         }
         strategy = CopertHotFixedSpeedStrategy()
         emissions_actual = strategy.calculate_emissions(
-            row_dict, vehicle_dict, pollutant, emission_factor_data=emission_factor_data, v=20)
-        self.assertEqual(emissions_expected_speed_20, emissions_actual)
+            row_dict, vehicle_dict, pollutants, emission_factor_data=emission_factor_data, v=20)
+        self.assertEqual(emissions_expected_speed_20, emissions_actual["PollutantType.NOx"])
 
         emissions_expected_speed_10 = {
             "vehA": 146.92857142857142,
@@ -57,8 +57,8 @@ class TestCopertHotFixedSpeedStrategy(TestCase):
         }
         strategy = CopertHotFixedSpeedStrategy()
         emissions_actual = strategy.calculate_emissions(
-            row_dict, vehicle_dict, pollutant, emission_factor_data=emission_factor_data)
-        self.assertEqual(emissions_expected_speed_10, emissions_actual)
+            row_dict, vehicle_dict, pollutants, emission_factor_data=emission_factor_data)
+        self.assertEqual(emissions_expected_speed_10, emissions_actual["PollutantType.NOx"])
 
 if __name__ == '__main__':
     main()

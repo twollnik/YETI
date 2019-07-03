@@ -20,10 +20,10 @@ class TestUnifiedDataToEmissions(TestCase):
 
     def test_unified_data_to_emissions(self):
 
-        emissions_file = StrategyInvoker().calculate_and_save_emissions(
+        StrategyInvoker().calculate_and_save_emissions(
             save_interval_in_rows=2,
             emissions_output_folder="temp",
-            pollutant="PollutantType.NOx",
+            pollutants=["PollutantType.NOx"],
             Strategy=CopertHotStrategy,
             link_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/link_data.csv"),
             traffic_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/traffic_data.csv"),
@@ -32,7 +32,7 @@ class TestUnifiedDataToEmissions(TestCase):
             los_speeds_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/los_speeds_data.csv")
         )
 
-        emissions_actual = pd.read_csv(emissions_file)
+        emissions_actual = pd.read_csv("temp/PollutantType.NOx_emissions.csv")
         shutil.rmtree("temp")
         emissions_expected = pd.read_csv(f'{self.init_path}/test_data/emissions_expected.csv')
 
