@@ -30,13 +30,14 @@ class TestScript(TestCase):
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir(f"./output_mode_input_data/"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/run_info.txt"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/PollutantType.NOx_emissions.csv"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_emission_factors.csv"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_los_speeds.csv"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_vehicle_data.csv"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_link_data.csv"))
-        self.assertTrue(os.path.isfile(f"./output_mode_input_data/unified_traffic_data.csv"))
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/run_info.txt")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/PollutantType.CO_emissions.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/PollutantType.NOx_emissions.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_emission_factors.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_los_speeds.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_vehicle_data.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_link_data.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_traffic_data.csv")
 
         logging.warning.assert_not_called()
 
@@ -54,12 +55,13 @@ class TestScript(TestCase):
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir(f"output_hbefa/"))
-        self.assertTrue(os.path.isfile(f"output_hbefa/run_info.txt"))
-        self.assertTrue(os.path.isfile(f"output_hbefa/PollutantType.NOx_emissions.csv"))
-        self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_emission_factors.csv"))
-        self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_vehicle_data.csv"))
-        self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_link_data.csv"))
-        self.assertTrue(os.path.isfile(f"./temp_unified_data/unified_traffic_data.csv"))
+        assert_file_exists_and_not_empty(f"output_hbefa/run_info.txt")
+        assert_file_exists_and_not_empty(f"output_hbefa/PollutantType.CO_emissions.csv")
+        assert_file_exists_and_not_empty(f"output_hbefa/PollutantType.NOx_emissions.csv")
+        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_emission_factors.csv")
+        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_vehicle_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_link_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_traffic_data.csv")
 
         logging.warning.assert_not_called()
 
@@ -76,8 +78,9 @@ class TestScript(TestCase):
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir(f"output_copert_with_speed/"))
-        self.assertTrue(os.path.isfile(f"output_copert_with_speed/run_info.txt"))
-        self.assertTrue(os.path.isfile(f"output_copert_with_speed/PollutantType.NOx_emissions.csv"))
+        assert_file_exists_and_not_empty(f"output_copert_with_speed/run_info.txt")
+        assert_file_exists_and_not_empty(f"output_copert_with_speed/PollutantType.CO_emissions.csv")
+        assert_file_exists_and_not_empty(f"output_copert_with_speed/PollutantType.NOx_emissions.csv")
 
         logging.warning.assert_called_once()
 
@@ -94,14 +97,20 @@ class TestScript(TestCase):
         execfile(f"../../run_yeti.py")
 
         self.assertTrue(os.path.isdir("output_copert_cold/"))
-        self.assertTrue(os.path.isfile("output_copert_cold/run_info.txt"))
-        self.assertTrue(os.path.isfile("output_copert_cold/PollutantType.NOx_cold_emissions.csv"))
-        self.assertTrue(os.path.isfile("output_copert_cold/PollutantType.NOx_hot_emissions.csv"))
-        self.assertTrue(os.path.isfile("output_copert_cold/PollutantType.NOx_total_emissions.csv"))
+        assert_file_exists_and_not_empty("output_copert_cold/run_info.txt")
+        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_cold_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_hot_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_total_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_cold_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_hot_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_total_emissions.csv")
 
         for file in ["output_copert_cold/PollutantType.NOx_cold_emissions.csv",
                      "output_copert_cold/PollutantType.NOx_hot_emissions.csv",
-                     "output_copert_cold/PollutantType.NOx_total_emissions.csv"]:
+                     "output_copert_cold/PollutantType.NOx_total_emissions.csv",
+                     "output_copert_cold/PollutantType.CO_cold_emissions.csv",
+                     "output_copert_cold/PollutantType.CO_hot_emissions.csv",
+                     "output_copert_cold/PollutantType.CO_total_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
                 self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
@@ -145,7 +154,7 @@ class TestScript(TestCase):
         sys.argv = f"run_yeti.py -c test_config6.yaml".split()
         execfile(f"../../run_yeti.py")
 
-        num_lines = sum(1 for line in open("output_config6/PollutantType.NOx_emissions.csv"))
+        num_lines = get_line_count("output_config6/PollutantType.NOx_emissions.csv")
 
         self.assertEqual(6, num_lines)
 
@@ -160,6 +169,22 @@ def execfile(filepath, globals=None, locals=None):
     with open(filepath, 'rb') as file:
         exec(compile(file.read(), filepath, 'exec'), globals, locals)
 
+
+def assert_file_exists_and_not_empty(filename):
+
+    if os.path.isfile(filename) is False:
+        raise AssertionError(f"The file {filename} does not exist. It should have been created by the test.")
+
+    lines = get_line_count(filename)
+    if lines < 3:
+        raise AssertionError(f"The file {filename} is too short. It is expected to include more content. "
+                             f"(Length: {lines} lines)")
+
+
+def get_line_count(filename):
+
+    with open(filename) as fp:
+        return len(fp.readlines())
 
 if __name__ == '__main__':
     main()

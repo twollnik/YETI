@@ -1,28 +1,28 @@
 Pollutant,TrafficSituation,VehicleName,EF
-PollutantType.NOx,URB/MW-City/100/Freeflow,pc vehicle_a, 5
-PollutantType.NOx,URB/MW-City/100/Heavy,pc vehicle_a, 4
-PollutantType.NOx,URB/MW-City/100/Satur.,pc vehicle_a, 3
-PollutantType.NOx,URB/MW-City/100/St+Go,pc vehicle_a, 2
-PollutantType.NOx,RUR/Distr/80/Freeflow,pc vehicle_a, 1
-PollutantType.NOx,RUR/Distr/80/Heavy,pc vehicle_a, 0
-PollutantType.NOx,RUR/Distr/80/Satur.,pc vehicle_a, 1
-PollutantType.NOx,RUR/Distr/80/St+Go,pc vehicle_a, 1
-PollutantType.PM_Exhaust,URB/MW-City/100/Freeflow,pc vehicle_a,7
-PollutantType.PM_Exhaust,URB/MW-City/100/Heavy,pc vehicle_a,6
-PollutantType.PM_Exhaust,URB/MW-City/100/Satur.,pc vehicle_a,5
-PollutantType.PM_Exhaust,URB/MW-City/100/St+Go,pc vehicle_a,4
-PollutantType.PM_Exhaust,RUR/Distr/80/Freeflow,pc vehicle_a,3
-PollutantType.PM_Exhaust,RUR/Distr/80/Heavy,pc vehicle_a,2
-PollutantType.PM_Exhaust,RUR/Distr/80/Satur.,pc vehicle_a,1
-PollutantType.PM_Exhaust,RUR/Distr/80/St+Go,pc vehicle_a,0
-PollutantType.NOx,URB/MW-City/100/Freeflow,lcv vehicle_b,7
-PollutantType.NOx,URB/MW-City/100/Heavy,lcv vehicle_b,8
-PollutantType.NOx,URB/MW-City/100/Satur.,lcv vehicle_b,9
-PollutantType.NOx,URB/MW-City/100/St+Go,lcv vehicle_b,10
-PollutantType.NOx,RUR/Distr/80/Freeflow,lcv vehicle_b,11
-PollutantType.NOx,RUR/Distr/80/Heavy,lcv vehicle_b,10
-PollutantType.NOx,RUR/Distr/80/Satur.,lcv vehicle_b,9
-PollutantType.NOx,RUR/Distr/80/St+Go,lcv vehicle_b,8
+PollutantType.NOx,URB/MW-City/100/Freeflow,pc vehicle_a,5.0
+PollutantType.NOx,URB/MW-City/100/Heavy,pc vehicle_a,4.0
+PollutantType.NOx,URB/MW-City/100/Satur.,pc vehicle_a,3.0
+PollutantType.NOx,URB/MW-City/100/St+Go,pc vehicle_a,2.0
+PollutantType.NOx,RUR/Distr/80/Freeflow,pc vehicle_a,1.0
+PollutantType.NOx,RUR/Distr/80/Heavy,pc vehicle_a,0.0
+PollutantType.NOx,RUR/Distr/80/Satur.,pc vehicle_a,1.0
+PollutantType.NOx,RUR/Distr/80/St+Go,pc vehicle_a,1.0
+PollutantType.PM_Exhaust,URB/MW-City/100/Freeflow,pc vehicle_a,7.0
+PollutantType.PM_Exhaust,URB/MW-City/100/Heavy,pc vehicle_a,6.0
+PollutantType.PM_Exhaust,URB/MW-City/100/Satur.,pc vehicle_a,5.0
+PollutantType.PM_Exhaust,URB/MW-City/100/St+Go,pc vehicle_a,4.0
+PollutantType.PM_Exhaust,RUR/Distr/80/Freeflow,pc vehicle_a,3.0
+PollutantType.PM_Exhaust,RUR/Distr/80/Heavy,pc vehicle_a,2.0
+PollutantType.PM_Exhaust,RUR/Distr/80/Satur.,pc vehicle_a,1.0
+PollutantType.PM_Exhaust,RUR/Distr/80/St+Go,pc vehicle_a,0.0
+PollutantType.NOx,URB/MW-City/100/Freeflow,lcv vehicle_b,7.0
+PollutantType.NOx,URB/MW-City/100/Heavy,lcv vehicle_b,8.0
+PollutantType.NOx,URB/MW-City/100/Satur.,lcv vehicle_b,9.0
+PollutantType.NOx,URB/MW-City/100/St+Go,lcv vehicle_b,10.0
+PollutantType.NOx,RUR/Distr/80/Freeflow,lcv vehicle_b,11.0
+PollutantType.NOx,RUR/Distr/80/Heavy,lcv vehicle_b,10.0
+PollutantType.NOx,RUR/Distr/80/Satur.,lcv vehicle_b,9.0
+PollutantType.NOx,RUR/Distr/80/St+Go,lcv vehicle_b,8.0
 PollutantType.PM_Exhaust,URB/MW-City/100/Freeflow,lcv vehicle_b,0.1
 PollutantType.PM_Exhaust,URB/MW-City/100/Heavy,lcv vehicle_b,0.2
 PollutantType.PM_Exhaust,URB/MW-City/100/Satur.,lcv vehicle_b,0.3
@@ -31,3 +31,19 @@ PollutantType.PM_Exhaust,RUR/Distr/80/Freeflow,lcv vehicle_b,0.5
 PollutantType.PM_Exhaust,RUR/Distr/80/Heavy,lcv vehicle_b,0.6
 PollutantType.PM_Exhaust,RUR/Distr/80/Satur.,lcv vehicle_b,0.7
 PollutantType.PM_Exhaust,RUR/Distr/80/St+Go,lcv vehicle_b,0.8
+PollutantType.CO,URB/MW-City/100/Freeflow,pc vehicle_a,5.0
+PollutantType.CO,URB/MW-City/100/Heavy,pc vehicle_a,4.0
+PollutantType.CO,URB/MW-City/100/Satur.,pc vehicle_a,3.0
+PollutantType.CO,URB/MW-City/100/St+Go,pc vehicle_a,2.0
+PollutantType.CO,RUR/Distr/80/Freeflow,pc vehicle_a,1.0
+PollutantType.CO,RUR/Distr/80/Heavy,pc vehicle_a,0.0
+PollutantType.CO,RUR/Distr/80/Satur.,pc vehicle_a,1.0
+PollutantType.CO,RUR/Distr/80/St+Go,pc vehicle_a,1.0
+PollutantType.CO,URB/MW-City/100/Freeflow,lcv vehicle_b,0.1
+PollutantType.CO,URB/MW-City/100/Heavy,lcv vehicle_b,0.2
+PollutantType.CO,URB/MW-City/100/Satur.,lcv vehicle_b,0.3
+PollutantType.CO,URB/MW-City/100/St+Go,lcv vehicle_b,0.4
+PollutantType.CO,RUR/Distr/80/Freeflow,lcv vehicle_b,0.5
+PollutantType.CO,RUR/Distr/80/Heavy,lcv vehicle_b,0.6
+PollutantType.CO,RUR/Distr/80/Satur.,lcv vehicle_b,0.7
+PollutantType.CO,RUR/Distr/80/St+Go,lcv vehicle_b,0.8
