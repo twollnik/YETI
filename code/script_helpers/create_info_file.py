@@ -3,13 +3,6 @@ import os
 
 def create_info_file(file: str, timestamp, mode, start_time, end_time, config_dict):
 
-    info_text = get_info_text_by_mode(mode, timestamp, start_time, end_time, config_dict)
-    with open(file, "w") as fp:
-        fp.write(info_text)
-
-
-def get_info_text_by_mode(mode, timestamp, start_time, end_time, config_dict):
-
     newline = "\n"
 
     pollutants = config_dict["pollutants"]
@@ -60,4 +53,5 @@ def get_info_text_by_mode(mode, timestamp, start_time, end_time, config_dict):
     else:
         raise RuntimeError(f"mode {mode} is not recognized. Please use 'unified_data' or 'input_data'.")
 
-    return info_text
+    with open(file, "w") as fp:
+        fp.write(info_text)
