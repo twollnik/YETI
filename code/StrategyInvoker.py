@@ -58,7 +58,6 @@ class StrategyInvoker:
                 self.save_emissions()
 
         self.save_emissions()
-        return self.output_file
 
     def initialize(self, emissions_output_folder, **kwargs):
 
@@ -103,12 +102,9 @@ class StrategyInvoker:
 
     def get_output_file_name(self, output_folder):
 
-        timestamp = datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
-        output_file = f"{output_folder}/emissions_{self.pollutant}_{timestamp}.csv"
-
+        output_file = f"{output_folder}/emissions.csv"
         if not os.path.isdir(output_folder):
             os.mkdir(output_folder)
-
         return output_file
 
     def traffic_and_link_data_rows(self):

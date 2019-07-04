@@ -23,7 +23,7 @@ input_traffic_data:         ../test_data/input_data/traffic_data.csv
 
 load_factor:                0.3
 
-pollutant:                  PollutantType.PM_Non_Exhaust
+pollutants:                 [PollutantType.PM_Non_Exhaust]
 strategy:                   code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
 load_input_data_function:        code.pm_non_exhaust_strategy.load_input_data.load_pm_non_exhaust_input_data
 load_unified_data_function:      code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data

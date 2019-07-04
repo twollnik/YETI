@@ -4,7 +4,8 @@ HbefaHotStrategy
 This Module implements emission calculation with the HBEFA methodology for hot exhaust emissions.
 It works with emission factors that are dependent on the vehicle and the traffic situation.
 """
-from typing import Any, Dict
+from typing import Any, Dict, List
+import collections
 
 from code.constants.mappings import ROAD_CAT_FROM_ENUM
 
@@ -33,23 +34,23 @@ class HbefaHotStrategy:
     def __init__(self, **kwargs):
 
         self.ef_dict = None
-        self.emissions = {}
+        self.emissions = collections.defaultdict(dict)
 
     def calculate_emissions(self,
                             traffic_and_link_data_row: Dict[str, Any],
                             vehicle_dict: Dict[str, str],
-                            pollutant: str,
+                            pollutants: List[str],
                             **kwargs):
-
 
         self.initialize_if_necessary(**kwargs)
         self.delete_emissions_from_last_call_to_this_function()
 
         traffic_situation = self.get_traffic_situation(traffic_and_link_data_row)
 
-        for vehicle_name, vehicle_category in vehicle_dict.items():
-            self.calculate_emissions_for_vehicle(
-                traffic_and_link_data_row, vehicle_name, traffic_situation, pollutant, **kwargs)
+        for pollutant in pollutants:
+            for vehicle_name, vehicle_category in vehicle_dict.items():
+                self.calculate_emissions_for_vehicle(
+                    traffic_and_link_data_row, vehicle_name, traffic_situation, pollutant, **kwargs)
 
         return self.emissions
 
@@ -72,7 +73,7 @@ class HbefaHotStrategy:
 
     def delete_emissions_from_last_call_to_this_function(self):
 
-        self.emissions = {}
+        self.emissions = collections.defaultdict(dict)
 
     def calculate_emissions_for_vehicle(self, traffic_and_link_data_row, vehicle_name, traffic_situation, pollutant,
                                         **kwargs):
@@ -91,7 +92,7 @@ class HbefaHotStrategy:
             ef += traffic_and_link_data_row[los_perc_col] * ef_for_los
 
         emissions = ef * traffic_and_link_data_row["Length"] * traffic_and_link_data_row[vehicle_name]
-        self.emissions[vehicle_name] = emissions
+        self.emissions[pollutant][vehicle_name] = emissions
 
     def get_traffic_situation(self, row) -> str:
 

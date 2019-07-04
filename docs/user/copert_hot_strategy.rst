@@ -107,7 +107,7 @@ This dataset contains the necessary attributes to calculate speed dependent emis
 to be used in the calculation of hot exhaust emissions according to
 `EEA methodology <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_.
 
-Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+Note that this dataset needs to contain values for the pollutants you are using, otherwise you
 will encounter errors in the emission calculation.
 
 *Example*:
@@ -261,7 +261,7 @@ and will take precedence over the emission factor calculation with the copert me
 use fixed emission factors for some vehicles and speed-depend emission factors for other vehicles, you can
 leave the EF blank for the vehicles that you want to use speed-dependent copert emission factors for.
 
-Note that this dataset needs to contain values for the pollutant you are using, otherwise you
+Note that this dataset needs to contain values for the pollutants you are using, otherwise you
 will encounter errors in the emission calculation.
 
 - *VehicleName*: The name of a vehicle class. Needs to match the vehicle names in ``unified vehicle data >> VehicleName``
@@ -301,14 +301,19 @@ CopertHotStrategy supports these pollutants:
 
 .. code-block:: yaml
 
-    # add one of the following lines to your config.yaml
-    pollutant:  PollutantType.NOx
-    pollutant:  PollutantType.CO
-    pollutant:  PollutantType.NH3
-    pollutant:  PollutantType.VOC
-    pollutant:  PollutantType.PM_Exhaust
+    PollutantType.NOx
+    PollutantType.CO
+    PollutantType.NH3
+    PollutantType.VOC
+    PollutantType.PM_Exhaust
 
-Make sure to include emission factors for the pollutant you are using in the emission factor data.
+Set the pollutants for a run in your config file. For example:
+
+.. code-block:: yaml
+
+    pollutants:          [PollutantType.CO, PollutantType.NOx]
+
+Make sure to include emission factors for the pollutants you are using in the emission factor data.
 
 What to put in the config.yaml
 ------------------------------

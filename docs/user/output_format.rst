@@ -28,5 +28,11 @@ Note that the emission columns match the vehicle names given in the fleet compos
 Output location
 ---------------
 
-In the config file you specify an ``output_folder``. The model outputs will be in the specified ``output_folder`` in
-files following this naming convention: ``{optional prefix if there are multiple output files}_PollutantType.{pollutant}_{timestamp}.csv``.
+In the config file you specify an ``output_folder``. The model outputs will be in the specified ``output_folder``.
+
+unified_data files
+------------------
+
+If you are using mode input_data, YETI generates files in unifed_data format during the run. These files are saved
+in ``output_folder``. If you specify ``output_folder_for_unified_data`` in the config file, the unified_data
+files will be in ``output_folder_for_unified_data`` instead.

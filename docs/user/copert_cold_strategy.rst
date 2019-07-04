@@ -80,10 +80,17 @@ Supported Pollutants
 
 .. code-block:: yaml
 
-    # add one of the following lines to your config.yaml
-    pollutant:  PollutantType.CO
-    pollutant:  PollutantType.NOx
-    pollutant:  PollutantType.VOC
+    PollutantType.CO
+    PollutantType.NOx
+    PollutantType.VOC
+
+Set the pollutants for a run in your config file. For example:
+
+.. code-block:: yaml
+
+    pollutants:          [PollutantType.CO, PollutantType.NOx]
+
+Make sure to include emission factors for the pollutants you are using in the emission factor data.
 
 What to put in the config.yaml
 ------------------------------

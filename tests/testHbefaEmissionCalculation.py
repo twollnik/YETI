@@ -17,10 +17,10 @@ class testHbefaEmissionCalculation(TestCase):
         else:
             self.init_path = "."
 
-        emissions_file = StrategyInvoker().calculate_and_save_emissions(
+        StrategyInvoker().calculate_and_save_emissions(
             save_interval_in_rows=5,
             emissions_output_folder="temp",
-            pollutant="PollutantType.NOx",
+            pollutants=["PollutantType.NOx"],
             Strategy=HbefaHotStrategy,
             calculate_emissions=HbefaHotStrategy().calculate_emissions,
             link_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/link_data.csv"),
@@ -29,7 +29,7 @@ class testHbefaEmissionCalculation(TestCase):
             emission_factor_data=pd.read_csv(f"{self.init_path}/test_data/unified_data/hbefa_ef_data.csv")
         )
 
-        emissions_actual = pd.read_csv(emissions_file)
+        emissions_actual = pd.read_csv("temp/PollutantType.NOx_emissions.csv")
         shutil.rmtree("temp")
 
         emissions_expected = pd.read_csv(f'{self.init_path}/test_data/emissions_expected_hbefa_ef.csv')

@@ -65,7 +65,7 @@ We have included example configuration files and example data for you to try out
 in the folder ``example/``. To run the demo, execute the following command on the command line from the
 repository root directory: ``python -m run_yeti -c example/example_configs/copert_hot_config.yaml``. Instead of the
 ``copert_hot_config.yaml`` you can use any of the
-`config files <https://iass-yeti.readthedocs.io/en/latest/user/config.html/>`_ in ``example/example_configs/``.
+`config files <https://iass-yeti.readthedocs.io/en/latest/user/config.html>`_ in ``example/example_configs/``.
 
 .. demo-end-do-not-remove
 .. usage-start-do-not-remove

@@ -3,8 +3,8 @@ CopertColdStrategy
 
 This module implements emission calculation with the COPERT methodology for cold start emissions.
 """
-from collections import defaultdict
-from typing import Any, Dict, Iterable, Tuple, Union
+from typing import Any, Dict, Iterable, Tuple, Union, List
+import collections
 
 import pandas as pd
 
@@ -61,10 +61,12 @@ class CopertColdStrategy:
         self.row = None
         self.hot_ef_dict = {}
 
+        self.emissions = collections.defaultdict(dict)
+
     def calculate_emissions(self,
                             traffic_and_link_data_row: Dict[str, Any],
                             vehicle_dict: Dict[str, str],
-                            pollutant: str,
+                            pollutants: List[str],
                             **kwargs):
         """
         required kwargs:
@@ -85,19 +87,25 @@ class CopertColdStrategy:
 
         self.initialize_if_necessary(kwargs, vehicle_dict)
         self.store_row_data_in_attribute(traffic_and_link_data_row)
+        self.delete_emissions_from_last_call_to_this_function()
 
-        hot_emissions = self.calculate_hot_emissions(pollutant)
-        hot_ef_dict = self.get_hot_ef_from_hot_emissions(hot_emissions)
+        hot_emissions = self.calculate_hot_emissions(pollutants)
 
-        if self.should_exclude_link_from_cold_emission_calculation(**kwargs) or self.temperature_is_very_high():
-            cold_emissions = self.zero_emissions_for_all_vehicles()
-        else:
-            cold_emissions = self.calculate_cold_emissions(pollutant, hot_ef_dict)
+        for pollutant in pollutants:
 
-        total_emissions = self.calculate_total_emissions(hot_emissions, cold_emissions)
-        emissions = self.join_emissions_into_one_dict(hot_emissions, cold_emissions, total_emissions)
+            hot_emissions_for_pollutant = hot_emissions[pollutant]
+            hot_ef_dict = self.get_hot_ef_from_hot_emissions(hot_emissions_for_pollutant)
 
-        return emissions
+            if self.should_exclude_link_from_cold_emission_calculation(**kwargs) or self.temperature_is_very_high():
+                cold_emissions = self.zero_emissions_for_all_vehicles()
+            else:
+                cold_emissions = self.calculate_cold_emissions(pollutant, hot_ef_dict)
+
+            total_emissions = self.calculate_total_emissions(hot_emissions_for_pollutant, cold_emissions)
+            self.add_emissions_to_assembly_attribute(pollutant, hot_emissions_for_pollutant, cold_emissions, total_emissions)
+
+
+        return self.emissions
 
     def initialize_if_necessary(self, kwargs, vehicle_dict):
 
@@ -153,7 +161,7 @@ class CopertColdStrategy:
     def initialize_ABC_dict_if_necessary(self, cold_ef_table: pd.DataFrame):
 
         if self.ABC_dict is None:
-            ABC_dict = defaultdict(list)
+            ABC_dict = collections.defaultdict(list)
             for row in cold_ef_table.fillna(1000).itertuples():
                 if row.MinTemp <= self.temperature <= row.MaxTemp:
                     ABC_dict[(row.VehSegment, row.Pollutant)].append(row)
@@ -207,6 +215,10 @@ class CopertColdStrategy:
 
         self.row = row
 
+    def delete_emissions_from_last_call_to_this_function(self):
+
+        self.emissions = collections.defaultdict(dict)
+
     def get_hot_ef_from_hot_emissions(self, hot_emissions: Dict[str, float]) -> Dict[str, float]:
         """Calculate the hot ef using the formula 'hot ef = hot emissions / link length / vehicle count' """
 
@@ -221,16 +233,16 @@ class CopertColdStrategy:
 
         return hot_ef
 
-    def join_emissions_into_one_dict(
-            self, hot_emissions: Dict[str, float],
+    def add_emissions_to_assembly_attribute(
+            self,
+            pollutant: str,
+            hot_emissions: Dict[str, float],
             cold_emissions: Dict[str, float],
             total_emissions: Dict[str, float]) -> Dict[str, Dict[str, float]]:
 
-        return {
-            "cold": cold_emissions,
-            "hot": hot_emissions,
-            "total": total_emissions
-        }
+        self.emissions[f"{pollutant}_hot"] = hot_emissions
+        self.emissions[f"{pollutant}_cold"] = cold_emissions
+        self.emissions[f"{pollutant}_total"] = total_emissions
 
     def should_exclude_link_from_cold_emission_calculation(self, **kwargs) -> bool:
 
@@ -297,7 +309,7 @@ class CopertColdStrategy:
         else:
             self.vehicles_lcv_diesel.append(veh_name)
 
-    def calculate_hot_emissions(self, pollutant: str) -> Dict[str, float]:
+    def calculate_hot_emissions(self, pollutant: str) -> Dict[str, Dict[str, float]]:
 
         return self.hot_strategy.calculate_emissions(
             self.row, self.vehicle_dict, pollutant, los_speeds_data=self.los_speeds_data,

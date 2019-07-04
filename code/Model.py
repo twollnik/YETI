@@ -46,7 +46,7 @@ class Model:
         self.log_step("Loading unified_data.")
         unified_data_dataframes = self.load_unified_data(unified_file_locations)
 
-        self.log_step(f"Calculating emissions for pollutant {self.config_dict['pollutant']}.")
+        self.log_step("Calculating emissions.")
         self.calculate_emissions_with_user_defined_strategy(unified_data_dataframes)
 
         self.log_step("Creating 'run_info.txt'.")
@@ -93,7 +93,7 @@ class Model:
 
     def log_run_information(self):
 
-        pollutant = self.config_dict["pollutant"]
+        pollutants = self.config_dict["pollutants"]
         strategy = self.config_dict["strategy"]
         load_input_data_function = self.config_dict["load_input_data_function"]
         load_unified_data_function = self.config_dict["load_unified_data_function"]
@@ -101,7 +101,7 @@ class Model:
 
         logging.info(
             f"The config file for this run is: {os.path.abspath(self.config_file)}\n"
-            f"pollutant: {pollutant}\n"
+            f"pollutants: {pollutants}\n"
             f"mode: {self.mode}\n"
             f"strategy: {strategy}\n"
             f"load_input_data_function: {load_input_data_function}\n"

@@ -7,7 +7,8 @@ It uses speed-dependent emission factors based on
 - the los percentages and
 - the los speeds attributed to the links.
 """
-from typing import Any, Dict
+from typing import Any, Dict, List
+import collections
 
 import pandas as pd
 
@@ -41,20 +42,21 @@ class CopertHotStrategy:
         self.los_speeds_dict = None
         self.ef_dict = None
 
-        self.emissions = {}
+        self.emissions = collections.defaultdict(dict)
 
     def calculate_emissions(self,
                             traffic_and_link_data_row: Dict[str, Any],
                             vehicle_dict: Dict[str, str],
-                            pollutant: str,
+                            pollutants: List[str],
                             **kwargs):
 
         self.initialize_if_necessary(kwargs)
         self.delete_emissions_from_last_call_to_this_function()
 
-        for vehicle_name, vehicle_category in vehicle_dict.items():
-            self.calculate_emissions_for_vehicle(
-                traffic_and_link_data_row, vehicle_name, vehicle_category, pollutant, **kwargs)
+        for pollutant in pollutants:
+            for vehicle_name, vehicle_category in vehicle_dict.items():
+                self.calculate_emissions_for_vehicle(
+                    traffic_and_link_data_row, vehicle_name, vehicle_category, pollutant, **kwargs)
 
         return self.emissions
 
@@ -89,7 +91,7 @@ class CopertHotStrategy:
 
     def delete_emissions_from_last_call_to_this_function(self):
 
-        self.emissions = {}
+        self.emissions = collections.defaultdict(dict)
 
     def calculate_emissions_for_vehicle(
             self, traffic_and_link_data_row, vehicle_name, vehicle_category, pollutant, **kwargs):
@@ -106,7 +108,7 @@ class CopertHotStrategy:
         vehicle_count = traffic_and_link_data_row[vehicle_name]
         emissions = ef * link_length * vehicle_count
 
-        self.emissions[vehicle_name] = emissions
+        self.emissions[pollutant][vehicle_name] = emissions
 
     def get_ef(self, row: Dict[str, Any], vehicle_name: str, pollutant: str, los_speeds: Dict[str, float]) -> float:
 

@@ -4,7 +4,7 @@ PMNonExhaustStrategy
 This module implements emission calculation for PM from non-exhaust emissions.
 Sources for PM non-exhaust emissions are tyre wear, brake wear and road surface emissions.
 """
-from typing import Any, Dict, Iterable, Tuple
+from typing import Any, Dict, Iterable, Tuple, List
 
 
 class PMNonExhaustStrategy:
@@ -50,7 +50,7 @@ class PMNonExhaustStrategy:
     def calculate_emissions(self,
                             traffic_and_link_data_row: Dict[str, Any],
                             vehicle_dict: Dict[str, str],
-                            pollutant: str,
+                            pollutants: List[str],
                             **kwargs) -> Dict[str, Dict[str, float]]:
 
         self.initialize_if_necessary(vehicle_dict, **kwargs)

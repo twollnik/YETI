@@ -17,7 +17,7 @@ run_history:                ./run_history.json
 
 # ------ run configurations -------
 
-pollutant:                  PollutantType.NOx
+pollutants:                 [PollutantType.NOx, PollutantType.CO]
 strategy:                   code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
 load_input_data_function:        code.copert_hot_fixed_speed_strategy.load_input_data.load_copert_fixed_speed_input_data
 load_unified_data_function:      code.copert_hot_fixed_speed_strategy.load_unified_data.load_copert_fixed_speed_unified_data
