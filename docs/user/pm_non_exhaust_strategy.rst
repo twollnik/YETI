@@ -8,7 +8,7 @@ It uses a global assumption about the load_factor for trucks. You need to specif
 in the configuration file as a number between 0 and 1.
 
 This Strategy calculates TSP, PM 10, and PM 2.5 emissions independently
-for tyre wear, brake wear, and road surface wear. Then it will add up the emissions
+for tyre wear, brake wear, and road surface wear. Then it adds up the emissions
 from all sources to obtain total PM non-exhaust emissions for TSP, PM 10, and PM 2.5. 
 
 Output of a model run with this Strategy are three csv files:
