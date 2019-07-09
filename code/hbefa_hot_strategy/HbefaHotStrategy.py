@@ -48,7 +48,7 @@ class HbefaHotStrategy:
         traffic_situation = self.get_traffic_situation(traffic_and_link_data_row)
 
         for pollutant in pollutants:
-            for vehicle_name, vehicle_category in vehicle_dict.items():
+            for vehicle_name in vehicle_dict.keys():
                 self.calculate_emissions_for_vehicle(
                     traffic_and_link_data_row, vehicle_name, traffic_situation, pollutant, **kwargs)
 
