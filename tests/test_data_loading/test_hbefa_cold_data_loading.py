@@ -4,6 +4,7 @@ import shutil
 import pandas as pd
 
 from code.hbefa_cold_strategy.load_input_data import load_hbefa_cold_input_data
+from code.hbefa_cold_strategy.load_unified_data import load_hbefa_cold_unified_data
 from tests.helper import df_equal
 
 
@@ -22,7 +23,7 @@ class TestHbefaColdDataLoading(TestCase):
 
         shutil.rmtree(f"{self.init_path}/temp_for_hbefa_cold_data_loading_test")
 
-    def test(self):
+    def test_load_input_data(self):
 
         data_actual_file_locations = load_hbefa_cold_input_data(
             input_link_data=f'{self.init_path}/test_data/input_data/shape_data.csv',
@@ -50,6 +51,24 @@ class TestHbefaColdDataLoading(TestCase):
             pd.read_csv(data_actual_file_locations["unified_cold_starts_data"]),
             unified_cold_starts_expected))
 
+    def test_load_builder_data(self):
+
+        data_actual = load_hbefa_cold_unified_data(
+            unified_emission_factors=f'{self.init_path}/test_data/unified_data/hbefa_cold_starts_ef.csv',
+            unified_vehicle_data=f'{self.init_path}/test_data/unified_data/vehicle_data.csv',
+            unified_link_data=f'{self.init_path}/test_data/unified_data/link_data.csv',
+            unified_cold_starts_data=f'{self.init_path}/test_data/unified_data/cold_starts.csv'
+        )
+
+        unified_emission_factors_expected = pd.read_csv(f'{self.init_path}/test_data/unified_data/hbefa_cold_starts_ef.csv')
+        unified_vehicle_data_expected = pd.read_csv(f'{self.init_path}/test_data/unified_data/vehicle_data.csv')
+        unified_link_data_expected = pd.read_csv(f'{self.init_path}/test_data/unified_data/link_data.csv')
+        unified_cold_starts_expected = pd.read_csv(f'{self.init_path}/test_data/unified_data/cold_starts.csv')
+
+        self.assertTrue(df_equal(data_actual["link_data"], unified_link_data_expected))
+        self.assertTrue(df_equal(data_actual["vehicle_data"], unified_vehicle_data_expected))
+        self.assertTrue(df_equal(data_actual["cold_starts_data"], unified_cold_starts_expected))
+        self.assertTrue(df_equal(data_actual["emission_factor_data"], unified_emission_factors_expected))
 
 if __name__ == '__main__':
     main()
