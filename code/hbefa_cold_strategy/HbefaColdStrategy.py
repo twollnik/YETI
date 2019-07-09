@@ -1,8 +1,35 @@
+"""
+HbefaColdStrategy
+
+This Module implements emission calculation with the HBEFA methodology for cold start emissions.
+
+It uses fixed emission factors for each vehicle and pollutant. The emission factor for a vehicle
+"veh a" and a pollutant "poll" is the total amount of cold emissions emitted from "veh a" for a single
+cold start with respect to pollutant "poll".
+"""
 from typing import Dict, Any, List, Tuple
 import collections
 
 
 class HbefaColdStrategy:
+    """
+    Calculates cold emissions using the HBEFA methodology.
+
+    Attributes
+    ----------
+    cold_start_ef_for_vehicle_and_pollutant : Dict
+       Holds emission factor data in the format ``(VehicleName, Pollutant) -> emission factor
+       E.g. ("PC petrol <1.4L Euro-1", "PollutantType.NOx"): 0.76
+    emissions : Dict
+       Contains emission values and is used to assemble the output of ``calculate_emissions``.
+
+    Methods
+    -------
+    calculate_emissions
+       The main interface for this Strategy. calculate_emissions is called over and over during
+       a model run. Its job is to take a single row of the cold starts data (and some other parameters) and output
+       a single emissions row for each pollutant.
+    """
 
     def __init__(self):
 

@@ -12,24 +12,23 @@ from code.constants.mappings import ROAD_CAT_FROM_ENUM
 
 class HbefaHotStrategy:
     """
-   Calculates hot emissions using the HBEFA methodology.
+    Calculates hot emissions using the HBEFA methodology.
 
-   Attributes
-   ----------
-   ef_dict : Dict
+    Attributes
+    ----------
+    ef_dict : Dict
        Holds emission factor data in the format ``(Pollutant, TrafficSituation, VehicleName) -> emission factor
        E.g. ("PollutantType.NOx", "URB/MW-City/100/Freeflow", "PC petrol <1.4L Euro-1"): 0.76
-   emissions : Dict
+    emissions : Dict
        Contains emission values and is used to assemble the output of ``calculate_emissions``.
 
-   Methods
-   -------
-   calculate_emissions
+    Methods
+    -------
+    calculate_emissions
        The main interface for this Strategy. calculate_emissions is called over and over during
        a model run. Its job is to take a single traffic row (and some other parameters) and output
-       a single emissions row.
-
-   """
+       a single emissions row for each pollutant.
+    """
 
     def __init__(self, **kwargs):
 

@@ -23,7 +23,8 @@ class CopertColdStrategy:
     calculate_emissions
         The main interface for this Strategy. calculate_emissions is called over and over during
         a model run. Its job is to take a single traffic row (and some other parameters) and output
-        a single row of the cold emissions data, the hot emissions data, and the total emissions data.
+        a single row of the cold emissions data, the hot emissions data, and the total emissions data
+        for each pollutant.
 
     """
 
