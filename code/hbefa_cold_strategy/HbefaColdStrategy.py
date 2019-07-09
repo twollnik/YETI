@@ -36,9 +36,8 @@ class HbefaColdStrategy:
 
     def initialize(self, **kwargs):
 
-        for _, row in kwargs["cold_starts_data"].iterrows():
-            self.cold_start_ef_for_vehicle_and_pollutant[(row["VehicleName"], row["Pollutant"])] = row[
-                "EmissionsPerStart"]
+        for _, row in kwargs["emission_factor_data"].iterrows():
+            self.cold_start_ef_for_vehicle_and_pollutant[(row["VehicleName"], row["Pollutant"])] = row["EmissionsPerStart"]
 
     def delete_emissions_from_last_call_to_this_function(self):
 

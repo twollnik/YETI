@@ -24,7 +24,7 @@ class TestHbefaColdStrategy(TestCase):
         pollutants = ["PollutantType.NOx", "PollutantType.CO"]
 
         emissions_actual = strategy.calculate_emissions(
-            cold_starts_and_link_data_row, vehicle_dict, pollutants, cold_starts_data=cold_starts_data)
+            cold_starts_and_link_data_row, vehicle_dict, pollutants, emission_factor_data=cold_starts_data)
 
         emissions_expected = {
             "PollutantType.NOx": {
@@ -47,7 +47,7 @@ class TestHbefaColdStrategy(TestCase):
             "VehicleName": ["veh a", "veh b"],
             "EmissionsPerStart": [1, 2]
         })
-        strategy.initialize_if_necessary(cold_starts_data=cold_starts_data)
+        strategy.initialize_if_necessary(emission_factor_data=cold_starts_data)
 
         self.assertEqual(strategy.cold_start_ef_for_vehicle_and_pollutant[("veh a", "PollutantType.NOx")], 1)
         self.assertEqual(strategy.cold_start_ef_for_vehicle_and_pollutant[("veh b", "PollutantType.NOx")], 2)

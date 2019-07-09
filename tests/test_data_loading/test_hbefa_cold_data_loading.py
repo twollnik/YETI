@@ -67,7 +67,7 @@ class TestHbefaColdDataLoading(TestCase):
 
         self.assertTrue(df_equal(data_actual["link_data"], unified_link_data_expected))
         self.assertTrue(df_equal(data_actual["vehicle_data"], unified_vehicle_data_expected))
-        self.assertTrue(df_equal(data_actual["cold_starts_data"], unified_cold_starts_expected))
+        self.assertTrue(df_equal(data_actual["traffic_data"], unified_cold_starts_expected))
         self.assertTrue(df_equal(data_actual["emission_factor_data"], unified_emission_factors_expected))
 
 if __name__ == '__main__':
