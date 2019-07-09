@@ -75,6 +75,13 @@ class HbefaHotStrategy:
 
         self.emissions = collections.defaultdict(dict)
 
+    def get_traffic_situation(self, row) -> str:
+
+        road_type_hbefa = ROAD_CAT_FROM_ENUM[row["RoadType"]]
+        area_type_hbefa = "URB" if row["AreaType"] == "AreaType.Urban" else "RUR"
+
+        return f"{area_type_hbefa}/{road_type_hbefa}/{row['MaxSpeed']}"
+
     def calculate_emissions_for_vehicle(self, traffic_and_link_data_row, vehicle_name, traffic_situation, pollutant,
                                         **kwargs):
 
@@ -93,10 +100,3 @@ class HbefaHotStrategy:
 
         emissions = ef * traffic_and_link_data_row["Length"] * traffic_and_link_data_row[vehicle_name]
         self.emissions[pollutant][vehicle_name] = emissions
-
-    def get_traffic_situation(self, row) -> str:
-
-        road_type_hbefa = ROAD_CAT_FROM_ENUM[row["RoadType"]]
-        area_type_hbefa = "URB" if row["AreaType"] == "AreaType.Urban" else "RUR"
-
-        return f"{area_type_hbefa}/{road_type_hbefa}/{row['MaxSpeed']}"
