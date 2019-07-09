@@ -23,3 +23,6 @@ demo_copert_hot_fixed_speed:
 
 demo_pm_non_exhaust:
 	python3 -m run_yeti -c example/example_configs/pm_non_exhaust_config.yaml
+
+demo_hbefa_cold:
+	python3 -m run_yeti -c example/example_configs/hbefa_cold_config.yaml
