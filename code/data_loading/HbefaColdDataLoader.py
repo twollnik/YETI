@@ -1,9 +1,10 @@
 import pandas as pd
 from typing import Tuple
 
+from code.constants.enumerations import PollutantType
+from code.constants.column_names import *
 from code.data_loading.DataLoader import DataLoader
 from code.data_loading.TrafficDataLoader import TrafficDataLoader
-from code.constants.column_names import *
 
 
 class HbefaColdDataLoader(DataLoader):
@@ -32,7 +33,13 @@ class HbefaColdDataLoader(DataLoader):
                                   nh3_ef_data: pd.DataFrame,
                                   nh3_mapping_data: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
-        return ef_data.rename(columns={"VehName": "VehicleName"}), pd.DataFrame()
+        unified_ef_data = ef_data.rename(columns={"VehName": "VehicleName"})
+
+        # convert pollutants to PollutantType objects
+        unified_ef_data["Pollutant"] = unified_ef_data["Pollutant"].apply(
+            lambda poll: PollutantType.from_val(poll))
+
+        return unified_ef_data, pd.DataFrame()
 
     def load_traffic_data(self, fleet_comp_data, link_data, traffic_data):
         # Note that traffic_data contains the cold starts data.

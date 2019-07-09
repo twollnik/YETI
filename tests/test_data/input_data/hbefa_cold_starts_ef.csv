@@ -1,3 +1,5 @@
-VehName,EmissionsPerStart
-pc vehicle_a,2
-lcv vehicle_b,4
+VehName,Pollutant,EmissionsPerStart
+pc vehicle_a,NOx,2
+lcv vehicle_b,NOx,4
+pc vehicle_a,CO,5
+lcv vehicle_b,CO,10
