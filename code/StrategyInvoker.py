@@ -7,9 +7,10 @@ This module is facilitates the invocation of the Strategy. It
   once for each row in the traffic dataset
 - saves the emissions returned from the Strategy to disc
 """
+from collections import OrderedDict
+
 import logging
 import os
-
 import pandas as pd
 
 
@@ -179,18 +180,8 @@ class StrategyInvoker:
 
         names = self.get_emission_dicts_names()
         for name in names:
-            emission_data = pd.DataFrame([
-                {
-                    **item[name],
-                    "LinkID": item["LinkID"],
-                    "DayType": item["DayType"],
-                    "Dir": item["Dir"],
-                    "Hour": item["Hour"]
-                }
-                for item in self.emissions_store
-            ])
-            folder, _, file = self.output_file.rpartition("/")
-            output_file = f"{folder}/{name}_{file}"
+            emission_data = self.assemble_dataframe_with_emissions_for_name(name)
+            output_file = self.get_output_file_for_emissions_for_name(name)
             self.save_dataframe_to_file(emission_data, output_file)
 
     def get_emission_dicts_names(self):
@@ -200,6 +191,26 @@ class StrategyInvoker:
             if isinstance(self.emissions_store[0][key], dict)
         ]
         return names
+
+    def assemble_dataframe_with_emissions_for_name(self, name):
+
+        emission_data = pd.DataFrame([
+            OrderedDict({
+                "LinkID": item["LinkID"],
+                "DayType": item["DayType"],
+                "Dir": item["Dir"],
+                "Hour": item["Hour"],
+                **item[name]
+            })
+            for item in self.emissions_store
+        ])
+        return emission_data
+
+    def get_output_file_for_emissions_for_name(self, name):
+
+        folder, _, file = self.output_file.rpartition("/")
+        output_file = f"{folder}/{name}_{file}"
+        return output_file
 
     def save_dataframe_to_file(self, data, file):
 

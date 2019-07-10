@@ -113,7 +113,7 @@ class TestScript(TestCase):
                      "output_copert_cold/PollutantType.CO_total_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
-                self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
+                self.assertEqual(file_header.split(',')[:4], ["LinkID", "DayType", "Dir", "Hour"])
 
         logging.warning.assert_not_called()
 
@@ -140,7 +140,7 @@ class TestScript(TestCase):
                      "output_pm_non_exhaust/PM25_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
-                self.assertTrue(all(col in file_header for col in ["LinkID", "DayType", "Dir", "Hour"]))
+                self.assertEqual(file_header.split(',')[:4], ["LinkID", "DayType", "Dir", "Hour"])
 
         logging.warning.assert_not_called()
 
