@@ -5,12 +5,11 @@
 mode:                       input_data  # feel free to change the mode to unified_data. (Don't forget to change the validation function)
 
 pollutants:                 [PollutantType.PM_Non_Exhaust]
-strategy:                   code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
-load_input_data_function:        code.pm_non_exhaust_strategy.load_input_data.load_pm_non_exhaust_input_data
-load_unified_data_function:      code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data
-validation_function:        code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_input_files
 
-output_folder:              example_output_pm_non_exhaust
+strategy:                   code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
+load_input_data_function:   code.pm_non_exhaust_strategy.load_input_data.load_pm_non_exhaust_input_data
+load_unified_data_function: code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data
+validation_function:        code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_input_files
 
 # -------- file names -----------
 
@@ -24,6 +23,18 @@ unified_vehicle_data:       example/example_unified_data/vehicle_data.csv
 unified_los_speeds:         example/example_unified_data/los_speeds.csv
 unified_traffic_data:       example/example_unified_data/traffic_data.csv
 
-# -------- strategy specific parameters -----------
+# -------- output folder(s) --------------
+
+output_folder:              example_output_pm_non_exhaust
+
+# Optional parameter, only relevant for mode input_data:
+# output_folder_for_unified_data:     unified_data_new
+
+# -------- strategy specific arguments -----------
 
 load_factor:                0.3
+
+# -------- optional arguments ------------
+
+# links_to_use:               [link_a]
+# use_n_traffic_data_rows:    100

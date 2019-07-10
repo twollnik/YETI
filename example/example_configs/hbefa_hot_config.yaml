@@ -5,12 +5,11 @@
 mode:                       input_data  # feel free to change the mode to unified_data. (Don't forget to change the validation function)
 
 pollutants:                 [PollutantType.NOx]
+
 strategy:                   code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
 load_input_data_function:   code.hbefa_hot_strategy.load_input_data.load_hbefa_input_data
 load_unified_data_function: code.hbefa_hot_strategy.load_unified_data.load_hbefa_unified_data
 validation_function:        code.hbefa_hot_strategy.validate.validate_hbefa_input_files
-
-output_folder:              example_output_hbefa_hot
 
 # -------- file names -----------
 
@@ -23,3 +22,17 @@ unified_emission_factors:   example/example_unified_data/hbefa_emission_factors.
 unified_vehicle_data:       example/example_unified_data/vehicle_data.csv
 unified_link_data:          example/example_unified_data/link_data.csv
 unified_traffic_data:       example/example_unified_data/traffic_data.csv
+
+# -------- output folder(s) --------------
+
+output_folder:              example_output_hbefa_hot
+
+# Optional parameter, only relevant for mode input_data:
+# output_folder_for_unified_data:     unified_data_new
+
+# -------- strategy specific arguments -----------
+
+# -------- optional arguments ------------
+
+# links_to_use:               [link_a]
+# use_n_traffic_data_rows:    100
