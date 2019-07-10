@@ -1,30 +1,35 @@
+"""
+StrategyInvoker
+
+This module is facilitates the invocation of the Strategy. It
+- instantiates the Strategy
+- calls the Strategy's function `calculate_emissions` with the right parameters
+  once for each row in the traffic dataset
+- saves the emissions returned from the Strategy to disc
+"""
 import logging
 import os
-from datetime import datetime
 
 import pandas as pd
 
 
 class StrategyInvoker:
+    """
+    Invokes the Strategy's function `calculate_emissions` and saves the results to disc.
+    Instances of this class are used by the Model class.
+
+    Methods
+    -------
+    calculate_and_save_emissions
+        The main interface for this class. This function will facilitate the emissions calculation using the Strategy
+        that is given in the kwargs.
+    """
 
     def __init__(self, **kwargs):
-        """
-        :param kwargs:
-            - link_data
-            - vehicle_data
-            - traffic_data
-            - emission_factor_data
-            - los_speeds_data (optional depending on strategy)
-            - emission_calculation_function
-            - pollutant
-            - links_to_use (optional)
-        """
 
         self.link_data = None
         self.vehicle_data = None
         self.traffic_data = None
-        self.emission_calculation_function = None
-        self.pollutant = None
         self.link_list = None
 
         self.output_file = None
@@ -37,6 +42,15 @@ class StrategyInvoker:
         self.emissions_store = []
 
     def calculate_and_save_emissions(self, emissions_output_folder, save_interval_in_rows: int = 10000, **kwargs):
+        """
+        :param: kwargs:
+            - Strategy (required)
+            - link_data (required)
+            - vehicle_data (required)
+            - traffic_data (required)
+            - links_to_use (optional)
+            - all the keyword arguments required by the Strategy that is given
+        """
 
         logging.debug("Initializing data.")
         self.initialize(emissions_output_folder, **kwargs)
@@ -72,11 +86,9 @@ class StrategyInvoker:
 
     def initialize_attributes(self, emissions_output_folder, **kwargs):
 
-        self.link_data = kwargs.get("link_data")
-        self.vehicle_data = kwargs.get("vehicle_data")
-        self.traffic_data = kwargs.get("traffic_data")
-        self.emission_calculation_function = kwargs.get("emission_calculation_function")
-        self.pollutant = kwargs.get("pollutant")
+        self.link_data = kwargs["link_data"]
+        self.vehicle_data = kwargs["vehicle_data"]
+        self.traffic_data = kwargs["traffic_data"]
         self.link_list = kwargs.get("links_to_use")
 
         self.output_file = self.get_output_file_name(emissions_output_folder)
@@ -113,9 +125,29 @@ class StrategyInvoker:
             row = row.to_dict()
             yield i, row
 
+    def display_progress(self, current_row):
+
+        perc_done = current_row / len(self.traffic_and_link_data) * 100
+        print("%.1f percent done" % perc_done, end='\r')
+
+    def associate_emissions_with_time_and_location_info(self, emissions, row):
+
+        return {
+            **{"LinkID": row["LinkID"], "DayType": row["DayType"], "Hour": row["Hour"], "Dir": row["Dir"]},
+            **emissions
+        }
+
     def add_row_to_emissions_store(self, row):
 
         self.emissions_store.append(row)
+
+    def handle_error_in_emission_calculation(self, e, row):
+
+        logging.warning(
+            f"An Error occured when processing the traffic data row "
+            f"(LinkID: {row['LinkID']}, Dir: {row['Dir']}, DayType: {row['DayType']}, Hour: {row['Hour']}\n"
+        )
+        logging.exception(e)
 
     def it_is_time_to_save_emissions(self, row_index, save_interval_in_rows):
 
@@ -135,6 +167,14 @@ class StrategyInvoker:
             self.emissions_store = []
             self.use_header = False  # only output the header once
 
+    def there_are_emissions_to_save(self):
+
+        return len(self.emissions_store) > 0
+
+    def should_save_multiple_files(self):
+
+        return any(isinstance(item, dict) for item in self.emissions_store[0].values())
+
     def save_emission_dicts_to_files(self):
 
         names = self.get_emission_dicts_names()
@@ -153,10 +193,6 @@ class StrategyInvoker:
             output_file = f"{folder}/{name}_{file}"
             self.save_dataframe_to_file(emission_data, output_file)
 
-    def there_are_emissions_to_save(self):
-
-        return len(self.emissions_store) > 0
-
     def get_emission_dicts_names(self):
 
         names = [
@@ -165,31 +201,7 @@ class StrategyInvoker:
         ]
         return names
 
-    def should_save_multiple_files(self):
-
-        return any(isinstance(item, dict) for item in self.emissions_store[0].values())
-
     def save_dataframe_to_file(self, data, file):
 
         with open(file, "a") as fp:
             data.to_csv(fp, header=self.use_header, index_label=False, index=False)
-
-    def associate_emissions_with_time_and_location_info(self, emissions, row):
-
-        return {
-            **{"LinkID": row["LinkID"], "DayType": row["DayType"], "Hour": row["Hour"], "Dir": row["Dir"]},
-            **emissions
-        }
-
-    def handle_error_in_emission_calculation(self, e, row):
-
-        logging.warning(
-            f"An Error occured when processing the traffic data row "
-            f"(LinkID: {row['LinkID']}, Dir: {row['Dir']}, DayType: {row['DayType']}, Hour: {row['Hour']}\n"
-        )
-        logging.exception(e)
-
-    def display_progress(self, current_row):
-
-        perc_done = current_row / len(self.traffic_and_link_data) * 100
-        print("%.1f percent done" % perc_done, end='\r')

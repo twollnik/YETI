@@ -10,6 +10,19 @@ from code.StrategyInvoker import StrategyInvoker
 
 
 class Model:
+    """
+    This class implements the main flow of control for a YETI run.
+
+    Model makes sure that everything that needs to be done is done and happens in the right order.
+    It relies on user defined functions for data loading and validation. It also relies on the
+    StrategyInvoker in combination with the user defined Strategy to calculate emissions.
+
+    Methods
+    -------
+    run
+        The main interface for this class. Implements the abstract flow of control for a
+        YETI run and delegates the actual work to other functions.
+    """
 
     def __init__(self):
 
