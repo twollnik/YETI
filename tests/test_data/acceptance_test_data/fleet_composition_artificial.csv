@@ -1,0 +1,22 @@
+VehCat,VehPercOfCat,VehName,NumberOfAxles
+P,0.12,"PC petrol 1,4-<2L Euro-4",
+P,0.34,"PC petrol 1,4-<2L Euro-5",
+P,0.35,"PC diesel 1,4-<2L Euro-4 (DPF)",
+P,0.19,"PC diesel 1,4-<2L Euro-5 DPF",
+L,0.45,LCV petrol N1-II Euro-3,
+L,0.04,LCV petrol N1-II Euro-6,
+L,0.39,LCV diesel N1-II Euro-4,
+L,0.12,LCV diesel N1-II Euro-5 DPF,
+S,0.35,RT >12-14t Euro-III,2
+S,0.4,RT >12-14t Euro-IV SCR,2
+S,0.25,RT >12-14t Euro-IV EGR,2
+B,0.25,UBus Midi <=15t Euro-IV SCR,2
+B,0.25,UBus Midi <=15t Euro-IV EGR,2
+B,0.25,UBus Midi <=15t Euro-V SCR,2
+B,0.25,UBus Midi <=15t Euro-V EGR,2
+R,0.3,Coach 3-Axes >18t Euro-IV EGR,3
+R,0.2,Coach 3-Axes >18t Euro-IV SCR,3
+R,0.4,Coach 3-Axes >18t Euro-V EGR,3
+R,0.1,Coach 3-Axes >18t Euro-V SCR,3
+M,0.27,MC 2S <=150cc Euro-4,
+M,0.73,MC 4S 151-250cc Euro-3,

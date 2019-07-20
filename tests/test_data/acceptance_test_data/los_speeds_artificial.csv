@@ -1,0 +1,97 @@
+VehCat,TrafficSituation,Speed_kmh
+pass. car,URB/MW-City/100/Freeflow,95
+pass. car,URB/MW-City/100/Heavy,85
+pass. car,URB/MW-City/100/Satur.,65
+pass. car,URB/MW-City/100/St+Go,20
+pass. car,URB/Trunk-City/70/Freeflow,65
+pass. car,URB/Trunk-City/70/Heavy,50
+pass. car,URB/Trunk-City/70/Satur.,45
+pass. car,URB/Trunk-City/70/St+Go,15
+pass. car,URB/Distr/60/Freeflow,50
+pass. car,URB/Distr/60/Heavy,40
+pass. car,URB/Distr/60/Satur.,30
+pass. car,URB/Distr/60/St+Go,10
+pass. car,URB/Local/50/Freeflow,45
+pass. car,URB/Local/50/Heavy,30
+pass. car,URB/Local/50/Satur.,30
+pass. car,URB/Local/50/St+Go,10
+LCV,URB/MW-City/100/Freeflow,95
+LCV,URB/MW-City/100/Heavy,85
+LCV,URB/MW-City/100/Satur.,65
+LCV,URB/MW-City/100/St+Go,20
+LCV,URB/Trunk-City/70/Freeflow,65
+LCV,URB/Trunk-City/70/Heavy,50
+LCV,URB/Trunk-City/70/Satur.,45
+LCV,URB/Trunk-City/70/St+Go,15
+LCV,URB/Distr/60/Freeflow,50
+LCV,URB/Distr/60/Heavy,40
+LCV,URB/Distr/60/Satur.,30
+LCV,URB/Distr/60/St+Go,10
+LCV,URB/Local/50/Freeflow,45
+LCV,URB/Local/50/Heavy,30
+LCV,URB/Local/50/Satur.,30
+LCV,URB/Local/50/St+Go,10
+coach,URB/MW-City/100/Freeflow,85
+coach,URB/MW-City/100/Heavy,80
+coach,URB/MW-City/100/Satur.,60
+coach,URB/MW-City/100/St+Go,15
+coach,URB/Trunk-City/70/Freeflow,60
+coach,URB/Trunk-City/70/Heavy,50
+coach,URB/Trunk-City/70/Satur.,35
+coach,URB/Trunk-City/70/St+Go,15
+coach,URB/Distr/60/Freeflow,50
+coach,URB/Distr/60/Heavy,40
+coach,URB/Distr/60/Satur.,30
+coach,URB/Distr/60/St+Go,10
+coach,URB/Local/50/Freeflow,40
+coach,URB/Local/50/Heavy,30
+coach,URB/Local/50/Satur.,25
+coach,URB/Local/50/St+Go,10
+urban bus,URB/MW-City/100/Freeflow,85
+urban bus,URB/MW-City/100/Heavy,70
+urban bus,URB/MW-City/100/Satur.,60
+urban bus,URB/MW-City/100/St+Go,15
+urban bus,URB/Trunk-City/70/Freeflow,50
+urban bus,URB/Trunk-City/70/Heavy,40
+urban bus,URB/Trunk-City/70/Satur.,40
+urban bus,URB/Trunk-City/70/St+Go,13
+urban bus,URB/Distr/60/Freeflow,40
+urban bus,URB/Distr/60/Heavy,35
+urban bus,URB/Distr/60/Satur.,30
+urban bus,URB/Distr/60/St+Go,10
+urban bus,URB/Local/50/Freeflow,25
+urban bus,URB/Local/50/Heavy,25
+urban bus,URB/Local/50/Satur.,20
+urban bus,URB/Local/50/St+Go,10
+motorcycle,URB/MW-City/100/Freeflow,105
+motorcycle,URB/MW-City/100/Heavy,95
+motorcycle,URB/MW-City/100/Satur.,75
+motorcycle,URB/MW-City/100/St+Go,30
+motorcycle,URB/Trunk-City/70/Freeflow,75
+motorcycle,URB/Trunk-City/70/Heavy,60
+motorcycle,URB/Trunk-City/70/Satur.,50
+motorcycle,URB/Trunk-City/70/St+Go,20
+motorcycle,URB/Distr/60/Freeflow,60
+motorcycle,URB/Distr/60/Heavy,50
+motorcycle,URB/Distr/60/Satur.,40
+motorcycle,URB/Distr/60/St+Go,25
+motorcycle,URB/Local/50/Freeflow,50
+motorcycle,URB/Local/50/Heavy,40
+motorcycle,URB/Local/50/Satur.,30
+motorcycle,URB/Local/50/St+Go,25
+HGV,URB/MW-City/100/Freeflow,85
+HGV,URB/MW-City/100/Heavy,70
+HGV,URB/MW-City/100/Satur.,60
+HGV,URB/MW-City/100/St+Go,15
+HGV,URB/Trunk-City/70/Freeflow,60
+HGV,URB/Trunk-City/70/Heavy,50
+HGV,URB/Trunk-City/70/Satur.,35
+HGV,URB/Trunk-City/70/St+Go,15
+HGV,URB/Distr/60/Freeflow,50
+HGV,URB/Distr/60/Heavy,40
+HGV,URB/Distr/60/Satur.,30
+HGV,URB/Distr/60/St+Go,10
+HGV,URB/Local/50/Freeflow,40
+HGV,URB/Local/50/Heavy,30
+HGV,URB/Local/50/Satur.,25
+HGV,URB/Local/50/St+Go,10
