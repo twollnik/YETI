@@ -33,7 +33,6 @@ class AcceptanceTestCopertHot(TestCase):
         emissions_expected = emissions_expected.round(3)
         emissions_actual = emissions_actual.round(3)
 
-
         self.assertTrue(df_equal(emissions_actual, emissions_expected))
 
 
