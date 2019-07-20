@@ -27,6 +27,13 @@ class AcceptanceTestCopertHot(TestCase):
         emissions_actual = pd.read_csv("tests/test_acceptance_tests/output/PollutantType.NOx_emissions.csv")
         emissions_expected = pd.read_csv("tests/test_data/acceptance_test_data/EMoutput_artificialdata.csv")
 
+        emissions_actual = emissions_actual.sort_values(by=["LinkID", "Dir", "DayType", "Hour"])
+        emissions_expected = emissions_expected.sort_values(by=["LinkID", "Dir", "DayType", "Hour"])
+
+        emissions_expected = emissions_expected.round(3)
+        emissions_actual = emissions_actual.round(3)
+
+
         self.assertTrue(df_equal(emissions_actual, emissions_expected))
 
 
