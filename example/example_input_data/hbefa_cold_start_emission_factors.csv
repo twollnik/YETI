@@ -1,0 +1,5 @@
+VehName,Pollutant,EmissionsPerStart
+pc vehicle_a,NOx,1
+pc vehicle_a,CO,2
+lcv vehicle_b,NOx,3
+lcv vehicle_b,CO,4

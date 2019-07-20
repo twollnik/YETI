@@ -86,6 +86,13 @@ class TestCalcAvgDailyEmissions(TestCase):
 
         logging.warning.assert_not_called()
 
+    def test_hbefa_cold_config(self):
+
+        sys.argv = f"run_yeti.py -c example/example_configs/hbefa_cold_config.yaml".split()
+        execfile(f"run_yeti.py")
+
+        logging.warning.assert_not_called()
+
     def test_pm_non_exhaust_config(self):
 
         sys.argv = f"run_yeti.py -c example/example_configs/pm_non_exhaust_config.yaml".split()
@@ -143,6 +150,20 @@ class TestCalcAvgDailyEmissions(TestCase):
 
         change_config_mode_to_unified_data("example/example_configs/hbefa_hot_config.yaml", "config_changed.yaml")
         update_validation_function("config_changed.yaml", "code.hbefa_hot_strategy.validate.validate_hbefa_unified_files")
+
+        try:
+            sys.argv = f"run_yeti.py -c config_changed.yaml".split()
+            execfile(f"run_yeti.py")
+        except Exception as e:
+            raise e
+        else:
+            logging.warning.assert_not_called()
+        finally:
+            os.remove("config_changed.yaml")
+
+    def test_hbefa_cold_config_mode_unified_data(self):
+
+        change_config_mode_to_unified_data("example/example_configs/hbefa_cold_config.yaml", "config_changed.yaml")
 
         try:
             sys.argv = f"run_yeti.py -c config_changed.yaml".split()
