@@ -21,6 +21,7 @@ This is a file with data about the street links in the region you are examining.
 in the link data file. These are the columns:
 
 - *LinkID*: The unique ID for the street link
+- *Length_m*: The length of the link in meters
 - *AreaCat*: The area category for the street link. Currently allowed area categories are:
   ``0`` for rural and ``1`` for urban. If your input data uses different categories, you
   can :doc:`change the data loading behaviour <../developer/add_load_input_data_function>` to
@@ -152,6 +153,7 @@ This is a file with data about the street links in the region you are examining.
 corresponds to one line in the unified link data file. It has these columns:
 
 - *LinkID*: The unique ID for the street link
+- *Length*: The length of the link in kilometers
 - *RoadType*: The road type for the street link. Possible road categories are:
 
 .. code-block:: yaml
