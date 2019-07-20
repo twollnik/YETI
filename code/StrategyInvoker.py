@@ -214,5 +214,8 @@ class StrategyInvoker:
 
     def save_dataframe_to_file(self, data, file):
 
-        with open(file, "a") as fp:
+        # the first save should override an existing file
+        mode = "w" if self.use_header is True else "a"
+
+        with open(file, mode) as fp:
             data.to_csv(fp, header=self.use_header, index_label=False, index=False)
