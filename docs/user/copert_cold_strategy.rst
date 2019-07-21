@@ -12,10 +12,11 @@ to the road types or area types that you want to exclude.
 Possible road types to be excluded are: ``MW_Nat``, ``MW_City``, ``Trunk_Nat``, ``Trunk_City``, ``Distr``,
 ``Local``, and ``Access``. Area types that can be excluded are ``Rural`` and ``Urban``.
 
-During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy`` because
-cold emissions depend on hot emissions.
+During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy``. The hot emissions
+are used to derive emission factors for hot emissions to be used in the cold emission calculation.
+Advanced users can specify a different Strategy to be used for the hot emission calculation. See :ref:`here <use-different-hot-strategy>`.
 
-Output of a model run with this Strategy are three csv files:
+Output of a model run with this Strategy are three csv files per pollutant:
 
 - cold start emissions
 - hot emissions
@@ -143,3 +144,32 @@ If using mode ``yeti_format``:
     temperature:                  15  # the average ambient temperature in °C
     exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, Trunk-City]
     exclude_area_types:           [Rural]    # Or: [Urban]
+
+.. _use-different-hot-strategy:
+
+Change the hot strategy to be used
+----------------------------------
+
+During the cold emission calculation hot emissions are calculated using a Strategy. By default the ``CopertHotStrategy`` is used.
+Advanced users can change the Strategy to be used for the hot emission calculation.
+
+You can do so by setting a ``hot_strategy`` in the config.yaml:
+
+.. code-block:: yaml
+
+    hot_strategy:           path.to.strategy
+
+For example:
+
+.. code-block:: yaml
+
+    hot_strategy:           code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
+
+**Important Note:**
+
+The ``hot_strategy`` specified in the config file will likely use different data than the ``CopertColdStrategy``.
+This means that you need to write and specify a ``load_berlin_format_data_function``, a ``load_yeti_format_data_function``,
+and a ``validation_function`` that are fit to work with the data required for both the ``hot_strategy`` and
+the ``CopertColdStrategy``. For example you will likely need to load and convert additional datasets in the
+``load_berlin_format_data_function``. Also there may be naming conflicts between the data requirements of the Strategies
+that you will have to deal with.
