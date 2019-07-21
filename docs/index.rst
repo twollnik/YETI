@@ -34,6 +34,7 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    :maxdepth: 1
    :caption: Developer Documentation
 
+   developer/hard_coding
    developer/high_level_how_does_it_work
    developer/add_strategy
    developer/add_validate_function
