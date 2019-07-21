@@ -11,6 +11,7 @@ You may alter the column names in section "1. input data" to fit the dataset
 you are currently working with. However you need to make sure to only use
 letters, numbers and underscores in the column names. Using other characters
 may result in errors or bugs down the line.
+
 """
 
 # ---------------- 1. input data ---------------- #
