@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from code.constants.column_names import *
 from code.constants.enumerations import Dir, DayType
@@ -11,7 +11,7 @@ pd.options.mode.chained_assignment = None
 
 class TrafficDataLoader:
     """
-    This class provides functionality to calculate unified_data traffic data from input data.
+    This class provides functionality to calculate yeti_format traffic data from berlin_format traffic data.
     """
 
     def __init__(self, **kwargs):

@@ -7,8 +7,8 @@ def create_info_file(file: str, timestamp, mode, start_time, end_time, config_di
 
     pollutants = config_dict["pollutants"]
     strategy = config_dict["strategy"]
-    load_input_data_function = config_dict["load_input_data_function"]
-    load_unified_data_function = config_dict["load_unified_data_function"]
+    load_berlin_format_data_function = config_dict["load_berlin_format_data_function"]
+    load_yeti_format_data_function = config_dict["load_yeti_format_data_function"]
     output_folder = config_dict["output_folder"]
     mode = config_dict["mode"]
     use_nh3_tier2_ef = config_dict.get("use_nh3_tier2_ef")
@@ -23,35 +23,35 @@ def create_info_file(file: str, timestamp, mode, start_time, end_time, config_di
         f"duration of run: {(end_time - start_time) / 60} min\n"
         f"pollutants: {pollutants}\n"
         f"output folder: {output_folder}\n"
-        f"unified data output folder: {config_dict.get('output_folder_for_unified_data')}\n"
+        f"yeti_format data output folder: {config_dict.get('output_folder_for_yeti_format_data')}\n"
         f"use nh3 tier 2 ef: {use_nh3_tier2_ef}\n"
         f"links to use: {links_to_use}\n"
         f"n traffic data rows used: {use_n_traffic_data_rows}\n"
         f"\n"
         f"mode: {mode}\n"
         f"strategy: {strategy}\n"
-        f"load_input_data_function: {load_input_data_function}\n"
-        f"load_unified_data_function: {load_unified_data_function}\n"
+        f"load_berlin_format_data_function: {load_berlin_format_data_function}\n"
+        f"load_yeti_format_data_function: {load_yeti_format_data_function}\n"
         f"validation_function: {validation_function}\n"
         f"\n"
     )
-    if mode == 'unified_data':
+    if mode == 'yeti_format':
         info_text = (
             f"{general_info_text}"
             f"files given:\n"
-            f"{newline.join([os.path.abspath(location) for file, location in config_dict.items() if file.startswith('unified')])}\n"
+            f"{newline.join([os.path.abspath(location) for file, location in config_dict.items() if file.startswith('yeti_format')])}\n"
         )
-    elif mode == 'input_data':
+    elif mode == 'berlin_format':
         info_text = (
             f"{general_info_text}"
-            f"input_data files given:"
-            f"{newline.join([os.path.abspath(location) for file, location in config_dict.items() if file.startswith('input')])}\n"
+            f"files in berlin_format given:"
+            f"{newline.join([os.path.abspath(location) for file, location in config_dict.items() if file.startswith('berlin')])}\n"
             f"\n"
-            f"unified_data files constructed during the model run:\n"
-            f"{newline.join([os.path.abspath(location) for file, location in config_dict.items() if file.startswith('unified')])}\n"
+            f"files in yeti_format constructed during the model run:\n"
+            f"{newline.join([os.path.abspath(location) for file, location in config_dict.items() if file.startswith('yeti_format')])}\n"
         )
     else:
-        raise RuntimeError(f"mode {mode} is not recognized. Please use 'unified_data' or 'input_data'.")
+        raise RuntimeError(f"mode {mode} is not recognized. Please use 'yeti_format' or 'berlin_format'.")
 
     with open(file, "w") as fp:
         fp.write(info_text)

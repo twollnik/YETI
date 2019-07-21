@@ -7,7 +7,7 @@ How to read this diagram?
 
 Example diagram:
 
-.. image:: ../diagrams/pm_non_exhaust_input_data_requirements.png
+.. image:: ../diagrams/pm_non_exhaust_berlin_format_data_requirements.png
     :height: 300
     :width: 300
 

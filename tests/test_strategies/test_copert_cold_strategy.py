@@ -1,7 +1,8 @@
 from unittest import TestCase, main
 from unittest.mock import MagicMock
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 
 from code.copert_cold_strategy.CopertColdStrategy import CopertColdStrategy
 
@@ -93,10 +94,10 @@ class TestCopertColdStrategy(TestCase):
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
             pollutants=self.pollutants,
-            unified_cold_ef_table=self.cold_ef_table,
-            unified_los_speeds=self.los_speeds_data,
-            unified_vehicle_mapping=self.veh_mapping_no_index_set,
-            unified_emission_factors=self.emission_factor_data,
+            yeti_format_cold_ef_table=self.cold_ef_table,
+            yeti_format_los_speeds=self.los_speeds_data,
+            yeti_format_vehicle_mapping=self.veh_mapping_no_index_set,
+            yeti_format_emission_factors=self.emission_factor_data,
             ltrip=7,
             temperature=10
         )
@@ -131,10 +132,10 @@ class TestCopertColdStrategy(TestCase):
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
             pollutants=self.pollutants,
-            unified_cold_ef_table=self.cold_ef_table,
-            unified_los_speeds=self.los_speeds_data,
-            unified_vehicle_mapping=veh_mapping_no_index_set,
-            unified_emission_factors=self.emission_factor_data,
+            yeti_format_cold_ef_table=self.cold_ef_table,
+            yeti_format_los_speeds=self.los_speeds_data,
+            yeti_format_vehicle_mapping=veh_mapping_no_index_set,
+            yeti_format_emission_factors=self.emission_factor_data,
             ltrip=7,
             temperature=10
         )
@@ -206,10 +207,10 @@ class TestCopertColdStrategy(TestCase):
             traffic_and_link_data_row={**self.row_dict, "RoadType": "RoadType.MW_City", "AreaType": "AreaType.Urban"},
             vehicle_dict=self.vehicle_dict,
             pollutants=self.pollutants,
-            unified_cold_ef_table=self.cold_ef_table,
-            unified_los_speeds=self.los_speeds_data,
-            unified_vehicle_mapping=self.veh_mapping_no_index_set,
-            unified_emission_factors=self.emission_factor_data,
+            yeti_format_cold_ef_table=self.cold_ef_table,
+            yeti_format_los_speeds=self.los_speeds_data,
+            yeti_format_vehicle_mapping=self.veh_mapping_no_index_set,
+            yeti_format_emission_factors=self.emission_factor_data,
             ltrip=7,
             temperature=10,
             exclude_road_types=["RoadType.MW_City"],

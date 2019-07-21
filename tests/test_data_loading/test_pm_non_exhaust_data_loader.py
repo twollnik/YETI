@@ -1,34 +1,34 @@
-from unittest import TestCase, main
-import pandas as pd
 import os
+from unittest import TestCase, main
 
-from tests.helper import df_equal
+from code.pm_non_exhaust_strategy.load_yeti_format_data import load_pm_non_exhaust_yeti_format_data
+
 from code.data_loading.PMNonExhaustDataLoader import PMNonExhaustDataLoader
-from code.pm_non_exhaust_strategy.load_unified_data import load_pm_non_exhaust_unified_data
+from tests.helper import df_equal
 
 
 class TestPMNonExhaustDataLoader(TestCase):
 
     def test_load_data(self):
 
-        if os.path.isfile("./tests/test_data/input_data/shape_data.csv"):
+        if os.path.isfile("./tests/test_data/berlin_format_data/shape_data.csv"):
             self.init_path = "./tests"
         else:
             self.init_path = ".."
 
         loader = PMNonExhaustDataLoader(
-            link_data_file=f'{self.init_path}/test_data/input_data/shape_data.csv',
-            fleet_comp_file=f'{self.init_path}/test_data/input_data/fleet_comp_data.csv',
-            los_speeds_file=f'{self.init_path}/test_data/input_data/los_speed_data.csv',
-            traffic_data_file=f'{self.init_path}/test_data/input_data/traffic_data.csv'
+            link_data_file=f'{self.init_path}/test_data/berlin_format_data/shape_data.csv',
+            fleet_comp_file=f'{self.init_path}/test_data/berlin_format_data/fleet_comp_data.csv',
+            los_speeds_file=f'{self.init_path}/test_data/berlin_format_data/los_speed_data.csv',
+            traffic_data_file=f'{self.init_path}/test_data/berlin_format_data/traffic_data.csv'
         )
         (link_data, vehicle_data, traffic_data, los_speeds_data, _, _) = loader.load_data()
 
-        expected_data = load_pm_non_exhaust_unified_data(
-            unified_los_speeds=f'{self.init_path}/test_data/unified_data/los_speeds_data.csv',
-            unified_vehicle_data=f'{self.init_path}/test_data/unified_data/vehicle_data.csv',
-            unified_link_data=f'{self.init_path}/test_data/unified_data/link_data.csv',
-            unified_traffic_data=f'{self.init_path}/test_data/unified_data/traffic_data.csv'
+        expected_data = load_pm_non_exhaust_yeti_format_data(
+            yeti_format_los_speeds=f'{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv',
+            yeti_format_vehicle_data=f'{self.init_path}/test_data/yeti_format_data/vehicle_data.csv',
+            yeti_format_link_data=f'{self.init_path}/test_data/yeti_format_data/link_data.csv',
+            yeti_format_traffic_data=f'{self.init_path}/test_data/yeti_format_data/traffic_data.csv'
         )
 
         self.assertTrue(df_equal(link_data, expected_data["link_data"].round(5)))

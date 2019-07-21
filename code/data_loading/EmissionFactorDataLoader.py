@@ -57,7 +57,7 @@ class EmissionFactorDataLoader:
         of the output dataframe.
 
         :return: a 2-tuple with these elements:
-            - emission_factor_data : a pd.DataFrame containing the emission factor data in unified_data format
+            - emission_factor_data : a pd.DataFrame containing the emission factor data in yeti_format
             - vehicles_without_ef_data : a pd.DataFrame containing the vehicle name, pollutant combinations
                                          that have no associated ef data.
         """
@@ -162,14 +162,14 @@ class HbefaEmissionFactorDataLoader:
 
     def load_data(self):
 
-        unified_ef_data = self.ef_data.rename(columns={
+        yeti_format_ef_data = self.ef_data.rename(columns={
             HBEFA_EF_VEH_NAME: "VehicleName",
             HBEFA_EF_TRAFFIC_SIT: "TrafficSituation",
             HBEFA_EF_POLL: "Pollutant",
             HBEFA_EF_EF: "EF"
         })
 
-        unified_ef_data.loc[:,"Pollutant"] = unified_ef_data["Pollutant"].apply(
+        yeti_format_ef_data.loc[:,"Pollutant"] = yeti_format_ef_data["Pollutant"].apply(
             lambda poll: PollutantType.PM_Exhaust if str(poll) == "PM" else PollutantType.from_val(poll))
 
-        return unified_ef_data, None  # add None to return value for interchangability with EmissionFactorDataLoader
+        return yeti_format_ef_data, None  # add None to return value for interchangability with EmissionFactorDataLoader

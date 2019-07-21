@@ -37,7 +37,7 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    developer/high_level_how_does_it_work
    developer/add_strategy
    developer/add_validate_function
-   developer/add_load_input_data_function
-   developer/add_load_unified_data_function
+   developer/add_load_berlin_format_data_function
+   developer/add_load_yeti_format_data_function
    developer/update_docs
    developer/contributing

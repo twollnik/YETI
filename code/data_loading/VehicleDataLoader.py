@@ -2,7 +2,7 @@ import pandas as pd
 
 from code.constants.column_names import *
 from code.constants.enumerations import VehicleCategory
-from code.constants.mappings import FLEET_COMP_VEH_CAT_TO_UNIFIED_VEH_CAT_MAPPING
+from code.constants.mappings import FLEET_COMP_VEH_CAT_TO_YETI_FORMAT_VEH_CAT_MAPPING
 
 
 class VehicleDataLoader:
@@ -23,7 +23,7 @@ class VehicleDataLoader:
 
         This method uses the dataframe that was previously passed to the constructor method.
 
-        :return: vehicle_data : a pd.DataFrame conaining vehicle data in unified_data format
+        :return: vehicle_data : a pd.DataFrame conaining vehicle data in yeti_format
         """
 
         vehicle_data = self.fleet_comp_data[[FLEET_COMP_VEH_NAME, FLEET_COMP_VEH_CAT, FLEET_COMP_NUM_AXLES]]
@@ -33,7 +33,7 @@ class VehicleDataLoader:
 
         def transform_vehicle_category(veh_data: pd.Series) -> VehicleCategory:
             veh_cat = str(veh_data["VehicleCategory"])
-            return FLEET_COMP_VEH_CAT_TO_UNIFIED_VEH_CAT_MAPPING[veh_cat]
+            return FLEET_COMP_VEH_CAT_TO_YETI_FORMAT_VEH_CAT_MAPPING[veh_cat]
 
         vehicle_data["VehicleCategory"] = vehicle_data.apply(transform_vehicle_category, axis=1)
 

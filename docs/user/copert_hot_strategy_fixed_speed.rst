@@ -19,23 +19,23 @@ Data requirements
 -----------------
 What data the ``CopertHotFixedSpeedStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
-Data requirements for mode ``input_data``
-'''''''''''''''''''''''''''''''''''''''''
+Data requirements for mode ``berlin_format``
+''''''''''''''''''''''''''''''''''''''''''''
 
-The same ``input_data`` as ``CopertHotStrategy`` is required with these modifications:
+The same data in ``berlin_format`` as ``CopertHotStrategy`` is required with these modifications:
 
 - los speeds data is not required.
 - The link data may contain the column ``Speed_kmh`` with fixed speeds for each street link.
 - The traffic data does not need to contain los percentage columns (LOS1Perc ... LOS4Perc).
 
-Data requirements for mode ``unified_data``
+Data requirements for mode ``yeti_format``
 '''''''''''''''''''''''''''''''''''''''''''
 
-The same ``unified_data`` as ``CopertHotStrategy`` is required with these modifications:
+The same data in ``yeti_format`` as ``CopertHotStrategy`` is required with these modifications:
 
-- unified los speeds data is not required.
-- The unified link data may contain the column ``Speed`` with fixed speeds for each street link.
-- The unified traffic data does not need to contain los percentage columns (LOS1Percentage ... LOS4Percentage)
+- yeti_format los speeds data is not required.
+- The yeti_format link data may contain the column ``Speed`` with fixed speeds for each street link.
+- The yeti_format traffic data does not need to contain los percentage columns (LOS1Percentage ... LOS4Percentage)
 
 Supported pollutants
 --------------------
@@ -64,46 +64,46 @@ If you want to use the ``CopertHotFixedSpeedStrategy`` for the your calculations
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`.
 
-If using mode ``input_data``:
-'''''''''''''''''''''''''''''
+If using mode ``berlin_format``:
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                        code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
-    load_input_data_function:        code.copert_hot_fixed_speed_strategy.load_input_data.load_copert_fixed_speed_input_data
-    load_unified_data_function:      code.copert_hot_fixed_speed_strategy.load_unified_data.load_copert_fixed_speed_unified_data
-    validation_function:             code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_input_files
+    load_berlin_format_data_function:        code.copert_hot_fixed_speed_strategy.load_berlin_format_data.load_copert_fixed_speed_berlin_format_data
+    load_yeti_format_data_function:      code.copert_hot_fixed_speed_strategy.load_yeti_format_data.load_copert_fixed_speed_yeti_format_data
+    validation_function:             code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_berlin_format_files
 
     # if you want to use a global speed for all links, include this:
     v:                            50
 
-    input_link_data:              path/to/link_data.csv
-    input_fleet_composition:      path/to/fleet_composition_data.csv
-    input_emission_factors:       path/to/emission_factor_data.csv
-    input_traffic_data:           path/to/traffic_data.csv
-    input_vehicle_mapping:        path/to/vehicle_mapping_data.csv
+    berlin_format_link_data:              path/to/link_data.csv
+    berlin_format_fleet_composition:      path/to/fleet_composition_data.csv
+    berlin_format_emission_factors:       path/to/emission_factor_data.csv
+    berlin_format_traffic_data:           path/to/traffic_data.csv
+    berlin_format_vehicle_mapping:        path/to/vehicle_mapping_data.csv
 
     use_nh3_tier2_ef:             yes or no
     # if you set use_nh3_tier2_ef to yes, also add these lines:
-    input_nh3_emission_factors:   path/to/nh3_emission_factor_data.csv
-    input_nh3_mapping:            path/to/nh3_mapping_data.csv
+    berlin_format_nh3_emission_factors:   path/to/nh3_emission_factor_data.csv
+    berlin_format_nh3_mapping:            path/to/nh3_mapping_data.csv
 
 You may have data on Tier 2 emission factors for NH3. If you set ``use_nh3_tier2_ef: yes`` in the config file,
 YETI will read them from the specified files and use them in the emission calculation for pollutant ``PollutantType.NH3``.
 
-If using mode ``unified_data``:
+If using mode ``yeti_format``:
 '''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                        code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
-    load_unified_data_function:      code.copert_hot_fixed_speed_strategy.load_unified_data.load_copert_fixed_speed_unified_data
-    validation_function:             code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_unified_files
+    load_yeti_format_data_function:      code.copert_hot_fixed_speed_strategy.load_yeti_format_data.load_copert_fixed_speed_yeti_format_data
+    validation_function:             code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_yeti_format_files
 
     # if you want to use a global speed for all links, include this:
     v:                            50
 
-    unified_emission_factors:     path/to/unified_ef_data.csv
-    unified_vehicle_data:         path/to/unified_vehicle_data.csv
-    unified_link_data:            path/to/unified_link_data.csv
-    unified_traffic_data:         path/to/unified_traffic_data.csv
+    yeti_format_emission_factors:     path/to/yeti_format_ef_data.csv
+    yeti_format_vehicle_data:         path/to/yeti_format_vehicle_data.csv
+    yeti_format_link_data:            path/to/yeti_format_link_data.csv
+    yeti_format_traffic_data:         path/to/yeti_format_traffic_data.csv

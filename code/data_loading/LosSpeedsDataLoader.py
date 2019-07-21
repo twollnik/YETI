@@ -1,11 +1,11 @@
 from collections import defaultdict
-from itertools import chain, product
 from copy import copy
+from itertools import chain
 
 import pandas as pd
 
-from code.constants.mappings import *
 from code.constants.column_names import *
+from code.constants.mappings import *
 
 
 class LosSpeedsDataLoader:
@@ -34,11 +34,11 @@ class LosSpeedsDataLoader:
 
         mapping_df = self.construct_mapping_between_link_and_los_speeds_data()
         merged_link_and_los_speeds_data = self.merge_data_using_mapping(mapping_df)
-        los_speeds_in_unified_data_format = self.reformat_merged_data_to_fit_unified_data_format(
+        los_speeds_in_yeti_format_data_format = self.reformat_merged_data_to_fit_yeti_format_data_format(
             merged_link_and_los_speeds_data)
-        los_speeds_for_mopeds = self.get_speeds_for_vehicle_category_moped(los_speeds_in_unified_data_format)
+        los_speeds_for_mopeds = self.get_speeds_for_vehicle_category_moped(los_speeds_in_yeti_format_data_format)
 
-        return self.construct_dataframe(los_speeds_in_unified_data_format, los_speeds_for_mopeds)
+        return self.construct_dataframe(los_speeds_in_yeti_format_data_format, los_speeds_for_mopeds)
 
     def construct_mapping_between_link_and_los_speeds_data(self):
 
@@ -108,7 +108,7 @@ class LosSpeedsDataLoader:
         else:
             return f"RUR/{road_type}/{max_speed}"
 
-    def reformat_merged_data_to_fit_unified_data_format(self, merged_link_and_los_speeds_data):
+    def reformat_merged_data_to_fit_yeti_format_data_format(self, merged_link_and_los_speeds_data):
 
         df_parts = defaultdict(dict)
         for i, row in merged_link_and_los_speeds_data.iterrows():
@@ -141,10 +141,10 @@ class LosSpeedsDataLoader:
 
         return moped_speeds
 
-    def construct_dataframe(self, los_speeds_in_unified_data_format, los_speeds_for_mopeds):
+    def construct_dataframe(self, los_speeds_in_yeti_format_data_format, los_speeds_for_mopeds):
 
         all_rows_for_los_speeds_dataframe = chain(
-            los_speeds_in_unified_data_format.values(), los_speeds_for_mopeds.values())
+            los_speeds_in_yeti_format_data_format.values(), los_speeds_for_mopeds.values())
         list_of_rows_for_los_speeds_dataframe = [val for val in all_rows_for_los_speeds_dataframe]
         los_speeds_dataframe = pd.DataFrame(list_of_rows_for_los_speeds_dataframe)
 

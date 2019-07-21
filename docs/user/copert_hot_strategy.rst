@@ -14,9 +14,9 @@ Data requirements
 -----------------
 What data the ``CopertHotStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
-Data requirements for mode ``input_data``
-'''''''''''''''''''''''''''''''''''''''''
-.. image:: ../../diagrams/copert_hot_input_data_requirements.png
+Data requirements for mode ``berlin_format``
+''''''''''''''''''''''''''''''''''''''''''''
+.. image:: ../../diagrams/copert_hot_berlin_format_data_requirements.png
 
 :ref:`how-to-read-er`
 
@@ -188,40 +188,40 @@ Passenger Cars            Petrol Small      Euro 4          0.8
 Light Commercial Vehicles Diesel M+N1-I     Euro 2          4.95
 ========================= ====== ========== =============== ====
 
-Data requirements for mode ``unified_data``
+Data requirements for mode ``yeti_format``
 '''''''''''''''''''''''''''''''''''''''''''
 
-.. image:: ../../diagrams/copert_hot_unified_data_requirements.png
+.. image:: ../../diagrams/copert_hot_yeti_format_data_requirements.png
 
 :ref:`how-to-read-er`
 
 --------
 
-**unified link data** |br|
-Just like the unified link data required for the other Strategies. See :ref:`here <unified-link-data-explained>`.
+**yeti_format link data** |br|
+Just like the yeti_format link data required for the other Strategies. See :ref:`here <yeti-format-link-data-explained>`.
 
 Make sure that the combination of AreaType, RoadType and MaxSpeed matches a traffic situation in the
 los speeds data.
 
 --------
 
-**unified vehicle data** |br|
-Just like the unified vehicle data required for the other Strategies. See :ref:`here <unified-vehicle-data-explained>`.
+**yeti_format vehicle data** |br|
+Just like the yeti_format vehicle data required for the other Strategies. See :ref:`here <yeti-format-vehicle-data-explained>`.
 
 --------
 
-**unified traffic data** |br|
-Just like the unified traffic data required for the other Strategies. See :ref:`here <unified-traffic-data-explained>`.
+**yeti_format traffic data** |br|
+Just like the yeti_format traffic data required for the other Strategies. See :ref:`here <yeti-format-traffic-data-explained>`.
 
 --------
 
-.. _unified-los-speeds-data-explained:
+.. _yeti-format-los-speeds-data-explained:
 
-**unified los speeds data** |br|
+**yeti_format los speeds data** |br|
 This dataset contains data about the speeds associated with the levels of service for the links and vehicle categories
 used.
 
-- *LinkID*: The ID of a street link. Needs to match the link IDs in ``unified link data >> LinkID``.
+- *LinkID*: The ID of a street link. Needs to match the link IDs in ``yeti_format link data >> LinkID``.
 - *VehicleCategory*: One of the following vehicle categories:
 
 .. code-block:: yaml
@@ -250,7 +250,7 @@ LinkID VehicleCategory     LOS1Speed LOS2Speed LOS3Speed LOS4Speed
 
 -------
 
-**unified emission factor data** |br|
+**yeti_format emission factor data** |br|
 
 This dataset contains emission factor attributes used in the emission factor calculation with the copert methodology for
 all vehicles in the fleet.
@@ -264,7 +264,7 @@ leave the EF blank for the vehicles that you want to use speed-dependent copert 
 Note that this dataset needs to contain values for the pollutants you are using, otherwise you
 will encounter errors in the emission calculation.
 
-- *VehicleName*: The name of a vehicle class. Needs to match the vehicle names in ``unified vehicle data >> VehicleName``
+- *VehicleName*: The name of a vehicle class. Needs to match the vehicle names in ``yeti_format vehicle data >> VehicleName``
   exactly.
 - *Pollutant*: One of the following pollutants:
 
@@ -277,9 +277,9 @@ will encounter errors in the emission calculation.
     PollutantType.PM_Exhaust
 
 - *Mode*: The mode, as used by the copert methodology.
-- *Load*: The load, as used by the copert methodology. Note that the load is only used to filter the unified emission factor data.
+- *Load*: The load, as used by the copert methodology. Note that the load is only used to filter the yeti_format emission factor data.
   Only rows with load 0 or blank will be considered for the emission factor calculation.
-- *Slope*: The slope, as used by the copert methodology. Note that the slope is only used to filter the unified emission factor data.
+- *Slope*: The slope, as used by the copert methodology. Note that the slope is only used to filter the yeti_format emission factor data.
   Only rows with slope 0 or blank will be considered for the emission factor calculation.
 - *EF*: [OPTIONAL] A fixed emission factor to be used for the given vehicle name and pollutant. If not blank the EF
   takes precedence over the emission calculation with the copert methodology.
@@ -321,45 +321,45 @@ If you want to use the ``CopertHotStrategy`` for your calculations, you need to 
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
-If using mode ``input_data``:
-'''''''''''''''''''''''''''''
+If using mode ``berlin_format``:
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
-    load_input_data_function:     code.copert_hot_strategy.load_input_data.load_copert_input_data
-    load_unified_data_function:   code.copert_hot_strategy.load_unified_data.load_copert_unified_data
-    validation_function:          code.script_helpers.validate_files.validate_copert_input_files
+    load_berlin_format_data_function:     code.copert_hot_strategy.load_berlin_format_data.load_copert_berlin_format_data
+    load_yeti_format_data_function:   code.copert_hot_strategy.load_yeti_format_data.load_copert_yeti_format_data
+    validation_function:          code.script_helpers.validate_files.validate_copert_berlin_format_files
 
-    input_link_data:              path/to/link_data.csv
-    input_fleet_composition:      path/to/fleet_composition_data.csv
-    input_emission_factors:       path/to/emission_factor_data.csv
-    input_los_speeds:             path/to/los_speeds_data.csv
-    input_traffic_data:           path/to/traffic_data.csv
-    input_vehicle_mapping:        path/to/vehicle_mapping_data.csv
+    berlin_format_link_data:              path/to/link_data.csv
+    berlin_format_fleet_composition:      path/to/fleet_composition_data.csv
+    berlin_format_emission_factors:       path/to/emission_factor_data.csv
+    berlin_format_los_speeds:             path/to/los_speeds_data.csv
+    berlin_format_traffic_data:           path/to/traffic_data.csv
+    berlin_format_vehicle_mapping:        path/to/vehicle_mapping_data.csv
 
     use_nh3_tier2_ef:             yes or no
     # if you set use_nh3_tier2_ef to yes, also add these lines:
-    input_nh3_emission_factors:   path/to/nh3_emission_factor_data.csv
-    input_nh3_mapping:            path/to/nh3_mapping_data.csv
+    berlin_format_nh3_emission_factors:   path/to/nh3_emission_factor_data.csv
+    berlin_format_nh3_mapping:            path/to/nh3_mapping_data.csv
 
 You may have data on Tier 2 emission factors for NH3. If you set ``use_nh3_tier2_ef: yes`` in the config file,
 YETI will read them from the specified files and use them in the emission calculation for pollutant ``PollutantType.NH3``.
 
-If using mode ``unified_data``:
+If using mode ``yeti_format``:
 '''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
-    load_unified_data_function:   code.copert_hot_strategy.load_unified_data.load_copert_unified_data
-    validation_function:          code.script_helpers.validate_files.validate_copert_unified_files
+    load_yeti_format_data_function:   code.copert_hot_strategy.load_yeti_format_data.load_copert_yeti_format_data
+    validation_function:          code.script_helpers.validate_files.validate_copert_yeti_format_files
 
-    unified_emission_factors:     path/to/unified_ef_data.csv
-    unified_los_speeds:           path/to/unified_los_speed_data.csv
-    unified_vehicle_data:         path/to/unified_vehicle_data.csv
-    unified_link_data:            path/to/unified_link_data.csv
-    unified_traffic_data:         path/to/unified_traffic_data.csv
+    yeti_format_emission_factors:     path/to/yeti_format_ef_data.csv
+    yeti_format_los_speeds:           path/to/yeti_format_los_speed_data.csv
+    yeti_format_vehicle_data:         path/to/yeti_format_vehicle_data.csv
+    yeti_format_link_data:            path/to/yeti_format_link_data.csv
+    yeti_format_traffic_data:         path/to/yeti_format_traffic_data.csv
 
 .. |br| raw:: html
 

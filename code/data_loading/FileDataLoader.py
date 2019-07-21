@@ -5,7 +5,7 @@ from code.constants.column_names import *
 
 
 class FileDataLoader:
-    """ This class provides functionality to load input data from file. """
+    """ This class provides functionality to load input data in berlin_format from disc."""
 
     def __init__(self, **kwargs):
         """ Initialize a FileDataLoader instance.
@@ -34,7 +34,7 @@ class FileDataLoader:
         self.nh3_mapping_file = kwargs.get('nh3_mapping_file')
 
     def load_data(self, use_nh3_ef: bool = True, **kwargs):
-        """ Load input data from file.
+        """ Load input data in berlin_format from file.
 
         This method will load the dataframes required by the other AbstractDataLoader subclasses from file.
         It will use the column names as specified in 'column_names.py' under section '1. input data'.

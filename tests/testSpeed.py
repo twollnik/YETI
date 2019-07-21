@@ -1,7 +1,8 @@
-from unittest import TestCase, main
 import os
-import pandas as pd
 import shutil
+from unittest import TestCase, main
+
+import pandas as pd
 
 from code.StrategyInvoker import StrategyInvoker
 from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
@@ -10,18 +11,18 @@ from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import Cop
 class TestSpeed(TestCase):
 
     def setUp(self):
-        if os.path.isfile("./tests/test_data/unified_data/emission_factor_data.csv"):
+        if os.path.isfile("./tests/test_data/yeti_format_data/emission_factor_data.csv"):
             self.init_path = "./tests"
         else:
             self.init_path = "."
 
-    def test_from_unified_data(self):
+    def test_from_yeti_format_data(self):
 
-        emission_factor_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/emission_factor_data.csv")
-        los_speeds_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/los_speeds_data.csv")
-        vehicle_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/vehicle_data.csv")
-        link_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/link_data_with_speed.csv")
-        traffic_data = pd.read_csv(f"{self.init_path}/test_data/unified_data/traffic_data.csv")
+        emission_factor_data = pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv")
+        los_speeds_data = pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv")
+        vehicle_data = pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv")
+        link_data = pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/link_data_with_speed.csv")
+        traffic_data = pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv")
 
         StrategyInvoker().calculate_and_save_emissions(
             emissions_output_folder="temp",

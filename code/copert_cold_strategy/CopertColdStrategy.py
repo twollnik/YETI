@@ -3,8 +3,8 @@ CopertColdStrategy
 
 This module implements emission calculation with the COPERT methodology for cold start emissions.
 """
-from typing import Any, Dict, Iterable, Tuple, Union, List
 import collections
+from typing import Any, Dict, Iterable, Tuple, Union, List
 
 import pandas as pd
 
@@ -71,10 +71,10 @@ class CopertColdStrategy:
                             **kwargs):
         """
         required kwargs:
-        - unified_cold_ef_table
-        - unified_los_speeds
-        - unified_emission_factors
-        - unified_vehicle_mapping
+        - yeti_format_cold_ef_table
+        - yeti_format_los_speeds
+        - yeti_format_emission_factors
+        - yeti_format_vehicle_mapping
         - ltrip
         - temperature
         - exclude_road_types
@@ -124,15 +124,15 @@ class CopertColdStrategy:
 
         self.vehicle_dict = vehicle_dict
 
-        self.initialize_cold_ef_table(kwargs["unified_cold_ef_table"])
-        self.veh_mapping = kwargs["unified_vehicle_mapping"].set_index("VehName")
-        self.los_speeds_data = kwargs["unified_los_speeds"]
-        self.hot_emission_factor_data = kwargs["unified_emission_factors"]
+        self.initialize_cold_ef_table(kwargs["yeti_format_cold_ef_table"])
+        self.veh_mapping = kwargs["yeti_format_vehicle_mapping"].set_index("VehName")
+        self.los_speeds_data = kwargs["yeti_format_los_speeds"]
+        self.hot_emission_factor_data = kwargs["yeti_format_emission_factors"]
         self.los_speeds_dict = self.los_speeds_data.set_index(["LinkID", "VehicleCategory"]).to_dict(orient="index")
 
         self.ltrip = kwargs["ltrip"]
         self.temperature = kwargs["temperature"]
-        self.initialize_ABC_dict_if_necessary(kwargs["unified_cold_ef_table"])
+        self.initialize_ABC_dict_if_necessary(kwargs["yeti_format_cold_ef_table"])
         self.initialize_max_min_cold_ef_stats_if_necessary()
         self.initialize_corresponding_euro1_vehicles_if_necessary()
         self.initialize_euro_category_for_vehicles_if_necessary()

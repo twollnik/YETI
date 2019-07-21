@@ -18,7 +18,7 @@ A validation function is called with the single argument ``kwargs``:
         ...
 
 ``kwargs`` is a Python dictionary that contains all arguments from the config file. For example if the config
-file contains the line ``input_link_data:     path/to/link_data.csv`` the ``kwargs`` dictionary will contain the
+file contains the line ``berlin_format_link_data:     path/to/link_data.csv`` the ``kwargs`` dictionary will contain the
 key-value pair ``"input_link_data": "path/to/link_data.csv"``.
 
 ``kwargs`` lets you access the input files that are specified in the config file.
