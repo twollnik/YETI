@@ -57,10 +57,10 @@ class TestScript(TestCase):
         assert_file_exists_and_not_empty(f"output_hbefa/run_info.txt")
         assert_file_exists_and_not_empty(f"output_hbefa/PollutantType.CO_emissions.csv")
         assert_file_exists_and_not_empty(f"output_hbefa/PollutantType.NOx_emissions.csv")
-        assert_file_exists_and_not_empty(f"./temp_yeti_data/yeti_format_emission_factors.csv")
-        assert_file_exists_and_not_empty(f"./temp_yeti_data/yeti_format_vehicle_data.csv")
-        assert_file_exists_and_not_empty(f"./temp_yeti_data/yeti_format_link_data.csv")
-        assert_file_exists_and_not_empty(f"./temp_yeti_data/yeti_format_traffic_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_emission_factors.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_vehicle_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_link_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_traffic_data.csv")
 
         logging.warning.assert_not_called()
 

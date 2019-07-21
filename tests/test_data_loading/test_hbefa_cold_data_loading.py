@@ -3,9 +3,9 @@ import shutil
 from unittest import TestCase, main
 
 import pandas as pd
+
 from code.hbefa_cold_strategy.load_berlin_format_data import load_hbefa_cold_berlin_format_data
 from code.hbefa_cold_strategy.load_yeti_format_data import load_hbefa_cold_yeti_format_data
-
 from tests.helper import df_equal
 
 
@@ -27,10 +27,10 @@ class TestHbefaColdDataLoading(TestCase):
     def test_load_berlin_format_data(self):
 
         data_actual_file_locations = load_hbefa_cold_berlin_format_data(
-            input_link_data=f'{self.init_path}/test_data/berlin_format_data/shape_data.csv',
-            input_fleet_composition=f'{self.init_path}/test_data/berlin_format_data/fleet_comp_data.csv',
-            input_emission_factors=f'{self.init_path}/test_data/berlin_format_data/hbefa_cold_starts_ef.csv',
-            input_cold_starts_data=f'{self.init_path}/test_data/berlin_format_data/cold_starts.csv',
+            berlin_format_link_data=f'{self.init_path}/test_data/berlin_format_data/shape_data.csv',
+            berlin_format_fleet_composition=f'{self.init_path}/test_data/berlin_format_data/fleet_comp_data.csv',
+            berlin_format_emission_factors=f'{self.init_path}/test_data/berlin_format_data/hbefa_cold_starts_ef.csv',
+            berlin_format_cold_starts_data=f'{self.init_path}/test_data/berlin_format_data/cold_starts.csv',
             output_folder=f'{self.init_path}/temp_for_hbefa_cold_data_loading_test'
         )
 

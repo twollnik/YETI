@@ -13,20 +13,20 @@ validation_function:        code.copert_hot_strategy.validate.validate_copert_be
 
 # -------- file names -----------
 
-berlin_link_data:            example/example_berlin_format_data/link_data.csv
-berlin_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
-berlin_emission_factors:     example/example_berlin_format_data/copert_emission_factors.csv
-berlin_los_speeds:           example/example_berlin_format_data/los_speeds.csv
-berlin_traffic_data:         example/example_berlin_format_data/traffic_data.csv
-berlin_vehicle_mapping:      example/example_berlin_format_data/vehicle_mapping.csv
-berlin_nh3_emission_factors: example/example_berlin_format_data/nh3_tier2_emission_factors.csv
-berlin_nh3_mapping:          example/example_berlin_format_data/nh3_mapping.csv
+berlin_format_link_data:            example/example_berlin_format_data/link_data.csv
+berlin_format_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
+berlin_format_emission_factors:     example/example_berlin_format_data/copert_emission_factors.csv
+berlin_format_los_speeds:           example/example_berlin_format_data/los_speeds.csv
+berlin_format_traffic_data:         example/example_berlin_format_data/traffic_data.csv
+berlin_format_vehicle_mapping:      example/example_berlin_format_data/vehicle_mapping.csv
+berlin_format_nh3_emission_factors: example/example_berlin_format_data/nh3_tier2_emission_factors.csv
+berlin_format_nh3_mapping:          example/example_berlin_format_data/nh3_mapping.csv
 
-yeti_emission_factors:   example/example_yeti_format_data/copert_emission_factors.csv
-yeti_los_speeds:         example/example_yeti_format_data/los_speeds.csv
-yeti_vehicle_data:       example/example_yeti_format_data/vehicle_data.csv
-yeti_link_data:          example/example_yeti_format_data/link_data.csv
-yeti_traffic_data:       example/example_yeti_format_data/traffic_data.csv
+yeti_format_emission_factors:   example/example_yeti_format_data/copert_emission_factors.csv
+yeti_format_los_speeds:         example/example_yeti_format_data/los_speeds.csv
+yeti_format_vehicle_data:       example/example_yeti_format_data/vehicle_data.csv
+yeti_format_link_data:          example/example_yeti_format_data/link_data.csv
+yeti_format_traffic_data:       example/example_yeti_format_data/traffic_data.csv
 
 # -------- output folder(s) --------------
 
