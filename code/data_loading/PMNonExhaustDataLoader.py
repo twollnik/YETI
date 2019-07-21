@@ -8,7 +8,7 @@ from code.data_loading.FileDataLoader import PMNonExhaustFileDataLoader
 
 class PMNonExhaustDataLoader(DataLoader):
 
-    def load_input_data(self, use_nh3_ef: bool):
+    def load_berlin_format_data(self, use_nh3_ef: bool):
 
         return PMNonExhaustFileDataLoader(**self.filenames_dict).load_data(use_nh3_ef=False)
 

@@ -20,8 +20,8 @@ class LinkDataLoader:
 
         This method uses the dataframe that was previously passed to the constructor method.
 
-        Note that the link length needs to be in meters in the input data and will be
-        in kilometers in the ouput data.
+        Note that the link length needs to be in meters in the berlin_format data and will be
+        in kilometers in the output data.
 
         :return: link_data : a pd.DataFrame
         """

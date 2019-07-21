@@ -35,20 +35,20 @@ in attributes gives you a lot more flexibility in the implementation.
 Strategies collaborate with data handling functions
 ---------------------------------------------------
 
-The functions ``load_input_data_function`` and ``load_unified_data_function`` (as specified in the config)
+The functions ``load_berlin_format_data_function`` and ``load_yeti_format_data_function`` (as specified in the config)
 are used to load the data that is required by the Strategy.
 
-``load_input_data_function`` is a function that reads the input_data for the Strategy from file, converts it to
-unified_data format and saves the constructed unified_data to file. :doc:`more <add_load_input_data_function>`
+``load_berlin_format_data_function`` is a function that reads the data in berlin_format for the Strategy from file,
+converts it to yeti_format and saves the constructed data in yeti_format to disc. :doc:`more <add_load_berlin_format_data_function>`
 
-``load_unified_data_function`` has the simple job of reading the required unified_data for the Strategy from
-file. :doc:`more <add_load_unified_data_function>`
+``load_yeti_format_data_function`` has the simple job of reading the required data in yeti_format for the Strategy from
+disc. :doc:`more <add_load_yeti_format_data_function>`
 
-Each Strategy has a corresponding ``load_input_data_function`` and ``load_unified_data_function``.
+Each Strategy has a corresponding ``load_berlin_format_data_function`` and ``load_yeti_format_data_function``.
 If you write your own Strategy you may have to also write new data loading functions.
 
 You can access the output of the data loading functions in ``calculate_emissions``, as described
-:ref:`here <return-value-of-load-unified-data-function-is-passed-to-strategy>`.
+:ref:`here <return-value-of-load-yeti-format-data-function-is-passed-to-strategy>`.
 
 How are Strategies called?
 --------------------------
@@ -62,10 +62,10 @@ Let's take a look at the parameters of ``calculate_emissions``:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The ``StrategyInvoker`` performs an
 `SQL-style inner join <https://www.w3resource.com/sql/joins/perform-an-inner-join.php>`_ on the given
-unified link data and unified traffic data. It then calls the Strategy's method ``calculate_emissions`` once per row
+yeti_format link data and yeti_format traffic data. It then calls the Strategy's method ``calculate_emissions`` once per row
 in the resulting dataframe. The row is passed to ``calculate_emissions`` as a dictionary.
 
-Let's look at an example. Say your link data and traffic data (belonging to ``unified_data`` class) look like this:
+Let's look at an example. Say your link data and traffic data (belonging to ``yeti_format`` class) look like this:
 
 *link data*:
 
@@ -151,7 +151,7 @@ use it to iterate over all vehicles. For example:
             ...
 
 
-The ``vehicle_dict`` is constructed from the unified vehicle data by the ``StrategyInvoker`` class.
+The ``vehicle_dict`` is constructed from the yeti_format vehicle data by the ``StrategyInvoker`` class.
 
 ``pollutants``
 ^^^^^^^^^^^^^^
@@ -182,20 +182,20 @@ config options for your Strategy. An example for using a config parameter in the
             average_slope = kwargs["average_slope"]
             # You can now use average_slope in the emission calculation.
 
-.. _return-value-of-load-unified-data-function-is-passed-to-strategy:
+.. _return-value-of-load-yeti-format-data-function-is-passed-to-strategy:
 
-The **return value of the ``load_unified_data_function``** is also passed to ``calculate_emissions`` as keyword
+The **return value of the ``load_yeti_format_data_function``** is also passed to ``calculate_emissions`` as keyword
 arguments. This means that you can load the required data for the Strategy in the
-``load_unified_data_function`` and then access it in the Strategy. For more details
-on the ``load_unified_data_function`` look :doc:`here <add_load_unified_data_function>`.
-An example for using a return value of the ``load_unified_data_function`` in the Strategy:
+``load_yeti_format_data_function`` and then access it in the Strategy. For more details
+on the ``load_yeti_format_data_function`` look :doc:`here <add_load_yeti_format_data_function>`.
+An example for using a return value of the ``load_yeti_format_data_function`` in the Strategy:
 
 .. code-block:: python
 
-    # function_to_load_unified_data.py
+    # function_to_load_yeti_format_data.py
     import pandas as pd
 
-    def load_unified_data(...):
+    def load_yeti_format_data(...):
         ...
         some_pandas_dataframe = pd.read_csv(...) # load the data
         ...

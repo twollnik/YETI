@@ -121,28 +121,28 @@ Data Requirements
 YETI is a street level model. This means that the road network you want to calculate emissions for needs to be
 divided into street links.
 
-Find example datasets in ``example/example_input_data`` and ``example/example_unified_data``.
+Find example datasets in ``example/example_berlin_format_data`` and ``example/example_yeti_format_data``.
 
 The two data classes
 ^^^^^^^^^^^^^^^^^^^^
 
-We differentiate between ``input_data`` and ``unified_data``.
+We differentiate between ``berlin_format`` and ``yeti_format``.
 
-``input_data`` is data in the format that we were using at the start of
+``berlin_format`` is data in the format that we were using at the start of
 this project. It is not ideal for the calculations and needs to be
 transformed to a different format more suitable for the emissions
 calculation.
 
-``unified_data`` is data in a unified format. It defines a layer of abstraction between the
-input_data and the emission calculation. We provide functions to
-transform ``input_data`` to ``unified_data`` for all Strategies.
+``yeti_format`` is data in a unified format. It defines a layer of abstraction between the
+``berlin_format`` data and the emission calculation. We provide functions to
+transform ``berlin_format`` data to ``yeti_format`` data for all Strategies.
 
 The data that you are working with is likely in a different
-format than our ``input_data``, however chances are that you can
-tranform your data to fit the format of the ``unified_data`` class. If this is the
+format than our ``berlin_format``, however chances are that you can
+tranform your data to fit the ``yeti_format``. If this is the
 case, you only need to
-`write a function to convert your data <https://iass-yeti.readthedocs.io/en/latest/developer/add_load_input_data_function.html>`_
-to ``unified_data``. Once this is done you can use YETI with your data and
+`write a function to convert your data <https://iass-yeti.readthedocs.io/en/latest/developer/add_load_berlin_format_data_function.html>`_
+to ``yeti_format``. Once this is done you can use YETI with your data and
 don't need to adapt any other part of the system.
 
 Data requirements depend on Strategy

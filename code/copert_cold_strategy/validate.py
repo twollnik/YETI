@@ -1,18 +1,19 @@
-import pandas as pd
 import logging
 
-from code.copert_hot_strategy.validate import validate_copert_unified_files, validate_copert_input_files
+import pandas as pd
+
+from code.copert_hot_strategy.validate import validate_copert_yeti_format_files, validate_copert_berlin_format_files
 from code.strategy_helpers.validation_helpers import check_separator_is_comma, check_column_names, \
     check_categories_are_correct
 
 
-def validate_copert_cold_input_files(**kwargs):
+def validate_copert_cold_berlin_format_files(**kwargs):
 
     logging.debug("Validation: Part 1 of 2")
-    validate_copert_input_files(**kwargs)
+    validate_copert_berlin_format_files(**kwargs)
 
-    cold_ef_file = kwargs["input_cold_ef_table"]
-    veh_mapping_file= kwargs["input_vehicle_mapping"]
+    cold_ef_file = kwargs["berlin_format_cold_ef_table"]
+    veh_mapping_file= kwargs["berlin_format_vehicle_mapping"]
 
     logging.debug("Validation: Part 2 of 2")
     logging.debug(f"Files to be validated: \n"
@@ -23,13 +24,13 @@ def validate_copert_cold_input_files(**kwargs):
     validate_veh_mapping(veh_mapping_file)
 
 
-def validate_copert_cold_unified_files(**kwargs):
+def validate_copert_cold_yeti_format_files(**kwargs):
 
     logging.debug("Validation: Part 1 of 2")
-    validate_copert_unified_files(**kwargs)
+    validate_copert_yeti_format_files(**kwargs)
 
-    cold_ef_file = kwargs["unified_cold_ef_table"]
-    veh_mapping_file = kwargs["unified_vehicle_mapping"]
+    cold_ef_file = kwargs["yeti_format_cold_ef_table"]
+    veh_mapping_file = kwargs["yeti_format_vehicle_mapping"]
 
     logging.debug("Validation: Part 2 of 2")
     logging.debug(f"Files to be validated: \n"

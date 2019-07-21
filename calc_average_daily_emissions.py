@@ -10,10 +10,11 @@ Methodology:
 """
 
 import argparse
+
 import pandas as pd
 
 
-def calc_avg_daily_emissions(input_file: str):
+def calc_avg_daily_emissions(input_file):
 
     print(f"Reading emissions from file {input_file}")
     emissions_df = pd.read_csv(

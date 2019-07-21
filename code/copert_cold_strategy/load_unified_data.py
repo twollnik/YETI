@@ -2,16 +2,16 @@ import numpy as np
 import pandas as pd
 
 
-def load_copert_cold_unified_data(**kwargs):
+def load_copert_cold_yeti_format_data(**kwargs):
 
-    emission_factor_data_file = kwargs.get('unified_emission_factors')
-    los_speeds_data_file = kwargs.get('unified_los_speeds')
-    vehicle_data_file = kwargs.get('unified_vehicle_data')
-    link_data_file = kwargs.get('unified_link_data')
-    traffic_data_file = kwargs.get('unified_traffic_data')
+    emission_factor_data_file = kwargs.get('yeti_format_emission_factors')
+    los_speeds_data_file = kwargs.get('yeti_format_los_speeds')
+    vehicle_data_file = kwargs.get('yeti_format_vehicle_data')
+    link_data_file = kwargs.get('yeti_format_link_data')
+    traffic_data_file = kwargs.get('yeti_format_traffic_data')
     traffic_data_n_rows = kwargs.get('use_n_traffic_data_rows')
-    cold_ef_table_file = kwargs.get('unified_cold_ef_table')
-    unified_vehicle_mapping_file = kwargs.get('unified_vehicle_mapping')
+    cold_ef_table_file = kwargs.get('yeti_format_cold_ef_table')
+    yeti_format_vehicle_mapping_file = kwargs.get('yeti_format_vehicle_mapping')
 
 
     emission_factor_data = pd.read_csv(emission_factor_data_file,
@@ -40,14 +40,14 @@ def load_copert_cold_unified_data(**kwargs):
 
     cold_ef_table = pd.read_csv(cold_ef_table_file)
 
-    vehicle_mapping = pd.read_csv(unified_vehicle_mapping_file)
+    vehicle_mapping = pd.read_csv(yeti_format_vehicle_mapping_file)
 
     return {
         "link_data": link_data,
         "vehicle_data": vehicle_data,
         "traffic_data": traffic_data,
-        "unified_los_speeds": los_speeds_data,
-        "unified_emission_factors": emission_factor_data,
-        "unified_cold_ef_table": cold_ef_table,
-        "unified_vehicle_mapping": vehicle_mapping
+        "yeti_format_los_speeds": los_speeds_data,
+        "yeti_format_emission_factors": emission_factor_data,
+        "yeti_format_cold_ef_table": cold_ef_table,
+        "yeti_format_vehicle_mapping": vehicle_mapping
     }

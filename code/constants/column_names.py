@@ -1,5 +1,5 @@
 """
-This file contains the complete list of all column names for the datasets belonging to the input_data class.
+This file contains the complete list of all column names for the datasets belonging to the berlin_format data class.
 For categorical data columns it also contains the possible categories.
 
 Naming convention:

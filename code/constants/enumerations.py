@@ -62,7 +62,7 @@ class DayType(MyEnum):
 class PollutantType(MyEnum):
 
     # The pollutant values need to match the names in the
-    # input_data emission factors file
+    # berlin_format emission factors file
     NOx = "NOx"
     CO = "CO"
     NH3 = "NH3"

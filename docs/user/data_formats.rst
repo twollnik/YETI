@@ -4,12 +4,12 @@
     :start-after: data-requirements-start-do-not-remove
     :end-before: data-requirements-end-do-not-remove
 
-input_data
-^^^^^^^^^^
+berlin_format
+^^^^^^^^^^^^^
 
-All Strategies need the following three ``input_data`` files:
+All Strategies need the following three files in ``berlin_format``:
 
-.. image:: ../../diagrams/input_data.png
+.. image:: ../../diagrams/berlin_format_data.png
 
 :ref:`how-to-read-er`
 
@@ -23,11 +23,11 @@ in the link data file. These are the columns:
 - *LinkID*: The unique ID for the street link
 - *AreaCat*: The area category for the street link. Currently allowed area categories are:
   ``0`` for rural and ``1`` for urban. If your input data uses different categories, you
-  can :doc:`change the data loading behaviour <../developer/add_load_input_data_function>` to
+  can :doc:`change the data loading behaviour <../developer/add_load_berlin_format_data_function>` to
   support other categories.
 - *RoadCat*: The road category for the street link. Currently allowed area categories are
   listed below. If your input data uses different categories, you can :doc:`change the data
-  loading behaviour <../developer/add_load_input_data_function>` to support other categories.
+  loading behaviour <../developer/add_load_berlin_format_data_function>` to support other categories.
 
 .. code-block:: yaml
 
@@ -135,21 +135,21 @@ LCV diesel M+N1-I Euro-2 L      0.003
 ======================== ====== ============ =============
 
 
-unified_data
-^^^^^^^^^^^^
+yeti_format
+^^^^^^^^^^^
 
-All Strategies work with these ``unified_data`` datasets:
+All Strategies work with these ``yeti_format`` datasets:
 
-.. image:: ../../diagrams/unified_data.png
+.. image:: ../../diagrams/yeti_format_data.png
 
 :ref:`how-to-read-er`
 
-.. _unified-link-data-explained:
+.. _yeti-format-link-data-explained:
 
-**unified link data**
+**yeti_format link data**
 
 This is a file with data about the street links in the region you are examining. Each street link
-corresponds to one line in the unified link data file. It has these columns:
+corresponds to one line in the yeti_format link data file. It has these columns:
 
 - *LinkID*: The unique ID for the street link
 - *RoadType*: The road type for the street link. Possible road categories are:
@@ -182,16 +182,16 @@ LinkID AreaType       RoadType         MaxSpeed
 65_485 AreaType.Urban RoadType.Local   30
 ====== ============== ================ ========
 
-.. _unified-traffic-data-explained:
+.. _yeti-format-traffic-data-explained:
 
 --------------
 
-**unified traffic data**
+**yeti_format traffic data**
 
-This file contains vehicle count data for every vehicle in unified vehicle data and for each street link, direction,
+This file contains vehicle count data for every vehicle in yeti_format vehicle data and for each street link, direction,
 day type and hour. It has these columns:
 
-- *LinkID*: The unique ID for the street link. The LinkIDs need to match the LinkIDs in the unified link data.
+- *LinkID*: The unique ID for the street link. The LinkIDs need to match the LinkIDs in the yeti_format link data.
 - *Dir*: The traffic direction for the given street link:
 
 .. code-block:: yaml
@@ -211,7 +211,7 @@ day type and hour. It has these columns:
 - *Hour*: A number between 0 and 23.
 - *vehicle i*: The number of vehicles belonging to class ``vehicle i`` at the street link for the
   given day type, hour and direction. The file needs to contain vehicle count columns for
-  all vehicle names in the unified vehicle data.
+  all vehicle names in the yeti_format vehicle data.
 - *LOSxPercentage*: The percentage of traffic attributed to the x level of service. Currently implemented levels
   of service: 1 (Freeflow), 2 (Heavy), 3 (Satur.), and 4 (St+Go).
 
@@ -225,11 +225,11 @@ LinkID Dir   DayType          Hour PC petrol <1.4L Euro-1 LCV diesel M+N1-I Euro
 ====== ===== ================ ==== ====================== ========================
 
 
-.. _unified-vehicle-data-explained:
+.. _yeti-format-vehicle-data-explained:
 
 --------------
 
-**unified vehicle data**
+**yeti_format vehicle data**
 
 A dataset linking each vehicle class to its category.
 
