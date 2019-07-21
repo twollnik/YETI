@@ -8,7 +8,7 @@ from disc. Each ``load_yeti_format_data_function`` is related to a Strategy that
 function.
 
 How is ``load_yeti_format_data_function`` called?
----------------------------------------------
+-------------------------------------------------
 
 ``load_yeti_format_data_function`` is called with the single argument ``kwargs``. ``kwargs`` contains all all
 arguments from the config file and the key-value pairs returned by the ``load_berlin_format_data_function`` that
@@ -48,7 +48,7 @@ You need to make sure that eather the config file or the return dictionary from 
 the key ``yeti_format_los_speeds_data_file``, so that you can access it in the ``kwargs``.
 
 What should the ``load_yeti_format_data_function`` return?
-------------------------------------------------------
+----------------------------------------------------------
 
 The function should return a dictionary. The dictionary should contain all dataframes that will be used by the Strategy.
 Additionally the return dictionary needs to contain the keys ``"traffic_data"``, ``"link_data"``, and ``"vehicle_data"``.

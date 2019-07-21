@@ -172,7 +172,7 @@ Now you want to use ``MyDataLoader`` in the ``load_berlin_format_data_function``
 Now we will take a look at the two usage scenarios mentioned before.
 
 1. One of your berlin_format files has a different format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This means that you will need to change
 
@@ -252,7 +252,7 @@ The last thing you need to do is to **make your DataLoader use the new MyFileDat
             return MyFileDataLoader(**self.filenames_dict).load_data(use_nh3_ef)
 
 2. Change how one or multiple files in yeti_format are constructed
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Every yeti_format file is constructed in a dedicated method by the ``DataLoader``. To change
 how a yeti_format file is constructed, override the method that constructs it.
@@ -305,7 +305,7 @@ For example if your traffic data format changes, you will need to override ``loa
             return yeti_format_traffic_data
 
 2. You don't use all the files in yeti_format that are used by the ``CopertHotStrategy``.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If this is the case you should override the method that constructs the yeti_format file that
 you don't want to use. Let the method return None. For example say you don't want to use emission factor
 data:
