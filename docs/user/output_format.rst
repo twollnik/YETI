@@ -31,7 +31,7 @@ Output location
 In the config file you specify an ``output_folder``. The model outputs will be in the specified ``output_folder``.
 
 files in yeti_format
-------------------
+--------------------
 
 If you are using mode ``berlin_format``, YETI generates files in unifed_data format during the run. These files are saved
 in ``output_folder``. If you specify ``output_folder_for_yeti_format_data`` in the config file, the ``yeti_format``

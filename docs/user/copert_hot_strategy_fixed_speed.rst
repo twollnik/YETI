@@ -20,7 +20,7 @@ Data requirements
 What data the ``CopertHotFixedSpeedStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
 Data requirements for mode ``berlin_format``
-'''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''
 
 The same data in ``berlin_format`` as ``CopertHotStrategy`` is required with these modifications:
 
@@ -65,7 +65,7 @@ the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`.
 
 If using mode ``berlin_format``:
-'''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 

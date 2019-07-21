@@ -23,7 +23,7 @@ Data Requirements
 What data the ``PMNonExhaustStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
 Data requirements for mode ``berlin_format``
-'''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''
 
 .. image:: ../../diagrams/pm_non_exhaust_berlin_format_data_requirements.png
     :width: 400
@@ -96,7 +96,7 @@ the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
 If using mode ``berlin_format``:
-'''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
