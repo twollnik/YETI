@@ -9,6 +9,7 @@ from typing import Any, Dict, Iterable, Tuple, Union, List
 import pandas as pd
 
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
+from code.script_helpers.dynamic_import_from import dynamic_import_from
 
 
 class CopertColdStrategy:
@@ -48,7 +49,8 @@ class CopertColdStrategy:
         self.vehicles_lcv_diesel = []
         self.vehicles_other = []
 
-        self.hot_strategy = CopertHotStrategy()
+        self.hot_strategy = None
+
         self.ltrip = None  # average length of a trip as specified in config
         self.temperature= None
         self.ABC_dict = None
@@ -86,7 +88,7 @@ class CopertColdStrategy:
             - "total" : total emissions data frame
         """
 
-        self.initialize_if_necessary(kwargs, vehicle_dict)
+        self.initialize_if_necessary(vehicle_dict, **kwargs)
         self.store_row_data_in_attribute(traffic_and_link_data_row)
         self.delete_emissions_from_last_call_to_this_function()
 
@@ -105,12 +107,12 @@ class CopertColdStrategy:
             total_emissions = self.calculate_total_emissions(hot_emissions_for_pollutant, cold_emissions)
             self.add_emissions_to_assembly_attribute(pollutant, hot_emissions_for_pollutant, cold_emissions, total_emissions)
 
-
         return self.emissions
 
-    def initialize_if_necessary(self, kwargs, vehicle_dict):
+    def initialize_if_necessary(self, vehicle_dict, **kwargs):
 
         if self.is_not_initialized():
+            self.initialize_hot_strategy(**kwargs)
             self.store_data_in_attributes(vehicle_dict, **kwargs)
             self.split_vehicles_into_groups(vehicle_dict)
 
@@ -119,6 +121,15 @@ class CopertColdStrategy:
         data_attributes = [self.cold_ef_table, self.veh_mapping, self.los_speeds_dict,
                            self.los_speeds_data, self.hot_emission_factor_data, self.ltrip, self.temperature]
         return any(att is None for att in data_attributes)
+
+    def initialize_hot_strategy(self, **kwargs):
+
+        if "hot_strategy" not in kwargs.keys():
+            self.hot_strategy = CopertHotStrategy()
+        else:
+            path_to_strategy_class = kwargs["hot_strategy"]
+            strategy_class = dynamic_import_from(path_to_strategy_class)
+            self.hot_strategy = strategy_class()
 
     def store_data_in_attributes(self, vehicle_dict: Dict[str, str], **kwargs):
 
@@ -310,10 +321,10 @@ class CopertColdStrategy:
         else:
             self.vehicles_lcv_diesel.append(veh_name)
 
-    def calculate_hot_emissions(self, pollutant: str) -> Dict[str, Dict[str, float]]:
+    def calculate_hot_emissions(self, pollutants: List[str]) -> Dict[str, Dict[str, float]]:
 
         return self.hot_strategy.calculate_emissions(
-            self.row, self.vehicle_dict, pollutant, los_speeds_data=self.los_speeds_data,
+            self.row, self.vehicle_dict, pollutants, los_speeds_data=self.los_speeds_data,
             emission_factor_data=self.hot_emission_factor_data
         )
 

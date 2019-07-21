@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 from code.copert_cold_strategy.CopertColdStrategy import CopertColdStrategy
+from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
 
 
 class TestCopertColdStrategy(TestCase):
@@ -85,6 +86,7 @@ class TestCopertColdStrategy(TestCase):
         self.strategy.vehicle_dict = self.vehicle_dict
         self.strategy.row = self.row_dict
         self.strategy.cold_ef_table = self.cold_ef_table
+        self.strategy.initialize_hot_strategy()
 
     def test_calculate_emissions(self):
 
@@ -113,6 +115,17 @@ class TestCopertColdStrategy(TestCase):
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
         self.assertEqual(emissions1, emissions2)
+
+    def test_configure_hot_strategy(self):
+
+        strategy = CopertColdStrategy()
+
+        strategy.store_data_in_attributes = MagicMock()
+        strategy.split_vehicles_into_groups = MagicMock()
+
+        strategy.initialize_if_necessary({}, hot_strategy="code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy")
+
+        self.assertIsInstance(strategy.hot_strategy, CopertHotFixedSpeedStrategy)
 
     def test_calculate_emissions_with_cng_and_lcv(self):
 
