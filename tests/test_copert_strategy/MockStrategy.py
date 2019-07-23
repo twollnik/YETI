@@ -9,4 +9,4 @@ class MockStrategy:
                             pollutants: List[str],
                             **kwargs):
 
-        return None
+        return {"poll": {"vehA": 100}}
