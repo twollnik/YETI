@@ -37,7 +37,7 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         mocked_copert_hot_load_function.assert_called_once_with(test_arg1=1, test_arg2="abc", test_arg3=4)
 
         self.assertEqual(actual_return_value,
-                         {"some": "return", "value": "for mocking",
+                         {"hot_some": "return", "hot_value": "for mocking",
                           "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
                           "cold_load_berlin_format_data_function": "tests.test_copert_strategy.mock_load_berlin_data_function.mock_load_berlin_data_function",
                           "cold_test_arg1": 1, "cold_test_arg2": "abc"
