@@ -1,4 +1,5 @@
 import os
+import shutil
 from unittest import TestCase, main
 from unittest.mock import patch
 
@@ -54,6 +55,11 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         })
 
     def test_case_hot_and_cold_data_is_saved_in_folders_named_hot_and_cold(self):
+
+        # delete the folder
+        dirpath = f"{self.init_path}/output_yeti_format_data"
+        if os.path.exists(dirpath) and os.path.isdir(dirpath):
+            shutil.rmtree(dirpath)
 
         # use data as requried for CopertHotStrategy and HbefaColdStrategy
         data_for_hot_strategy = {
