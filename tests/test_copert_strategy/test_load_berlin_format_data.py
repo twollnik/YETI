@@ -78,16 +78,16 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
             cold_load_berlin_format_data_function="code.hbefa_cold_strategy.load_berlin_format_data.load_hbefa_cold_berlin_format_data"
         )
 
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_emission_factors.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_los_speeds.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_vehicle_data.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_link_data.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_traffic_data.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_emission_factors.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_los_speeds.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_vehicle_data.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_link_data.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_hot_strategy/yeti_format_traffic_data.csv"))
 
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_emission_factors.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_vehicle_data.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_link_data.csv"))
-        self.assertTrue(os.path.isfile("output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_cold_starts_data.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_emission_factors.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_vehicle_data.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_link_data.csv"))
+        self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_cold_starts_data.csv"))
 
 
 if __name__ == '__main__':
