@@ -8,7 +8,7 @@ def load_copert_berlin_format_data(**kwargs):
     if kwargs.get("only_hot") is True:
         return load_copert_hot_berlin_format_data(**kwargs)
 
-    elif "cold_strategy" in kwargs:
+    if "cold_strategy" in kwargs:
 
         paths_to_hot_yeti_format_data = load_hot_data(**kwargs)
         paths_to_cold_yeti_format_data = load_cold_data(**kwargs)
@@ -25,6 +25,8 @@ def load_hot_data(**kwargs):
 
     kwargs_for_hot = drop_keys_starting_with("cold_", kwargs)
     kwargs_for_hot = remove_prefix_from_keys("hot_", kwargs_for_hot)
+
+    kwargs_for_hot["output_folder"] = f"{kwargs_for_hot['output_folder']}/yeti_format_data_for_hot_strategy"
 
     paths_to_hot_yeti_format_data = load_copert_hot_berlin_format_data(**kwargs_for_hot)
     paths_to_hot_yeti_format_data = add_prefix_to_keys("hot", paths_to_hot_yeti_format_data)
@@ -51,6 +53,8 @@ def load_cold_data(**kwargs):
     kwargs_for_cold = drop_keys_starting_with("hot_", kwargs)
     kwargs_for_cold = remove_prefix_from_keys("cold_", kwargs_for_cold)
 
+    kwargs_for_cold["output_folder"] = f"{kwargs_for_cold['output_folder']}/yeti_format_data_for_cold_strategy"
+
     paths_to_cold_yeti_format_data = load_cold_berlin_format_data_function(**kwargs_for_cold)
     paths_to_cold_yeti_format_data = add_prefix_to_keys("cold", paths_to_cold_yeti_format_data)
 
@@ -60,5 +64,3 @@ def load_cold_data(**kwargs):
 def add_prefix_to_keys(prefix, paths_to_cold_yeti_format_data):
 
     return {f"{prefix}_{key}": value for key, value in list(paths_to_cold_yeti_format_data.items())}
-
-# TODO: handle naming conflicts in yeti_format output files
