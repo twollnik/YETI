@@ -3,11 +3,11 @@ from unittest import TestCase, main
 
 import numpy as np
 import pandas as pd
-from code.copert_hot_strategy.load_yeti_format_data import load_copert_yeti_format_data
-from code.hbefa_hot_strategy.load_yeti_format_data import load_hbefa_yeti_format_data
 
+from code.copert_hot_strategy.load_yeti_format_data import load_copert_hot_yeti_format_data
 from code.data_loading.DataLoader import DataLoader
 from code.data_loading.HbefaDataLoader import HbefaDataLoader
+from code.hbefa_hot_strategy.load_yeti_format_data import load_hbefa_yeti_format_data
 from tests.helper import df_equal
 
 
@@ -63,7 +63,7 @@ class TestDataLoader(TestCase):
          emission_factor_data, missing_ef_data) = self.loader.load_data()
         link_data.Length = link_data.Length.apply(lambda val: round(val, 4))
 
-        yeti_format_data = load_copert_yeti_format_data(
+        yeti_format_data = load_copert_hot_yeti_format_data(
             yeti_format_emission_factors=f'{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv',
             yeti_format_los_speeds=f'{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv',
             yeti_format_vehicle_data=f'{self.init_path}/test_data/yeti_format_data/vehicle_data.csv',

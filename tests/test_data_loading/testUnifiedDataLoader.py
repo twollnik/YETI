@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase, main
 
-from code.copert_hot_strategy.load_yeti_format_data import load_copert_yeti_format_data
+from code.copert_hot_strategy.load_yeti_format_data import load_copert_hot_yeti_format_data
 
 
 class TestYetiFormatDataLoader(TestCase):
@@ -13,7 +13,7 @@ class TestYetiFormatDataLoader(TestCase):
         else:
             self.init_path = ".."
 
-        yeti_format_data = load_copert_yeti_format_data(
+        yeti_format_data = load_copert_hot_yeti_format_data(
             yeti_format_emission_factors=f'{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv',
             yeti_format_los_speeds=f'{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv',
             yeti_format_vehicle_data=f'{self.init_path}/test_data/yeti_format_data/vehicle_data.csv',
@@ -26,7 +26,7 @@ class TestYetiFormatDataLoader(TestCase):
         self.los_speeds_data = yeti_format_data["los_speeds_data"]
         self.emission_factor_data = yeti_format_data["emission_factor_data"]
 
-        yeti_format_data = load_copert_yeti_format_data(
+        yeti_format_data = load_copert_hot_yeti_format_data(
             yeti_format_emission_factors=f'{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv',
             yeti_format_los_speeds=f'{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv',
             yeti_format_vehicle_data=f'{self.init_path}/test_data/yeti_format_data/vehicle_data.csv',

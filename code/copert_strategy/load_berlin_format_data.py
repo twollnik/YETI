@@ -1,5 +1,6 @@
 from code.copert_cold_strategy.load_berlin_format_data import load_copert_cold_berlin_format_data
 from code.copert_hot_strategy.load_berlin_format_data import load_copert_hot_berlin_format_data
+from code.copert_strategy.copert_helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 from code.script_helpers.dynamic_import_from import dynamic_import_from
 
 
@@ -34,18 +35,6 @@ def load_hot_data(**kwargs):
     return paths_to_hot_yeti_format_data
 
 
-def drop_keys_starting_with(starting_chars, dict):
-    return {key: value for key, value in dict.items() if not key.startswith(starting_chars)}
-
-
-def remove_prefix_from_keys(prefix, dict):
-    for key, value in list(dict.items()):
-        if key.startswith(prefix):
-            del dict[key]
-            dict[key[len(prefix):]] = value
-    return dict
-
-
 def load_cold_data(**kwargs):
 
     load_cold_berlin_format_data_function = dynamic_import_from(kwargs["cold_load_berlin_format_data_function"])
@@ -61,6 +50,3 @@ def load_cold_data(**kwargs):
     return paths_to_cold_yeti_format_data
 
 
-def add_prefix_to_keys(prefix, paths_to_cold_yeti_format_data):
-
-    return {f"{prefix}_{key}": value for key, value in list(paths_to_cold_yeti_format_data.items())}

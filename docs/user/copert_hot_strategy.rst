@@ -328,7 +328,7 @@ If using mode ``berlin_format``:
 
     strategy:                     code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
     load_berlin_format_data_function:     code.copert_hot_strategy.load_berlin_format_data.load_copert_hot_berlin_format_data
-    load_yeti_format_data_function:   code.copert_hot_strategy.load_yeti_format_data.load_copert_yeti_format_data
+    load_yeti_format_data_function:   code.copert_hot_strategy.load_yeti_format_data.load_copert_hot_yeti_format_data
     validation_function:          code.script_helpers.validate_files.validate_copert_berlin_format_files
 
     berlin_format_link_data:              path/to/link_data.csv
@@ -352,7 +352,7 @@ If using mode ``yeti_format``:
 .. code-block:: yaml
 
     strategy:                     code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
-    load_yeti_format_data_function:   code.copert_hot_strategy.load_yeti_format_data.load_copert_yeti_format_data
+    load_yeti_format_data_function:   code.copert_hot_strategy.load_yeti_format_data.load_copert_hot_yeti_format_data
     validation_function:          code.script_helpers.validate_files.validate_copert_yeti_format_files
 
     yeti_format_emission_factors:     path/to/yeti_format_ef_data.csv
