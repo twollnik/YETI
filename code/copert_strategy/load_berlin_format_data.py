@@ -7,6 +7,7 @@ from code.script_helpers.dynamic_import_from import dynamic_import_from
 def load_copert_berlin_format_data(**kwargs):
 
     if kwargs.get("only_hot") is True:
+        kwargs = remove_prefix_from_keys("hot_", kwargs)
         return load_copert_hot_berlin_format_data(**kwargs)
 
     if "cold_strategy" in kwargs:

@@ -72,7 +72,6 @@ class TestCalcAvgDailyEmissions(TestCase):
         unique_emission_values = set(emission_values)
         self.assertGreater(len(unique_emission_values), 2)
 
-
     def test_copert_hot_fixed_speed_config(self):
 
         sys.argv = f"run_yeti.py -c example/example_configs/copert_hot_fixed_speed_config.yaml".split()
@@ -101,7 +100,33 @@ class TestCalcAvgDailyEmissions(TestCase):
 
         logging.warning.assert_not_called()
 
-    def test_copert_hot_config_mode_yeti_format_data(self):
+    def test_copert_config(self):
+
+        sys.argv = f"run_yeti.py -c example/example_configs/copert_config.yaml".split()
+        execfile(f"run_yeti.py")
+
+        logging.warning.assert_not_called()
+
+    def test_copert_config_with_only_hot_true(self):
+
+        # set only_hot to 'yes' in the config file
+        with open("example/example_configs/copert_config.yaml") as fp:
+            config_contents = fp.read()
+        new_config_contents = re.sub(r"only_hot:[\s\t]+no", "only_hot:    yes", config_contents)
+        with open("config_changed.yaml", "w") as fp:
+            fp.write(new_config_contents)
+
+        try:
+            sys.argv = f"run_yeti.py -c config_changed.yaml".split()
+            execfile(f"run_yeti.py")
+        except Exception as e:
+            raise e
+        else:
+            logging.warning.assert_not_called()
+        finally:
+            os.remove("config_changed.yaml")
+
+    def test_copert_hot_config_mode_yeti_format(self):
 
         change_config_mode_to_yeti_format_data("example/example_configs/copert_hot_config.yaml", "config_changed.yaml")
         update_validation_function("config_changed.yaml",
@@ -117,7 +142,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         finally:
             os.remove("config_changed.yaml")
 
-    def test_copert_cold_config_mode_yeti_format_data(self):
+    def test_copert_cold_config_mode_yeti_format(self):
 
         change_config_mode_to_yeti_format_data("example/example_configs/copert_cold_config.yaml", "config_changed.yaml")
         update_validation_function("config_changed.yaml", "code.copert_cold_strategy.validate.validate_copert_cold_yeti_format_files")
@@ -132,7 +157,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         finally:
             os.remove("config_changed.yaml")
 
-    def test_copert_hot_fixed_speed_config_mode_yeti_format_data(self):
+    def test_copert_hot_fixed_speed_config_mode_yeti_format(self):
 
         change_config_mode_to_yeti_format_data("example/example_configs/copert_hot_fixed_speed_config.yaml", "config_changed.yaml")
         update_validation_function("config_changed.yaml", "code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_yeti_format_files")
@@ -147,7 +172,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         finally:
             os.remove("config_changed.yaml")
 
-    def test_hbefa_hot_config_mode_yeti_format_data(self):
+    def test_hbefa_hot_config_mode_yeti_format(self):
 
         change_config_mode_to_yeti_format_data("example/example_configs/hbefa_hot_config.yaml", "config_changed.yaml")
         update_validation_function("config_changed.yaml", "code.hbefa_hot_strategy.validate.validate_hbefa_yeti_format_files")
@@ -162,7 +187,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         finally:
             os.remove("config_changed.yaml")
 
-    def test_hbefa_cold_config_mode_yeti_format_data(self):
+    def test_hbefa_cold_config_mode_yeti_format(self):
 
         change_config_mode_to_yeti_format_data("example/example_configs/hbefa_cold_config.yaml", "config_changed.yaml")
 
@@ -176,10 +201,25 @@ class TestCalcAvgDailyEmissions(TestCase):
         finally:
             os.remove("config_changed.yaml")
 
-    def test_pm_non_exhaust_config_mode_yeti_format_data(self):
+    def test_pm_non_exhaust_config_mode_yeti_format(self):
 
         change_config_mode_to_yeti_format_data("example/example_configs/pm_non_exhaust_config.yaml", "config_changed.yaml")
         update_validation_function("config_changed.yaml", "code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_yeti_format_files")
+
+        try:
+            sys.argv = f"run_yeti.py -c config_changed.yaml".split()
+            execfile(f"run_yeti.py")
+        except Exception as e:
+            raise e
+        else:
+            logging.warning.assert_not_called()
+        finally:
+            os.remove("config_changed.yaml")
+
+    def test_copert_config_mode_yeti_format(self):
+
+        change_config_mode_to_yeti_format_data("example/example_configs/copert_config.yaml", "config_changed.yaml")
+        update_validation_function("config_changed.yaml", "")
 
         try:
             sys.argv = f"run_yeti.py -c config_changed.yaml".split()

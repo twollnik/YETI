@@ -23,7 +23,7 @@ class TestLoadYetiFormatDataForCopertStrategy(TestCase):
 
         self.assertEqual(actual_return_value, {"some": "return", "value": "for mocking"})
         mocked_copert_hot_load_function.assert_called_once_with(
-            only_hot=True, hot_test_arg1=1, cold_test_arg2="abc", test_arg3=7)
+            only_hot=True, test_arg1=1, cold_test_arg2="abc", test_arg3=7)
 
     @patch("code.copert_strategy.load_yeti_format_data.load_copert_cold_yeti_format_data",
            return_value={"some": "return", "value": "for mocking"})
@@ -48,7 +48,7 @@ class TestLoadYetiFormatDataForCopertStrategy(TestCase):
             test_arg1=1, test_arg2="abc", test_arg3=4, output_folder='some_folder')
 
         self.assertEqual(actual_return_value,
-                         {"hot_some": "return", "hot_value": "for mocking",
+                         {"some": "return", "value": "for mocking",
                           "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
                           "cold_load_yeti_format_data_function": "tests.test_copert_strategy.mock_load_data_function.mock_load_data_function",
                           "cold_output_folder": "some_folder",
@@ -71,11 +71,11 @@ class TestLoadYetiFormatDataForCopertStrategy(TestCase):
             cold_load_yeti_format_data_function="code.hbefa_cold_strategy.load_yeti_format_data.load_hbefa_cold_yeti_format_data"
         )
 
-        self.assertIn("hot_link_data", data)
-        self.assertIn("hot_vehicle_data", data)
-        self.assertIn("hot_traffic_data", data)
-        self.assertIn("hot_los_speeds_data", data)
-        self.assertIn("hot_emission_factor_data", data)
+        self.assertIn("link_data", data)
+        self.assertIn("vehicle_data", data)
+        self.assertIn("traffic_data", data)
+        self.assertIn("los_speeds_data", data)
+        self.assertIn("emission_factor_data", data)
 
         self.assertIn("cold_link_data", data)
         self.assertIn("cold_vehicle_data", data)

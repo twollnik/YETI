@@ -7,6 +7,7 @@ from code.script_helpers.dynamic_import_from import dynamic_import_from
 def load_copert_yeti_format_data(**kwargs):
 
     if kwargs.get("only_hot") is True:
+        kwargs = remove_prefix_from_keys("hot_", kwargs)
         return load_copert_hot_yeti_format_data(**kwargs)
 
     if "cold_strategy" in kwargs:
@@ -28,7 +29,6 @@ def load_hot_data(**kwargs):
     kwargs_for_hot = remove_prefix_from_keys("hot_", kwargs_for_hot)
 
     hot_data = load_copert_hot_yeti_format_data(**kwargs_for_hot)
-    hot_data = add_prefix_to_keys("hot", hot_data)
 
     return hot_data
 

@@ -1,3 +1,4 @@
+import os
 from unittest import TestCase, main
 from unittest.mock import patch
 
@@ -5,6 +6,13 @@ from code.copert_strategy.CopertStrategy import CopertStrategy
 
 
 class TestCopertStrategy(TestCase):
+
+    def setUp(self) -> None:
+
+        if os.path.isfile("./tests/test_copert_strategy/test_load_yeti_format_data.py"):
+            self.init_path = "./tests/test_copert_strategy"
+        else:
+            self.init_path = "."
 
     @patch("code.copert_strategy.CopertStrategy.CopertHotStrategy.calculate_emissions",
            return_value={"poll": {"veh a": 2}})
@@ -58,9 +66,6 @@ class TestCopertStrategy(TestCase):
         )
         mock_calc_function.assert_called_once_with(
             {"some": "data"}, {"vehA": "catA"}, ["poll"], test_arg1="abc", test_arg2=3)
-
-    def test_case_hot_and_cold_using_test_data(self):
-        pass
 
 
 if __name__ == '__main__':
