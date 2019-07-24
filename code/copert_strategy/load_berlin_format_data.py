@@ -1,9 +1,8 @@
-import os
-
 from code.copert_cold_strategy.load_berlin_format_data import load_copert_cold_berlin_format_data
 from code.copert_hot_strategy.load_berlin_format_data import load_copert_hot_berlin_format_data
-from code.copert_strategy.copert_helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 from code.script_helpers.dynamic_import_from import dynamic_import_from
+from code.strategy_helpers.helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys, \
+    create_output_folder_if_necessary
 
 
 def load_copert_berlin_format_data(**kwargs):
@@ -25,17 +24,6 @@ def load_copert_berlin_format_data(**kwargs):
         }
 
     return load_copert_cold_berlin_format_data(**kwargs)
-
-
-def create_output_folder_if_necessary(**kwargs):
-
-    folder = kwargs.get("output_folder")
-
-    if folder is None:
-        return None
-
-    if not os.path.exists(folder):
-        os.mkdir(folder)
 
 
 def load_hot_data(**kwargs):

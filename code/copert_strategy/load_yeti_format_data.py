@@ -1,7 +1,7 @@
 from code.copert_cold_strategy.load_yeti_format_data import load_copert_cold_yeti_format_data
 from code.copert_hot_strategy.load_yeti_format_data import load_copert_hot_yeti_format_data
-from code.copert_strategy.copert_helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 from code.script_helpers.dynamic_import_from import dynamic_import_from
+from code.strategy_helpers.helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 
 
 def load_copert_yeti_format_data(**kwargs):

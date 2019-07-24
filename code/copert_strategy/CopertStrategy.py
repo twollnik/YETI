@@ -34,8 +34,8 @@ from typing import Any, Dict, List
 from code.copert_cold_strategy.CopertColdStrategy import CopertColdStrategy
 from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
-from code.copert_strategy.copert_helpers import remove_prefix_from_keys, add_prefix_to_keys, drop_keys_starting_with
 from code.script_helpers.dynamic_import_from import dynamic_import_from
+from code.strategy_helpers.helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 
 
 class CopertStrategy:
