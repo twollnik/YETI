@@ -21,7 +21,7 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
            return_value={"another": "return", "parameter": "here"})
     def test_hot_and_cold_both_hbefa(self, mocked_cold_load_function, mocked_hot_load_function):
 
-        val = load_hbefa_berlin_format_data(arg1=1, hot_arg2="abc", cold_arg3=7, output_folder="test")
+        val = load_hbefa_berlin_format_data(arg1=1, hot_arg2="abc", cold_arg3=7, output_folder="tests")
 
         self.assertEqual(val,{"hot_some": "return", "hot_value": "here",
                               "cold_another": "return", "cold_parameter": "here"})
