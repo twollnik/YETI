@@ -1,8 +1,11 @@
+from unittest import TestCase, main
+from unittest.mock import patch
+
 import numpy as np
 import pandas as pd
-from unittest import TestCase, main
 
 from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
+from code.copert_hot_fixed_speed_strategy.load_berlin_format_data import load_copert_fixed_speed_berlin_format_data
 
 
 class TestCopertHotFixedSpeedStrategy(TestCase):
@@ -59,6 +62,15 @@ class TestCopertHotFixedSpeedStrategy(TestCase):
         emissions_actual = strategy.calculate_emissions(
             row_dict, vehicle_dict, pollutants, emission_factor_data=emission_factor_data)
         self.assertEqual(emissions_expected_speed_10, emissions_actual["PollutantType.NOx"])
+
+    @patch("code.copert_hot_fixed_speed_strategy.load_berlin_format_data.load_copert_hot_berlin_format_data",
+           return_value={"some": "return", "value": "."})
+    def test_load_berlin_format_data(self, mocked_copert_hot_load_function):
+
+        return_value = load_copert_fixed_speed_berlin_format_data(arg1=4, arg4=7, cold_arg="abc", hot_arg=789)
+
+        self.assertEqual({"some": "return", "value": "."}, return_value)
+        mocked_copert_hot_load_function.assert_called_once_with(arg1=4, arg4=7, cold_arg="abc", hot_arg=789)
 
 if __name__ == '__main__':
     main()

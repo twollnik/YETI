@@ -9,28 +9,35 @@ pollutants:                 [PollutantType.NOx, PollutantType.CO]
 strategy:                   code.copert_strategy.CopertStrategy.CopertStrategy
 load_berlin_format_data_function: code.copert_strategy.load_berlin_format_data.load_copert_berlin_format_data
 load_yeti_format_data_function:   code.copert_strategy.load_yeti_format_data.load_copert_yeti_format_data
-validation_function:        code.copert_hot_strategy.validate.validate_copert_berlin_format_files
 
 # -------- file names -----------
 
+# data for the CopertHotStrategy
 berlin_format_link_data:            example/example_berlin_format_data/link_data.csv
 berlin_format_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
-berlin_format_emission_factors:     example/example_berlin_format_data/copert_emission_factors.csv
+hot_berlin_format_emission_factors:     example/example_berlin_format_data/copert_emission_factors.csv
 berlin_format_los_speeds:           example/example_berlin_format_data/los_speeds.csv
 berlin_format_traffic_data:         example/example_berlin_format_data/traffic_data.csv
 berlin_format_vehicle_mapping:      example/example_berlin_format_data/vehicle_mapping.csv
 berlin_format_nh3_emission_factors: example/example_berlin_format_data/nh3_tier2_emission_factors.csv
 berlin_format_nh3_mapping:          example/example_berlin_format_data/nh3_mapping.csv
 
-yeti_format_emission_factors:   example/example_yeti_format_data/copert_emission_factors.csv
+hot_yeti_format_emission_factors:   example/example_yeti_format_data/copert_emission_factors.csv
 yeti_format_los_speeds:         example/example_yeti_format_data/los_speeds.csv
 yeti_format_vehicle_data:       example/example_yeti_format_data/vehicle_data.csv
 yeti_format_link_data:          example/example_yeti_format_data/link_data.csv
 yeti_format_traffic_data:       example/example_yeti_format_data/traffic_data.csv
 
+# data for the HbefaColdStrategy
+cold_berlin_format_emission_factors:     example/example_berlin_format_data/hbefa_cold_start_emission_factors.csv
+berlin_format_cold_starts_data:     example/example_berlin_format_data/cold_starts.csv
+
+cold_yeti_format_emission_factors:   example/example_yeti_format_data/hbefa_cold_start_emission_factors.csv
+yeti_format_cold_starts_data:   example/example_yeti_format_data/cold_starts_data.csv
+
 # -------- output folder(s) --------------
 
-output_folder:              example_output_copert_hot
+output_folder:              example_output_copert
 
 # Optional parameter, only relevant for mode berlin_format:
 # output_folder_for_yeti_format_data:     yeti_format_data_new
@@ -38,7 +45,12 @@ output_folder:              example_output_copert_hot
 # -------- strategy specific arguments -----------
 
 use_nh3_tier2_ef:           yes
-only_hot:                   yes
+
+cold_strategy:                   code.hbefa_cold_strategy.HbefaColdStrategy.HbefaColdStrategy
+cold_load_berlin_format_data_function:   code.hbefa_cold_strategy.load_berlin_format_data.load_hbefa_cold_berlin_format_data
+cold_load_yeti_format_data_function: code.hbefa_cold_strategy.load_yeti_format_data.load_hbefa_cold_yeti_format_data
+
+only_hot:                   no
 fixed_speed:                no
 
 # -------- optional arguments ------------

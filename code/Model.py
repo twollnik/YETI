@@ -62,7 +62,7 @@ class Model:
         self.calculate_emissions_with_user_defined_strategy(yeti_format_data_dataframes)
 
         self.log_step("Creating 'run_info.txt'.")
-        self.create_run_info_file()
+        self.create_run_info_file(yeti_format_file_locations)
 
         self.log_is_done_message()
 
@@ -180,11 +180,16 @@ class Model:
         }
         StrategyInvoker().calculate_and_save_emissions(self.emissions_output_folder, **emission_calc_config)
 
-    def create_run_info_file(self):
+    def create_run_info_file(self, yeti_format_file_locations):
 
-        end_time = time()
-        file_location = f"{self.emissions_output_folder}/run_info.txt"
-        create_info_file(file_location, get_timestamp(), self.mode, self.start_time, end_time, self.config_dict)
+        create_info_file(
+            output_file=f"{self.emissions_output_folder}/run_info.txt",
+            timestamp=get_timestamp(),
+            duration=time()-self.start_time,
+            config_dict=self.config_dict,
+            config_file=self.config_file,
+            yeti_format_file_locations=yeti_format_file_locations
+        )
 
     def log_is_done_message(self):
 

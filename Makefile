@@ -9,6 +9,9 @@ test_docs:
 test_coverage:
 	coverage run --source . --omit test*.py -m unittest tests/*/test*.py tests/test*.py
 
+demo_copert:
+	python3 -m run_yeti -c example/example_configs/copert_config.yaml
+
 demo_copert_hot:
 	python3 -m run_yeti -c example/example_configs/copert_hot_config.yaml
 

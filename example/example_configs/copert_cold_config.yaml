@@ -6,9 +6,9 @@ mode:           berlin_format  # feel free to change the mode to yeti_format. (D
 
 pollutants:                 [PollutantType.CO]
 
-strategy:                   code.copert_cold_strategy.CopertColdStrategy.CopertColdStrategy
-load_berlin_format_data_function:   code.copert_cold_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data
-load_yeti_format_data_function: code.copert_cold_strategy.load_yeti_format_data.load_copert_cold_yeti_format_data
+strategy:                   code.copert_strategy.CopertStrategy.CopertStrategy
+load_berlin_format_data_function:   code.copert_strategy.load_berlin_format_data.load_copert_berlin_format_data
+load_yeti_format_data_function: code.copert_strategy.load_yeti_format_data.load_copert_yeti_format_data
 validation_function:        code.copert_cold_strategy.validate.validate_copert_cold_berlin_format_files
 
 # -------- file names -----------
@@ -44,6 +44,9 @@ exclude_area_types:         [Rural]
 
 ltrip:                      12
 temperature:                15
+
+# only_hot:                   no
+# fixed_speed:                no
 
 # -------- optional arguments ------------
 

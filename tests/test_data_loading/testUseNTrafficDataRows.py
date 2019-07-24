@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase, main
 
-from code.copert_hot_strategy.load_yeti_format_data import load_copert_yeti_format_data
+from code.copert_hot_strategy.load_yeti_format_data import load_copert_hot_yeti_format_data
 
 
 class TestUseNTrafficDataRows(TestCase):
@@ -22,7 +22,7 @@ class TestUseNTrafficDataRows(TestCase):
             'use_n_traffic_data_rows': 2
         }
 
-        data = load_copert_yeti_format_data(**kwargs)
+        data = load_copert_hot_yeti_format_data(**kwargs)
 
         self.assertEqual(2, len(data["traffic_data"]))
 

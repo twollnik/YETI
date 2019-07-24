@@ -6,9 +6,9 @@ mode:                       berlin_format # feel free to change the mode to yeti
 
 pollutants:                 [PollutantType.NOx]
 
-strategy:                   code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
-load_berlin_format_data_function:   code.copert_hot_fixed_speed_strategy.load_berlin_format_data.load_copert_fixed_speed_berlin_format_data
-load_yeti_format_data_function: code.copert_hot_fixed_speed_strategy.load_yeti_format_data.load_copert_fixed_speed_yeti_format_data
+strategy:                   code.copert_strategy.CopertStrategy.CopertStrategy
+load_berlin_format_data_function:   code.copert_strategy.load_berlin_format_data.load_copert_berlin_format_data
+load_yeti_format_data_function: code.copert_strategy.load_yeti_format_data.load_copert_yeti_format_data
 validation_function:        code.copert_hot_fixed_speed_strategy.validate.validate_copert_fixed_speed_berlin_format_files
 
 # -------- file names -----------
@@ -41,6 +41,8 @@ output_folder:              example_output_copert_hot_fixed_speed
 # v:                          30
 
 use_nh3_tier2_ef:           yes
+only_hot:                   yes
+fixed_speed:                yes
 
 # -------- optional arguments ------------
 

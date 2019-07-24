@@ -2,7 +2,7 @@ from code.data_loading.DataLoader import DataLoader
 from code.strategy_helpers.helpers import save_dataframes
 
 
-def load_copert_berlin_format_data(**kwargs):
+def load_copert_hot_berlin_format_data(**kwargs):
 
     use_nh3_tier2_ef = kwargs["use_nh3_tier2_ef"]
     output_folder = kwargs.get("output_folder_for_yeti_format_data", kwargs["output_folder"])

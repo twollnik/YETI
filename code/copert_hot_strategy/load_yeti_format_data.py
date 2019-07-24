@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def load_copert_yeti_format_data(**kwargs):
+def load_copert_hot_yeti_format_data(**kwargs):
     """ Load data from file. """
 
     emission_factor_data_file = kwargs.get('yeti_format_emission_factors')

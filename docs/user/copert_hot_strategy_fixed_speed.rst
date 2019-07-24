@@ -1,6 +1,11 @@
 CopertHotFixedSpeedStrategy
 ===========================
 
+.. note::
+
+    It is recommended to use the :doc:`CopertStrategy <copert_strategy>` with the config arguments
+    ``only_hot: yes`` and ``fixed_speed: yes`` instead of this Strategy.
+
 The ``CopertHotFixedStrategy`` implements emission calculation with the COPERT methodology
 for hot emissions at the street level. It uses speed-dependent emission factors with fixed
 speed values.
