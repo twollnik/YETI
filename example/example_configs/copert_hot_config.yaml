@@ -39,6 +39,7 @@ output_folder:              example_output_copert_hot
 
 use_nh3_tier2_ef:           yes
 only_hot:                   yes
+fixed_speed:                no
 
 # -------- optional arguments ------------
 

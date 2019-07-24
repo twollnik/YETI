@@ -45,6 +45,9 @@ exclude_area_types:         [Rural]
 ltrip:                      12
 temperature:                15
 
+# only_hot:                   no
+# fixed_speed:                no
+
 # -------- optional arguments ------------
 
 # links_to_use:               [link_a]
