@@ -36,7 +36,7 @@ cold_strategy:              code.copert_cold_strategy.CopertColdStrategy.CopertC
 cold_load_berlin_format_data_function:   code.copert_cold_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data
 cold_load_yeti_format_data_function: code.copert_cold_strategy.load_yeti_format_data.load_copert_cold_yeti_format_data
 
-use_nh3_tier2_ef:                 no
+use_nh3_tier2_ef:           no
 exclude_road_types:         [MW_City]
 exclude_area_types:         [Rural]
 ltrip:                      12
