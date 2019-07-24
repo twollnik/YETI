@@ -5,6 +5,8 @@ from typing import Dict
 
 import pandas as pd
 
+from code.script_helpers.dynamic_import_from import dynamic_import_from
+
 
 def save_dataframes(output_folder: str, data_dict: Dict[str, pd.DataFrame]) -> Dict[str, str]:
 
@@ -58,3 +60,35 @@ def create_output_folder_if_necessary(**kwargs):
 
     if not os.path.exists(folder):
         os.mkdir(folder)
+
+
+def load_hot_data(load_data_function, **kwargs):
+
+    kwargs_for_hot = drop_keys_starting_with("cold_", kwargs)
+    kwargs_for_hot = remove_prefix_from_keys("hot_", kwargs_for_hot)
+
+    kwargs_for_hot["output_folder"] = f"{kwargs_for_hot['output_folder']}/yeti_format_data_for_hot_strategy"
+
+    paths_to_hot_yeti_format_data = load_data_function(**kwargs_for_hot)
+    paths_to_hot_yeti_format_data = add_prefix_to_keys("hot", paths_to_hot_yeti_format_data)
+
+    return paths_to_hot_yeti_format_data
+
+
+def load_cold_data(default_load_data_function, **kwargs):
+
+    load_cold_data_function = kwargs.get("cold_load_berlin_format_data_function")
+    if load_cold_data_function is None:
+        load_cold_berlin_format_data_function = default_load_data_function
+    else:
+        load_cold_berlin_format_data_function = dynamic_import_from(load_cold_data_function)
+
+    kwargs_for_cold = drop_keys_starting_with("hot_", kwargs)
+    kwargs_for_cold = remove_prefix_from_keys("cold_", kwargs_for_cold)
+
+    kwargs_for_cold["output_folder"] = f"{kwargs_for_cold['output_folder']}/yeti_format_data_for_cold_strategy"
+
+    paths_to_cold_yeti_format_data = load_cold_berlin_format_data_function(**kwargs_for_cold)
+    paths_to_cold_yeti_format_data = add_prefix_to_keys("cold", paths_to_cold_yeti_format_data)
+
+    return paths_to_cold_yeti_format_data
