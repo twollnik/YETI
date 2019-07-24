@@ -74,6 +74,7 @@ class CopertStrategy:
         self.initialize_if_necessary(**kwargs)
 
         if kwargs.get("only_hot") is True:
+            kwargs = remove_prefix_from_keys("hot_", kwargs)
             return self.hot_strategy.calculate_emissions(
                 traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 

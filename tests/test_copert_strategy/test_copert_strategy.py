@@ -27,7 +27,7 @@ class TestCopertStrategy(TestCase):
         self.assertEqual({"poll": {"veh a": 2}}, emis_actual)
         mock_calc_function.assert_called_once_with(
             {"some": "data"}, {"vehA": "catA"}, ["pollA"], only_hot=True,
-            test_arg1="abc", hot_test_arg2=3, cold_test_arg3=True
+            test_arg1="abc", test_arg2=3, cold_test_arg3=True
         )
 
     @patch("code.copert_strategy.CopertStrategy.CopertHotFixedSpeedStrategy.calculate_emissions",
@@ -44,7 +44,7 @@ class TestCopertStrategy(TestCase):
         self.assertEqual({"poll": {"veh a": 2}}, emis_actual)
         mock_calc_function.assert_called_once_with(
             {"some": "data"}, {"vehA": "catA"}, ["pollA"], only_hot=True,
-            test_arg1="abc", hot_test_arg2=3, cold_test_arg3=True, fixed_speed=True
+            test_arg1="abc", test_arg2=3, cold_test_arg3=True, fixed_speed=True
         )
 
     @patch("code.copert_strategy.CopertStrategy.CopertColdStrategy.calculate_emissions",
