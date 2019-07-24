@@ -1,6 +1,7 @@
 from typing import Any, Dict, List
 
 from code.copert_cold_strategy.CopertColdStrategy import CopertColdStrategy
+from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
 from code.copert_strategy.copert_helpers import remove_prefix_from_keys, add_prefix_to_keys, drop_keys_starting_with
 from code.script_helpers.dynamic_import_from import dynamic_import_from
@@ -26,22 +27,23 @@ class CopertStrategy:
                 traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 
         if "cold_strategy" in kwargs:
-
             hot_emissions = self.calculate_hot_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
             cold_emissions = self.calculate_cold_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, kwargs)
+            return {**hot_emissions, **cold_emissions}
 
-            return {
-                **hot_emissions,
-                **cold_emissions
-            }
-
+        if kwargs.get("fixed_speed") is True:
+            kwargs["hot_strategy"] = "code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy"
         return self.cold_strategy.calculate_emissions(
             traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 
     def initialize_if_necessary(self, **kwargs):
 
         if self.hot_strategy is None or self.cold_strategy is None:
-            self.hot_strategy = CopertHotStrategy()
+
+            if kwargs.get("fixed_speed") is True:
+                self.hot_strategy = CopertHotFixedSpeedStrategy()
+            else:
+                self.hot_strategy = CopertHotStrategy()
 
             if "cold_strategy" in kwargs:
                 self.cold_strategy = dynamic_import_from(kwargs["cold_strategy"])()
