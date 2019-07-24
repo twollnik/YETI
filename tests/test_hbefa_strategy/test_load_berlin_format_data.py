@@ -25,8 +25,8 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
 
         self.assertEqual(val,{"hot_some": "return", "hot_value": "here",
                               "cold_another": "return", "cold_parameter": "here"})
-        mocked_cold_load_function.assert_called_once_with(arg1=1, arg3=7, output_folder="test/yeti_format_data_for_cold_strategy")
-        mocked_hot_load_function.assert_called_once_with(arg1=1, arg2="abc", output_folder="test/yeti_format_data_for_hot_strategy")
+        mocked_cold_load_function.assert_called_once_with(arg1=1, arg3=7, output_folder="tests/yeti_format_data_for_cold_strategy")
+        mocked_hot_load_function.assert_called_once_with(arg1=1, arg2="abc", output_folder="tests/yeti_format_data_for_hot_strategy")
 
     @patch("code.hbefa_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data",
            return_value={"some": "return", "value": "here"})
