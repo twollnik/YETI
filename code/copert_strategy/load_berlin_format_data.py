@@ -1,7 +1,6 @@
 import os
 
 from code.copert_cold_strategy.load_berlin_format_data import load_copert_cold_berlin_format_data
-from code.copert_hot_fixed_speed_strategy.load_berlin_format_data import load_copert_fixed_speed_berlin_format_data
 from code.copert_hot_strategy.load_berlin_format_data import load_copert_hot_berlin_format_data
 from code.copert_strategy.copert_helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 from code.script_helpers.dynamic_import_from import dynamic_import_from
@@ -13,11 +12,9 @@ def load_copert_berlin_format_data(**kwargs):
 
     if kwargs.get("only_hot") is True:
         kwargs = remove_prefix_from_keys("hot_", kwargs)
-        if kwargs.get("fixed_speed") is True:
-            return load_copert_fixed_speed_berlin_format_data(**kwargs)
         return load_copert_hot_berlin_format_data(**kwargs)
 
-    if "cold_strategy" in kwargs or kwargs.get("fixed_speed") is True:
+    if "cold_strategy" in kwargs:
 
         paths_to_hot_yeti_format_data = load_hot_data(**kwargs)
         paths_to_cold_yeti_format_data = load_cold_data(**kwargs)
@@ -48,12 +45,7 @@ def load_hot_data(**kwargs):
 
     kwargs_for_hot["output_folder"] = f"{kwargs_for_hot['output_folder']}/yeti_format_data_for_hot_strategy"
 
-    if kwargs.get("fixed_speed") is True:
-        load_function = load_copert_fixed_speed_berlin_format_data
-    else:
-        load_function = load_copert_hot_berlin_format_data
-
-    paths_to_hot_yeti_format_data = load_function(**kwargs_for_hot)
+    paths_to_hot_yeti_format_data = load_copert_hot_berlin_format_data(**kwargs_for_hot)
     paths_to_hot_yeti_format_data = add_prefix_to_keys("hot", paths_to_hot_yeti_format_data)
 
     return paths_to_hot_yeti_format_data
@@ -61,11 +53,7 @@ def load_hot_data(**kwargs):
 
 def load_cold_data(**kwargs):
 
-    cold_load_function_name = kwargs.get("cold_load_berlin_format_data_function")
-    if cold_load_function_name is not None:
-        load_cold_berlin_format_data_function = dynamic_import_from(cold_load_function_name)
-    else:
-        load_cold_berlin_format_data_function = load_copert_cold_berlin_format_data
+    load_cold_berlin_format_data_function = dynamic_import_from(kwargs["cold_load_berlin_format_data_function"])
 
     kwargs_for_cold = drop_keys_starting_with("hot_", kwargs)
     kwargs_for_cold = remove_prefix_from_keys("cold_", kwargs_for_cold)
