@@ -1,12 +1,13 @@
 from typing import Any, Dict, List
 
+from code.copert_strategy.CopertStrategy import CopertStrategy
 from code.hbefa_cold_strategy.HbefaColdStrategy import HbefaColdStrategy
 from code.hbefa_hot_strategy.HbefaHotStrategy import HbefaHotStrategy
 from code.script_helpers.dynamic_import_from import dynamic_import_from
-from code.strategy_helpers.helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
+from code.strategy_helpers.helpers import remove_prefix_from_keys
 
 
-class HbefaStrategy:
+class HbefaStrategy(CopertStrategy):
 
     def __init__(self):
 
@@ -36,29 +37,3 @@ class HbefaStrategy:
                 self.cold_strategy = dynamic_import_from(kwargs["cold_strategy"])()
             else:
                 self.cold_strategy = HbefaColdStrategy()
-
-    def calculate_hot_emissions(self, traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs):
-
-        kwargs_for_hot = drop_keys_starting_with("cold_", kwargs)
-        kwargs_for_hot = remove_prefix_from_keys("hot_", kwargs_for_hot)
-
-        hot_emissions = self.hot_strategy.calculate_emissions(
-            traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs_for_hot)
-
-        hot_emissions = add_prefix_to_keys("hot", hot_emissions)
-
-        return hot_emissions
-
-    def calculate_cold_emissions(self, traffic_and_link_data_row, vehicle_dict, pollutants, kwargs):
-
-        kwargs_for_cold = drop_keys_starting_with("hot_", kwargs)
-        kwargs_for_cold = remove_prefix_from_keys("cold_", kwargs_for_cold)
-
-        cold_emissions = self.cold_strategy.calculate_emissions(
-            traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs_for_cold)
-
-        cold_emissions = add_prefix_to_keys("cold", cold_emissions)
-
-        return cold_emissions
-
-
