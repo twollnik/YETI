@@ -112,7 +112,7 @@ Strategies require the exact same data. Therefore it is sufficient to specify it
 A note on the validation_function
 '''''''''''''''''''''''''''''''''
 We currently don't provide a dedicated validation function for this Strategy.
-If you are only calculating hot emissions (set `only_hot: yes` in the config file)
+If you are only calculating hot emissions (set ``only_hot: yes`` in the config file)
 you can use the validation function for the ``HbefaHotStrategy``.
 
 
