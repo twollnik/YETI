@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from code.copert_strategy.copert_helpers import remove_prefix_from_keys
+from code.strategy_helpers.helpers import remove_prefix_from_keys
 
 
 class TestCopertHelpers(TestCase):

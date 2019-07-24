@@ -105,6 +105,24 @@ class TestCalcAvgDailyEmissions(TestCase):
 
         logging.warning.assert_not_called()
 
+    def test_hbefa_config(self):
+
+        change_output_folder_to_test_folder("example/example_configs/hbefa_config.yaml", self.output_dir)
+
+        sys.argv = f"run_yeti.py -c {self.output_dir}/config.yaml".split()
+        execfile(f"run_yeti.py")
+
+        logging.warning.assert_not_called()
+
+    def test_hbefa_hot_and_copert_cold_config(self):
+
+        change_output_folder_to_test_folder("example/example_configs/hbefa_hot_and_copert_cold_config.yaml", self.output_dir)
+
+        sys.argv = f"run_yeti.py -c {self.output_dir}/config.yaml".split()
+        execfile(f"run_yeti.py")
+
+        logging.warning.assert_not_called()
+
     def test_copert_hot_config_mode_yeti_format(self):
 
         change_output_folder_to_test_folder("example/example_configs/copert_hot_config.yaml", self.output_dir)
@@ -202,10 +220,33 @@ class TestCalcAvgDailyEmissions(TestCase):
 
         change_output_folder_to_test_folder("example/example_configs/copert_config.yaml", self.output_dir)
         change_config_mode_to_yeti_format_data(f"{self.output_dir}/config.yaml", f"{self.output_dir}/config.yaml")
-        update_validation_function(f"{self.output_dir}/config.yaml",
-                                   "",
-                                   f"{self.output_dir}/config.yaml")
 
+        try:
+            sys.argv = f"run_yeti.py -c {self.output_dir}/config.yaml".split()
+            execfile(f"run_yeti.py")
+        except Exception as e:
+            raise e
+        else:
+            logging.warning.assert_not_called()
+
+    def test_hbefa_config_mode_yeti_format(self):
+
+        change_output_folder_to_test_folder("example/example_configs/hbefa_config.yaml", self.output_dir)
+        change_config_mode_to_yeti_format_data(f"{self.output_dir}/config.yaml", f"{self.output_dir}/config.yaml")
+
+        try:
+            sys.argv = f"run_yeti.py -c {self.output_dir}/config.yaml".split()
+            execfile(f"run_yeti.py")
+        except Exception as e:
+            raise e
+        else:
+            logging.warning.assert_not_called()
+
+
+    def test_hbefa_hot_and_copert_cold_config_mode_yeti_format(self):
+
+        change_output_folder_to_test_folder("example/example_configs/hbefa_hot_and_copert_cold_config.yaml", self.output_dir)
+        change_config_mode_to_yeti_format_data(f"{self.output_dir}/config.yaml", f"{self.output_dir}/config.yaml")
 
         try:
             sys.argv = f"run_yeti.py -c {self.output_dir}/config.yaml".split()

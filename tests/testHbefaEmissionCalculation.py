@@ -5,7 +5,7 @@ from unittest import TestCase, main
 import pandas as pd
 
 from code.StrategyInvoker import StrategyInvoker
-from code.hbefa_hot_strategy.HbefaHotStrategy import HbefaHotStrategy
+from code.hbefa_strategy.HbefaStrategy import HbefaStrategy
 from tests.helper import df_equal
 
 
@@ -22,8 +22,8 @@ class testHbefaEmissionCalculation(TestCase):
             save_interval_in_rows=5,
             emissions_output_folder="temp",
             pollutants=["PollutantType.NOx"],
-            Strategy=HbefaHotStrategy,
-            calculate_emissions=HbefaHotStrategy().calculate_emissions,
+            Strategy=HbefaStrategy,
+            only_hot=True,
             link_data=pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/link_data.csv"),
             traffic_data=pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv"),
             vehicle_data=pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv"),

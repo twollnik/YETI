@@ -28,6 +28,7 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    user/copert_hot_strategy
    user/copert_hot_strategy_fixed_speed
    user/copert_cold_strategy
+   user/hbefa_strategy
    user/hbefa_hot_strategy
    user/pm_non_exhaust_strategy
 

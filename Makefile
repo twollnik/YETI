@@ -12,6 +12,9 @@ test_coverage:
 demo_copert:
 	python3 -m run_yeti -c example/example_configs/copert_config.yaml
 
+demo_hbefa:
+	python3 -m run_yeti -c example/example_configs/hbefa_config.yaml
+
 demo_copert_hot:
 	python3 -m run_yeti -c example/example_configs/copert_hot_config.yaml
 

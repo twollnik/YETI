@@ -39,7 +39,7 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
 
         actual_return_value = load_copert_berlin_format_data(
             cold_strategy="tests.test_copert_strategy.MockStrategy.MockStrategy",
-            cold_load_berlin_format_data_function="tests.test_copert_strategy.mock_load_data_function.mock_load_data_function",
+            cold_load_berlin_format_data_function="tests.helper.mock_load_data_function",
             test_arg1=1, test_arg2="abc", hot_test_arg3=4, output_folder="tests"
         )
 
@@ -49,7 +49,7 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         self.assertEqual(actual_return_value,
                          {"hot_some": "return", "hot_value": "for mocking",
                           "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
-                          "cold_load_berlin_format_data_function": "tests.test_copert_strategy.mock_load_data_function.mock_load_data_function",
+                          "cold_load_berlin_format_data_function": "tests.helper.mock_load_data_function",
                           "cold_output_folder": "tests/yeti_format_data_for_cold_strategy",
                           "cold_test_arg1": 1, "cold_test_arg2": "abc"
         })

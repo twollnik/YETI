@@ -37,3 +37,8 @@ def df_equal(actual: pd.DataFrame, expected: pd.DataFrame):
                 print(f"expected: {df2_row}", end="\n\n")
 
     return actual_data == expected_data
+
+
+def mock_load_data_function(**kwargs):
+
+    return kwargs

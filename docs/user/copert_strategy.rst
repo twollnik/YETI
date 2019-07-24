@@ -1,13 +1,16 @@
 CopertStrategy
 ==============
 
-The CopertStrategy implements emission calculation for hot and (optionally) cold emissions.
+The CopertStrategy implements emission calculation for hot and (optionally) cold emissions focusing on
+calculation with the Copert methodology.
 
-The possible configurations for this Strategy can become quite complex. Please have a look at the
-example config files ``copert_config.yaml``, ``copert_hot_config.yaml``,
-``copert_cold_config.yaml``, and ``copert_hot_fixed_speed_config.yaml`` in the folder
-``example/example_configs/``. They contain example configurations
-for the ``CopertStrategy`` and may help you to understand how the ``CopertStrategy`` works.
+.. note::
+
+    The possible configurations for this Strategy can become quite complex. Please have a look at the
+    example config files ``copert_config.yaml``, ``copert_hot_config.yaml``,
+    ``copert_cold_config.yaml``, and ``copert_hot_fixed_speed_config.yaml`` in the folder
+    ``example/example_configs/``. They contain example configurations
+    for the ``CopertStrategy`` and may help you to understand how the ``CopertStrategy`` can be used.
 
 hot emissions
 -------------
@@ -43,6 +46,8 @@ What data is required for the CopertStrategy depends on the config arguments. Th
 
 What to put in the config.yaml
 ------------------------------
+If you want to use the ``CopertStrategy`` for your calculations, you need to set the following options
+in your config.yaml. Don’t forget to add the parameters specified here: :doc:`Configuring YETI <config>`
 
 If using mode ``berlin_format``:
 ''''''''''''''''''''''''''''''''

@@ -28,8 +28,8 @@ run_history:                ./run_history.json
 
 pollutants:                 [PollutantType.NOx, PollutantType.CO]
 strategy:                   code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-load_berlin_format_data_function:        code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
-load_yeti_format_data_function:      code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+load_berlin_format_data_function:        code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data
+load_yeti_format_data_function:      code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
 #validation_function:    code.copert_hot_strategy.validate.validate_copert_yeti_format_files
 links_to_use:               []
 output_folder:              ./output_hbefa

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def load_hbefa_yeti_format_data(**kwargs):
+def load_hbefa_hot_yeti_format_data(**kwargs):
 
     emission_factor_data_file = kwargs.get('yeti_format_emission_factors')
     vehicle_data_file = kwargs.get('yeti_format_vehicle_data')

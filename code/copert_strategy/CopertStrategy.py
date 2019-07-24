@@ -34,8 +34,8 @@ from typing import Any, Dict, List
 from code.copert_cold_strategy.CopertColdStrategy import CopertColdStrategy
 from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
-from code.copert_strategy.copert_helpers import remove_prefix_from_keys, add_prefix_to_keys, drop_keys_starting_with
 from code.script_helpers.dynamic_import_from import dynamic_import_from
+from code.strategy_helpers.helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 
 
 class CopertStrategy:
@@ -74,6 +74,7 @@ class CopertStrategy:
         self.initialize_if_necessary(**kwargs)
 
         if kwargs.get("only_hot") is True:
+            kwargs = remove_prefix_from_keys("hot_", kwargs)
             return self.hot_strategy.calculate_emissions(
                 traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 
