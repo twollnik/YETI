@@ -24,6 +24,7 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    user/data_formats
    user/output_format
    user/what_is_strategy
+   user/copert_strategy
    user/copert_hot_strategy
    user/copert_hot_strategy_fixed_speed
    user/copert_cold_strategy
