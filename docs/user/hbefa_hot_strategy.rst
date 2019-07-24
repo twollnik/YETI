@@ -182,8 +182,8 @@ If using mode ``berlin_format``:
 .. code-block:: yaml
 
     strategy:                     code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-    load_berlin_format_data_function:     code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
-    load_yeti_format_data_function:   code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+    load_berlin_format_data_function:     code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data
+    load_yeti_format_data_function:   code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
     validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_berlin_format_files
 
     berlin_format_link_data:              path/to/link_data.csv
@@ -197,7 +197,7 @@ If using mode ``yeti_format``:
 .. code-block:: yaml
 
     strategy:                     code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-    load_yeti_format_data_function:   code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+    load_yeti_format_data_function:   code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
     validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_yeti_format_files
 
     yeti_format_emission_factors:     path/to/yeti_format_hbefa_ef_data.csv

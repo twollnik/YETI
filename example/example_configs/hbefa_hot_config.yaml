@@ -7,8 +7,8 @@ mode:           berlin_format  # feel free to change the mode to yeti_format. (D
 pollutants:                 [PollutantType.NOx]
 
 strategy:                   code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-load_berlin_format_data_function:   code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
-load_yeti_format_data_function: code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+load_berlin_format_data_function:   code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data
+load_yeti_format_data_function: code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
 validation_function:        code.hbefa_hot_strategy.validate.validate_hbefa_berlin_format_files
 
 # -------- file names -----------

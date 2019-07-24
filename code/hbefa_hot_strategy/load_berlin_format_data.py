@@ -2,7 +2,7 @@ from code.data_loading.HbefaDataLoader import HbefaDataLoader
 from code.strategy_helpers.helpers import save_dataframes
 
 
-def load_hbefa_berlin_format_data(**kwargs):
+def load_hbefa_hot_berlin_format_data(**kwargs):
 
     output_folder = kwargs.get("output_folder_for_yeti_format_data", kwargs["output_folder"])
 
