@@ -37,15 +37,14 @@ class TestLoadYetiFormatDataFunctionForHbefaStrategy(TestCase):
         actual_return_value = load_hbefa_yeti_format_data(
             cold_strategy="tests.test_copert_strategy.MockStrategy.MockStrategy",
             cold_load_yeti_format_data_function="tests.helper.mock_load_data_function",
-            test_arg1=1, cold_test_arg2="abc", hot_test_arg3=4#, output_folder="tests"
+            test_arg1=1, cold_test_arg2="abc", hot_test_arg3=4
         )
 
-        mocked_load_function.assert_called_once_with(test_arg1=1, test_arg3=4)#, output_folder='tests')
+        mocked_load_function.assert_called_once_with(test_arg1=1, test_arg3=4)
         self.assertEqual(actual_return_value,
                          {"some": "return", "value": "for mocking",
                           "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
                           "cold_load_yeti_format_data_function": "tests.helper.mock_load_data_function",
-                         # "cold_output_folder": "tests",
                           "cold_test_arg1": 1, "cold_test_arg2": "abc"
                           })
 

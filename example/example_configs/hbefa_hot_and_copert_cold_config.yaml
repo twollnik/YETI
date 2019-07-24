@@ -1,0 +1,58 @@
+# This is a configuration file for the YETI model
+
+# -------- run configurations ----------
+
+mode:                               berlin_format  # feel free to change the mode to yeti_format. (Don't forget to change the validation function)
+
+pollutants:                         [PollutantType.NOx]
+
+strategy:                           code.hbefa_strategy.HbefaStrategy.HbefaStrategy
+load_berlin_format_data_function:   code.hbefa_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
+load_yeti_format_data_function:     code.hbefa_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+
+# -------- file names -----------
+
+berlin_format_link_data:            example/example_berlin_format_data/link_data.csv
+berlin_format_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
+hot_berlin_format_emission_factors: example/example_berlin_format_data/hbefa_emission_factors.csv
+berlin_format_traffic_data:         example/example_berlin_format_data/traffic_data.csv
+
+hot_yeti_format_emission_factors:   example/example_yeti_format_data/hbefa_emission_factors.csv
+yeti_format_vehicle_data:           example/example_yeti_format_data/vehicle_data.csv
+yeti_format_link_data:              example/example_yeti_format_data/link_data.csv
+yeti_format_traffic_data:           example/example_yeti_format_data/traffic_data.csv
+
+# -------- output folder(s) --------------
+
+output_folder:              example_output_hbefa
+
+# Optional parameter, only relevant for mode berlin_format:
+# output_folder_for_yeti_format_data:     yeti_format_data_new
+
+# -------- strategy specific arguments -----------
+
+only_hot:                   no
+cold_strategy:              code.copert_cold_strategy.CopertColdStrategy.CopertColdStrategy
+cold_load_berlin_format_data_function:   code.copert_cold_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data
+cold_load_yeti_format_data_function: code.copert_cold_strategy.load_yeti_format_data.load_copert_cold_yeti_format_data
+
+use_nh3_tier2_ef:                 no
+exclude_road_types:         [MW_City]
+exclude_area_types:         [Rural]
+ltrip:                      12
+temperature:                15
+
+cold_berlin_format_emission_factors: example/example_berlin_format_data/copert_emission_factors.csv
+berlin_format_los_speeds:            example/example_berlin_format_data/los_speeds.csv
+berlin_format_vehicle_mapping:       example/example_berlin_format_data/vehicle_mapping.csv
+berlin_format_cold_ef_table:         example/example_berlin_format_data/cold_emission_factors.csv
+
+cold_yeti_format_emission_factors: example/example_yeti_format_data/copert_emission_factors.csv
+yeti_format_los_speeds:            example/example_yeti_format_data/los_speeds.csv
+yeti_format_cold_ef_table:         example/example_yeti_format_data/cold_emission_factors.csv
+yeti_format_vehicle_mapping:       example/example_yeti_format_data/vehicle_mapping.csv
+
+# -------- optional arguments ------------
+
+# links_to_use:               [link_a]
+# use_n_traffic_data_rows:    100

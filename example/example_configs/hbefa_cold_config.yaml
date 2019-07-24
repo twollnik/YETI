@@ -8,7 +8,6 @@ pollutants:                 [PollutantType.NOx]
 strategy:                   code.hbefa_cold_strategy.HbefaColdStrategy.HbefaColdStrategy
 load_berlin_format_data_function:   code.hbefa_cold_strategy.load_berlin_format_data.load_hbefa_cold_berlin_format_data
 load_yeti_format_data_function: code.hbefa_cold_strategy.load_yeti_format_data.load_hbefa_cold_yeti_format_data
-#validation_function:        code.hbefa_cold_strategy.validate.validate_hbefa_berlin_format_files
 
 output_folder:              example_output_hbefa_cold
 
