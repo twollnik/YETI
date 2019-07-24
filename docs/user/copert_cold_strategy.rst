@@ -1,6 +1,11 @@
 CopertColdStrategy
 ==================
 
+.. note::
+
+    It is recommended to use the :doc:`CopertStrategy <copert_strategy>` to calculate Copert cold emissions
+    instead of this Strategy.
+
 The ``CopertColdStrategy`` implements emission calculation with the
 `COPERT methodology for cold start emissions <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_.
 It uses global assumptions about the average length of a trip (in km/h) and the average ambient temperature

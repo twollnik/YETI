@@ -1,6 +1,11 @@
 CopertHotStrategy
 =================
 
+.. note::
+
+    It is recommended to use the :doc:`CopertStrategy <copert_strategy>` with the config argument ``only_hot: yes``
+    instead of this Strategy.
+
 The ``CopertHotStrategy`` implements emission calculation with the
 `EEA Tier 1 methodology <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_ for hot exhaust emissions
 using `COPERT <http://www.emisia.com/utilities/copert/>`_ emission factors.
