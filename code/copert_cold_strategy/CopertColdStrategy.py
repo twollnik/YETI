@@ -35,7 +35,6 @@ class CopertColdStrategy:
         self.veh_mapping = None
         self.los_speeds_dict = None
         self.los_speeds_data = None
-        self.hot_emission_factor_data = None
         self.vehicle_dict = None
 
         self.vehicles_pc_petrol_pre_euro = []
@@ -120,7 +119,7 @@ class CopertColdStrategy:
     def is_not_initialized(self) -> bool:
 
         data_attributes = [self.cold_ef_table, self.veh_mapping, self.los_speeds_dict,
-                           self.los_speeds_data, self.hot_emission_factor_data, self.ltrip, self.temperature]
+                           self.los_speeds_data, self.ltrip, self.temperature]
         return any(att is None for att in data_attributes)
 
     def initialize_hot_strategy(self, **kwargs):
@@ -139,7 +138,6 @@ class CopertColdStrategy:
         self.initialize_cold_ef_table(kwargs["yeti_format_cold_ef_table"])
         self.veh_mapping = kwargs["yeti_format_vehicle_mapping"].set_index("VehName")
         self.los_speeds_data = kwargs["yeti_format_los_speeds"]
-        self.hot_emission_factor_data = kwargs["yeti_format_emission_factors"]
         self.los_speeds_dict = self.los_speeds_data.set_index(["LinkID", "VehicleCategory"]).to_dict(orient="index")
 
         self.ltrip = kwargs["ltrip"]
