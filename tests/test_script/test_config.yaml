@@ -27,14 +27,15 @@ yeti_format_traffic_data:       ../test_data/yeti_format_data/traffic_data.csv
 # ------ run configurations -------
 
 pollutants:                 [PollutantType.NOx, PollutantType.CO]
-strategy:                   code.copert_hot_strategy.CopertHotStrategy.CopertHotStrategy
-load_berlin_format_data_function:        code.copert_hot_strategy.load_berlin_format_data.load_copert_hot_berlin_format_data
-load_yeti_format_data_function:      code.copert_hot_strategy.load_yeti_format_data.load_copert_hot_yeti_format_data
+strategy:                   code.copert_strategy.CopertStrategy.CopertStrategy
+load_berlin_format_data_function:        code.copert_strategy.load_berlin_format_data.load_copert_berlin_format_data
+load_yeti_format_data_function:      code.copert_strategy.load_yeti_format_data.load_copert_yeti_format_data
 validation_function:    code.copert_hot_strategy.validate.validate_copert_berlin_format_files
 links_to_use:               []
 output_folder:              ./output_mode_berlin_format_data
 # output_folder_for_yeti_format_data: temp_yeti_format_data
 use_nh3_tier2_ef:           yes
+only_hot:                   yes
 
 # The mode determines which datasets are used.
 # 'berlin_format':   The files prefixed input_.. are used to construct new data in yeti_format and run the model on the new

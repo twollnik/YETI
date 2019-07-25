@@ -97,19 +97,19 @@ class TestScript(TestCase):
 
         self.assertTrue(os.path.isdir("output_copert_cold/"))
         assert_file_exists_and_not_empty("output_copert_cold/run_info.txt")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_cold_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_hot_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_total_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_cold_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_hot_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_total_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.NOx_cold_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.NOx_hot_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.NOx_total_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.CO_cold_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.CO_hot_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.CO_total_emissions.csv")
 
-        for file in ["output_copert_cold/PollutantType.NOx_cold_emissions.csv",
-                     "output_copert_cold/PollutantType.NOx_hot_emissions.csv",
-                     "output_copert_cold/PollutantType.NOx_total_emissions.csv",
-                     "output_copert_cold/PollutantType.CO_cold_emissions.csv",
-                     "output_copert_cold/PollutantType.CO_hot_emissions.csv",
-                     "output_copert_cold/PollutantType.CO_total_emissions.csv"]:
+        for file in ["output_copert_cold/cold_PollutantType.NOx_cold_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.NOx_hot_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.NOx_total_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.CO_cold_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.CO_hot_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.CO_total_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
                 self.assertEqual(file_header.split(',')[:4], ["LinkID", "DayType", "Dir", "Hour"])
