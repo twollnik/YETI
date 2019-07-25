@@ -1,6 +1,5 @@
-from code.constants.enumerations import VehicleCategory, LOSType
 from code.constants.column_names import *
-
+from code.constants.enumerations import VehicleCategory, LOSType
 
 # Mapping the road categories specified in the link data to the road categories
 # used by the los speeds data file.
@@ -66,7 +65,7 @@ FLEET_COMP_VEH_CAT_TO_LINK_DATA_TRAFFIC_PERC_MAPPING = {
 }
 
 # Mapping the vehicle categories from the fleet composition data to the VehicleCategory enumerations.
-FLEET_COMP_VEH_CAT_TO_UNIFIED_VEH_CAT_MAPPING = {
+FLEET_COMP_VEH_CAT_TO_YETI_FORMAT_VEH_CAT_MAPPING = {
     "P": VehicleCategory.PC,
     "L": VehicleCategory.LCV,
     "S": VehicleCategory.HDV,

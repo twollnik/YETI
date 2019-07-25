@@ -22,10 +22,10 @@ Data Requirements
 
 What data the ``PMNonExhaustStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
-Data requirements for mode ``input_data``
-'''''''''''''''''''''''''''''''''''''''''
+Data requirements for mode ``berlin_format``
+''''''''''''''''''''''''''''''''''''''''''''
 
-.. image:: ../../diagrams/pm_non_exhaust_input_data_requirements.png
+.. image:: ../../diagrams/pm_non_exhaust_berlin_format_data_requirements.png
     :width: 400
     :height: 400
 
@@ -51,10 +51,10 @@ Just like the fleet composition data required for the other Strategies. See :ref
 **los speeds data** |br|
 Just like the los speeds data data required for the ``CopertHotStrategy``. See :ref:`here <los-speeds-data-explained>`.
 
-Data requirements for mode ``unified_data``
+Data requirements for mode ``yeti_format``
 '''''''''''''''''''''''''''''''''''''''''''
 
-.. image:: ../../diagrams/pm_non_exhaust_unified_data_requirements.png
+.. image:: ../../diagrams/pm_non_exhaust_yeti_format_data_requirements.png
     :width: 400
     :height: 400
 
@@ -62,23 +62,23 @@ Data requirements for mode ``unified_data``
 
 --------
 
-**unified link data** |br|
-Just like the unified link data required for the other Strategies. See :ref:`here <unified-link-data-explained>`.
+**yeti_format link data** |br|
+Just like the yeti_format link data required for the other Strategies. See :ref:`here <yeti-format-link-data-explained>`.
 
 --------
 
-**unified vehicle data** |br|
-Just like the unified vehicle data required for the other Strategies. See :ref:`here <unified-vehicle-data-explained>`.
+**yeti_format vehicle data** |br|
+Just like the yeti_format vehicle data required for the other Strategies. See :ref:`here <yeti-format-vehicle-data-explained>`.
 
 --------
 
-**unified traffic data** |br|
-Just like the unified traffic data required for the other Strategies. See :ref:`here <unified-traffic-data-explained>`.
+**yeti_format traffic data** |br|
+Just like the yeti_format traffic data required for the other Strategies. See :ref:`here <yeti-format-traffic-data-explained>`.
 
 --------
 
-**unified los speeds data** |br|
-Just like the unified los speeds data data required for the ``CopertHotStrategy``. See :ref:`here <unified-los-speeds-data-explained>`.
+**yeti_format los speeds data** |br|
+Just like the yeti_format los speeds data data required for the ``CopertHotStrategy``. See :ref:`here <yeti-format-los-speeds-data-explained>`.
 
 Supported Pollutants
 --------------------
@@ -95,36 +95,36 @@ If you want to use the ``PMNonExhaustStrategy`` for your calculations, you need 
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
-If using mode ``input_data``:
-'''''''''''''''''''''''''''''
+If using mode ``berlin_format``:
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
-    load_input_data_function:     code.pm_non_exhaust_strategy.load_input_data.load_pm_non_exhaust_input_data
-    load_unified_data_function:   code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data
-    validation_function:          code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_input_files
+    load_berlin_format_data_function:     code.pm_non_exhaust_strategy.load_berlin_format_data.load_pm_non_exhaust_berlin_format_data
+    load_yeti_format_data_function:   code.pm_non_exhaust_strategy.load_yeti_format_data.load_pm_non_exhaust_yeti_format_data
+    validation_function:          code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_berlin_format_files
 
-    input_link_data:              path/to/link_data.csv
-    input_fleet_composition:      path/to/fleet_composition_data.csv
-    input_los_speeds:             path/to/los_speeds_data.csv
-    input_traffic_data:           path/to/traffic_data.csv
+    berlin_format_link_data:              path/to/link_data.csv
+    berlin_format_fleet_composition:      path/to/fleet_composition_data.csv
+    berlin_format_los_speeds:             path/to/los_speeds_data.csv
+    berlin_format_traffic_data:           path/to/traffic_data.csv
 
     load_factor:                  0.3  # A number between 0 and 1. The assumption about the average load of trucks.
 
-If using mode ``unified_data``:
+If using mode ``yeti_format``:
 '''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.pm_non_exhaust_strategy.PMNonExhaustStrategy.PMNonExhaustStrategy
-    load_unified_data_function:   code.pm_non_exhaust_strategy.load_unified_data.load_pm_non_exhaust_unified_data
-    validation_function:          code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_unified_files
+    load_yeti_format_data_function:   code.pm_non_exhaust_strategy.load_yeti_format_data.load_pm_non_exhaust_yeti_format_data
+    validation_function:          code.pm_non_exhaust_strategy.validate.validate_pm_non_exhaust_yeti_format_files
 
-    unified_link_data:            path/to/unified_link_data.csv
-    unified_vehicle_data:         path/to/unified_vehicle_data.csv
-    unified_los_speeds:           path/to/unified_los_speed_data.csv
-    unified_traffic_data:         path/to/unified_traffic_data.csv
+    yeti_format_link_data:            path/to/yeti_format_link_data.csv
+    yeti_format_vehicle_data:         path/to/yeti_format_vehicle_data.csv
+    yeti_format_los_speeds:           path/to/yeti_format_los_speed_data.csv
+    yeti_format_traffic_data:         path/to/yeti_format_traffic_data.csv
 
     load_factor:                  0.3  # A number between 0 and 1. The assumption about the average load of trucks.
 

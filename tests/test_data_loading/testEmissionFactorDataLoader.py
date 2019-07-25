@@ -1,33 +1,34 @@
-from unittest import TestCase, main
 import os
+from unittest import TestCase, main
+
 import pandas as pd
 
+from code.constants.enumerations import PollutantType
 from code.data_loading.EmissionFactorDataLoader import EmissionFactorDataLoader
 from tests.helper import df_equal
-from code.constants.enumerations import PollutantType
 
 
 class TestEmissionFactorDataLoader(TestCase):
 
     def setUp(self) -> None:
 
-        if os.path.isfile("./tests/test_data/input_data/copert_emission_factor_data.csv"):
+        if os.path.isfile("./tests/test_data/berlin_format_data/copert_emission_factor_data.csv"):
             self.init_path = "./tests"
         else:
             self.init_path = ".."
 
         self.loader = EmissionFactorDataLoader(
-            fleet_comp_data=pd.read_csv(f"{self.init_path}/test_data/input_data/fleet_comp_data.csv"),
-            vehicle_mapping_data=pd.read_csv(f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv"),
-            ef_data=pd.read_csv(f"{self.init_path}/test_data/input_data/copert_emission_factor_data.csv"),
-            nh3_ef_data=pd.read_csv(f"{self.init_path}/test_data/input_data/nh3_ef_data.csv"),
-            nh3_mapping_data=pd.read_csv(f"{self.init_path}/test_data/input_data/nh3_mapping.csv")
+            fleet_comp_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/fleet_comp_data.csv"),
+            vehicle_mapping_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/vehicle_emissions_category_mapping_data.csv"),
+            ef_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/copert_emission_factor_data.csv"),
+            nh3_ef_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/nh3_ef_data.csv"),
+            nh3_mapping_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/nh3_mapping.csv")
         )
 
     def test_load_data(self):
 
         ef_data, missing_ef_data = self.loader.load_data()
-        ef_data_expected = pd.read_csv(f"{self.init_path}/test_data/unified_data/emission_factor_data.csv")
+        ef_data_expected = pd.read_csv(f"{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv")
 
         self.assertEqual(sorted(list(ef_data_expected.columns)), sorted(list(ef_data.columns)))
         self.assertTrue(df_equal(ef_data, ef_data_expected))
@@ -74,12 +75,12 @@ class TestEmissionFactorDataLoader(TestCase):
 
         loader = EmissionFactorDataLoader(
             use_nh3_tier2_ef=False,
-            fleet_comp_data=pd.read_csv(f"{self.init_path}/test_data/input_data/fleet_comp_data.csv"),
+            fleet_comp_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/fleet_comp_data.csv"),
             vehicle_mapping_data=pd.read_csv(
-                f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv"),
-            ef_data=pd.read_csv(f"{self.init_path}/test_data/input_data/copert_emission_factor_data.csv"),
-            nh3_ef_data=pd.read_csv(f"{self.init_path}/test_data/input_data/nh3_ef_data.csv"),
-            nh3_mapping_data=pd.read_csv(f"{self.init_path}/test_data/input_data/nh3_mapping.csv")
+                f"{self.init_path}/test_data/berlin_format_data/vehicle_emissions_category_mapping_data.csv"),
+            ef_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/copert_emission_factor_data.csv"),
+            nh3_ef_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/nh3_ef_data.csv"),
+            nh3_mapping_data=pd.read_csv(f"{self.init_path}/test_data/berlin_format_data/nh3_mapping.csv")
         )
         ef_data, missing_ef_data = loader.load_data()
 

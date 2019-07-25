@@ -5,7 +5,7 @@ from code.strategy_helpers.validation_helpers import check_separator_is_comma, c
     check_categories_are_correct, check_does_not_contain_nan, check_column_values_above_zero, check_are_perc_columns
 
 
-def validate_unified_link_data(filename):
+def validate_yeti_format_link_data(filename):
 
     data = pd.read_csv(filename)
 
@@ -16,7 +16,7 @@ def validate_unified_link_data(filename):
     check_column_values_above_zero(filename, data, ["MaxSpeed", "Length"])
 
 
-def validate_unified_vehicle_data(filename):
+def validate_yeti_format_vehicle_data(filename):
 
     data = pd.read_csv(filename)
 
@@ -26,7 +26,7 @@ def validate_unified_vehicle_data(filename):
     check_does_not_contain_nan(filename, data[["VehicleName", "VehicleCategory"]])
 
 
-def validate_unified_traffic_data(filename):
+def validate_yeti_format_traffic_data(filename):
 
     data = pd.read_csv(filename)
 

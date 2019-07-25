@@ -24,9 +24,11 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    user/data_formats
    user/output_format
    user/what_is_strategy
+   user/copert_strategy
    user/copert_hot_strategy
    user/copert_hot_strategy_fixed_speed
    user/copert_cold_strategy
+   user/hbefa_strategy
    user/hbefa_hot_strategy
    user/pm_non_exhaust_strategy
 
@@ -34,10 +36,11 @@ The code for YETI can be found on `GitHub <https://github.com/twollnik/YETI/>`_.
    :maxdepth: 1
    :caption: Developer Documentation
 
+   developer/hard_coding
    developer/high_level_how_does_it_work
    developer/add_strategy
    developer/add_validate_function
-   developer/add_load_input_data_function
-   developer/add_load_unified_data_function
+   developer/add_load_berlin_format_data_function
+   developer/add_load_yeti_format_data_function
    developer/update_docs
    developer/contributing

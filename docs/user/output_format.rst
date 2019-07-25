@@ -23,16 +23,16 @@ The output files will be in this format:
   day type and hour. A real number.
 
 Note that the emission columns match the vehicle names given in the fleet composition data file
-(if using ``input_data``) or the vehicle data file (if using ``unified_data``).
+(if using data in ``berlin_format``) or the vehicle data file (if using data in ``yeti_format``).
 
 Output location
 ---------------
 
 In the config file you specify an ``output_folder``. The model outputs will be in the specified ``output_folder``.
 
-unified_data files
-------------------
+files in yeti_format
+--------------------
 
-If you are using mode input_data, YETI generates files in unifed_data format during the run. These files are saved
-in ``output_folder``. If you specify ``output_folder_for_unified_data`` in the config file, the unified_data
-files will be in ``output_folder_for_unified_data`` instead.
+If you are using mode ``berlin_format``, YETI generates files in unifed_data format during the run. These files are saved
+in ``output_folder``. If you specify ``output_folder_for_yeti_format_data`` in the config file, the ``yeti_format``
+files will be in ``output_folder_for_yeti_format_data`` instead.

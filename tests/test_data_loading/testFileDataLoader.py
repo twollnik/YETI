@@ -1,29 +1,29 @@
-from unittest import TestCase, main
 import os
 from itertools import chain
+from unittest import TestCase, main
 
-from code.data_loading.FileDataLoader import FileDataLoader
 from code.constants.column_names import *
+from code.data_loading.FileDataLoader import FileDataLoader
 
 
 class TestFileDataLoader(TestCase):
 
     def setUp(self) -> None:
 
-        if os.path.isfile("./tests/test_data/input_data/copert_emission_factor_data.csv"):
+        if os.path.isfile("./tests/test_data/berlin_format_data/copert_emission_factor_data.csv"):
             self.init_path = "./tests"
         else:
             self.init_path = ".."
 
         self.loader = FileDataLoader(
-            emission_factor_file=f"{self.init_path}/test_data/input_data/copert_emission_factor_data.csv",
-            los_speeds_file=f"{self.init_path}/test_data/input_data/los_speed_data.csv",
-            fleet_comp_file=f"{self.init_path}/test_data/input_data/fleet_comp_data.csv",
-            link_data_file=f"{self.init_path}/test_data/input_data/shape_data.csv",
-            traffic_data_file=f"{self.init_path}/test_data/input_data/traffic_data.csv",
-            vehicle_mapping_file=f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv",
-            nh3_ef_file=f"{self.init_path}/test_data/input_data/nh3_ef_data.csv",
-            nh3_mapping_file=f"{self.init_path}/test_data/input_data/nh3_mapping.csv"
+            emission_factor_file=f"{self.init_path}/test_data/berlin_format_data/copert_emission_factor_data.csv",
+            los_speeds_file=f"{self.init_path}/test_data/berlin_format_data/los_speed_data.csv",
+            fleet_comp_file=f"{self.init_path}/test_data/berlin_format_data/fleet_comp_data.csv",
+            link_data_file=f"{self.init_path}/test_data/berlin_format_data/shape_data.csv",
+            traffic_data_file=f"{self.init_path}/test_data/berlin_format_data/traffic_data.csv",
+            vehicle_mapping_file=f"{self.init_path}/test_data/berlin_format_data/vehicle_emissions_category_mapping_data.csv",
+            nh3_ef_file=f"{self.init_path}/test_data/berlin_format_data/nh3_ef_data.csv",
+            nh3_mapping_file=f"{self.init_path}/test_data/berlin_format_data/nh3_mapping.csv"
         )
 
     def test_file_data_loading(self):
@@ -32,7 +32,7 @@ class TestFileDataLoader(TestCase):
          traffic_count_data, vehicle_name_emissions_category_mapping_data,
          nh3_ef_data, nh3_mapping_data) = self.loader.load_data(use_hbefa_ef=False)
 
-        self.loader.link_data_file = f"{self.init_path}/test_data/input_data/shape_data_with_speed.csv"
+        self.loader.link_data_file = f"{self.init_path}/test_data/berlin_format_data/shape_data_with_speed.csv"
         (_, _, _, link_data_with_speed, _, _, _, _) = self.loader.load_data(use_hbefa_ef=False)
 
         self.assertTrue({
@@ -84,7 +84,7 @@ class TestFileDataLoader(TestCase):
 
         data = self.loader.load_data(use_hbefa_ef=False)
 
-        self.loader.link_data_file = f"{self.init_path}/test_data/input_data/shape_data_with_speed.csv"
+        self.loader.link_data_file = f"{self.init_path}/test_data/berlin_format_data/shape_data_with_speed.csv"
         data_with_speed = self.loader.load_data(use_hbefa_ef=False)
 
         for df in chain(data_with_speed, data):

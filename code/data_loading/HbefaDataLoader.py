@@ -1,6 +1,6 @@
+import logging
 from typing import Tuple
 
-import logging
 import pandas as pd
 
 from code.data_loading.DataLoader import DataLoader
@@ -9,7 +9,7 @@ from code.data_loading.FileDataLoader import HbefaFileDataLoader
 
 
 class HbefaDataLoader(DataLoader):
-    """ Use this DataLoader to load unified data from input data with hbefa emission factors.
+    """ Use this DataLoader to convert data in berlin_format with hbefa emission factors to yeti_format.
 
     Different concrete data loaders will be used than in DataLoader and less input files are required.
     """
@@ -28,7 +28,7 @@ class HbefaDataLoader(DataLoader):
 
         super().__init__(**kwargs)
 
-    def load_input_data(self, use_nh3_ef: bool):  # -> 8 - tuple of pd.DataFrames
+    def load_berlin_format_data(self, use_nh3_ef: bool):  # -> 8 - tuple of pd.DataFrames
 
         if use_nh3_ef is True:
             logging.warning("use_nh3_tier2_ef set to False for Hbefa data loading. (You passed True)")

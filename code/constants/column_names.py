@@ -1,5 +1,5 @@
 """
-This file contains the complete list of all column names for the datasets belonging to the input_data class.
+This file contains the complete list of all column names for the datasets belonging to the berlin_format data class.
 For categorical data columns it also contains the possible categories.
 
 Naming convention:
@@ -11,6 +11,7 @@ You may alter the column names in section "1. input data" to fit the dataset
 you are currently working with. However you need to make sure to only use
 letters, numbers and underscores in the column names. Using other characters
 may result in errors or bugs down the line.
+
 """
 
 # ---------------- 1. input data ---------------- #

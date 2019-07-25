@@ -1,0 +1,45 @@
+# This is a configuration file for the YETI model
+
+# -------- run configurations ----------
+
+mode:           berlin_format  # feel free to change the mode to yeti_format. (Don't forget to change the validation function)
+
+pollutants:                 [PollutantType.NOx]
+
+strategy:                   code.hbefa_strategy.HbefaStrategy.HbefaStrategy
+load_berlin_format_data_function:   code.hbefa_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
+load_yeti_format_data_function: code.hbefa_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+
+# -------- file names -----------
+
+berlin_format_link_data:            example/example_berlin_format_data/link_data.csv
+berlin_format_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
+hot_berlin_format_emission_factors:     example/example_berlin_format_data/hbefa_emission_factors.csv
+berlin_format_traffic_data:         example/example_berlin_format_data/traffic_data.csv
+
+hot_yeti_format_emission_factors:   example/example_yeti_format_data/hbefa_emission_factors.csv
+yeti_format_vehicle_data:       example/example_yeti_format_data/vehicle_data.csv
+yeti_format_link_data:          example/example_yeti_format_data/link_data.csv
+yeti_format_traffic_data:       example/example_yeti_format_data/traffic_data.csv
+
+cold_berlin_format_emission_factors:     example/example_berlin_format_data/hbefa_cold_start_emission_factors.csv
+berlin_format_cold_starts_data:     example/example_berlin_format_data/cold_starts.csv
+
+cold_yeti_format_emission_factors:   example/example_yeti_format_data/hbefa_cold_start_emission_factors.csv
+yeti_format_cold_starts_data:   example/example_yeti_format_data/cold_starts_data.csv
+
+# -------- output folder(s) --------------
+
+output_folder:              example_output_hbefa_hot
+
+# Optional parameter, only relevant for mode berlin_format:
+# output_folder_for_yeti_format_data:     yeti_format_data_new
+
+# -------- strategy specific arguments -----------
+
+only_hot:                   no
+
+# -------- optional arguments ------------
+
+# links_to_use:               [link_a]
+# use_n_traffic_data_rows:    100

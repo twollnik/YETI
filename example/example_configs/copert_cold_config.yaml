@@ -2,39 +2,39 @@
 
 # -------- run configurations ----------
 
-mode:                       input_data  # feel free to change the mode to unified_data. (Don't forget to change the validation function)
+mode:           berlin_format  # feel free to change the mode to yeti_format. (Don't forget to change the validation function)
 
 pollutants:                 [PollutantType.CO]
 
-strategy:                   code.copert_cold_strategy.CopertColdStrategy.CopertColdStrategy
-load_input_data_function:   code.copert_cold_strategy.load_input_data.load_copert_cold_input_data
-load_unified_data_function: code.copert_cold_strategy.load_unified_data.load_copert_cold_unified_data
-validation_function:        code.copert_cold_strategy.validate.validate_copert_cold_input_files
+strategy:                   code.copert_strategy.CopertStrategy.CopertStrategy
+load_berlin_format_data_function:   code.copert_strategy.load_berlin_format_data.load_copert_berlin_format_data
+load_yeti_format_data_function: code.copert_strategy.load_yeti_format_data.load_copert_yeti_format_data
+validation_function:        code.copert_cold_strategy.validate.validate_copert_cold_berlin_format_files
 
 # -------- file names -----------
 
-input_link_data:            example/example_input_data/link_data.csv
-input_fleet_composition:    example/example_input_data/fleet_composition.csv
-input_emission_factors:     example/example_input_data/copert_emission_factors.csv
-input_los_speeds:           example/example_input_data/los_speeds.csv
-input_traffic_data:         example/example_input_data/traffic_data.csv
-input_vehicle_mapping:      example/example_input_data/vehicle_mapping.csv
-input_cold_ef_table:        example/example_input_data/cold_emission_factors.csv
+berlin_format_link_data:            example/example_berlin_format_data/link_data.csv
+berlin_format_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
+berlin_format_emission_factors:     example/example_berlin_format_data/copert_emission_factors.csv
+berlin_format_los_speeds:           example/example_berlin_format_data/los_speeds.csv
+berlin_format_traffic_data:         example/example_berlin_format_data/traffic_data.csv
+berlin_format_vehicle_mapping:      example/example_berlin_format_data/vehicle_mapping.csv
+berlin_format_cold_ef_table:        example/example_berlin_format_data/cold_emission_factors.csv
 
-unified_emission_factors:   example/example_unified_data/copert_emission_factors.csv
-unified_los_speeds:         example/example_unified_data/los_speeds.csv
-unified_vehicle_data:       example/example_unified_data/vehicle_data.csv
-unified_link_data:          example/example_unified_data/link_data.csv
-unified_traffic_data:       example/example_unified_data/traffic_data.csv
-unified_cold_ef_table:      example/example_unified_data/cold_emission_factors.csv
-unified_vehicle_mapping:    example/example_unified_data/vehicle_mapping.csv
+yeti_format_emission_factors:   example/example_yeti_format_data/copert_emission_factors.csv
+yeti_format_los_speeds:         example/example_yeti_format_data/los_speeds.csv
+yeti_format_vehicle_data:       example/example_yeti_format_data/vehicle_data.csv
+yeti_format_link_data:          example/example_yeti_format_data/link_data.csv
+yeti_format_traffic_data:       example/example_yeti_format_data/traffic_data.csv
+yeti_format_cold_ef_table:      example/example_yeti_format_data/cold_emission_factors.csv
+yeti_format_vehicle_mapping:    example/example_yeti_format_data/vehicle_mapping.csv
 
 # -------- output folder(s) --------------
 
 output_folder:              example_output_copert_cold
 
-# Optional parameter, only relevant for mode input_data:
-# output_folder_for_unified_data:     unified_data_new
+# Optional parameter, only relevant for mode berlin_format:
+# output_folder_for_yeti_format_data:     yeti_format_data_new
 
 # -------- strategy specific arguments -----------
 
@@ -44,6 +44,9 @@ exclude_area_types:         [Rural]
 
 ltrip:                      12
 temperature:                15
+
+# only_hot:                   no
+# fixed_speed:                no
 
 # -------- optional arguments ------------
 

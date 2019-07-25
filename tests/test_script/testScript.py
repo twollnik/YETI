@@ -1,10 +1,9 @@
+import logging
+import os
+import shutil
+import sys
 from unittest import TestCase, main
 from unittest.mock import MagicMock
-import os
-import sys
-import shutil
-from datetime import datetime
-import logging
 
 
 class TestScript(TestCase):
@@ -20,7 +19,7 @@ class TestScript(TestCase):
     def test_config1(self):
 
         try:
-            shutil.rmtree(f"output_mode_input_data")
+            shutil.rmtree(f"output_mode_berlin_format_data")
         except FileNotFoundError:
             pass
 
@@ -29,15 +28,15 @@ class TestScript(TestCase):
 
         execfile(f"../../run_yeti.py")
 
-        self.assertTrue(os.path.isdir(f"./output_mode_input_data/"))
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/run_info.txt")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/PollutantType.CO_emissions.csv")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/PollutantType.NOx_emissions.csv")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_emission_factors.csv")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_los_speeds.csv")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_vehicle_data.csv")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_link_data.csv")
-        assert_file_exists_and_not_empty(f"./output_mode_input_data/unified_traffic_data.csv")
+        self.assertTrue(os.path.isdir(f"./output_mode_berlin_format_data/"))
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/run_info.txt")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/PollutantType.CO_emissions.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/PollutantType.NOx_emissions.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/yeti_format_emission_factors.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/yeti_format_los_speeds.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/yeti_format_vehicle_data.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/yeti_format_link_data.csv")
+        assert_file_exists_and_not_empty(f"./output_mode_berlin_format_data/yeti_format_traffic_data.csv")
 
         logging.warning.assert_not_called()
 
@@ -45,7 +44,7 @@ class TestScript(TestCase):
 
         try:
             shutil.rmtree(f"output_hbefa")
-            shutil.rmtree(f"temp_unified_data")
+            shutil.rmtree(f"temp_yeti_data")
         except FileNotFoundError:
             pass
 
@@ -58,10 +57,10 @@ class TestScript(TestCase):
         assert_file_exists_and_not_empty(f"output_hbefa/run_info.txt")
         assert_file_exists_and_not_empty(f"output_hbefa/PollutantType.CO_emissions.csv")
         assert_file_exists_and_not_empty(f"output_hbefa/PollutantType.NOx_emissions.csv")
-        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_emission_factors.csv")
-        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_vehicle_data.csv")
-        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_link_data.csv")
-        assert_file_exists_and_not_empty(f"./temp_unified_data/unified_traffic_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_emission_factors.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_vehicle_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_link_data.csv")
+        assert_file_exists_and_not_empty(f"./temp_yeti_format_data/yeti_format_traffic_data.csv")
 
         logging.warning.assert_not_called()
 
@@ -98,19 +97,15 @@ class TestScript(TestCase):
 
         self.assertTrue(os.path.isdir("output_copert_cold/"))
         assert_file_exists_and_not_empty("output_copert_cold/run_info.txt")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_cold_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_hot_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.NOx_total_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_cold_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_hot_emissions.csv")
-        assert_file_exists_and_not_empty("output_copert_cold/PollutantType.CO_total_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.NOx_cold_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.NOx_total_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.CO_cold_emissions.csv")
+        assert_file_exists_and_not_empty("output_copert_cold/cold_PollutantType.CO_total_emissions.csv")
 
-        for file in ["output_copert_cold/PollutantType.NOx_cold_emissions.csv",
-                     "output_copert_cold/PollutantType.NOx_hot_emissions.csv",
-                     "output_copert_cold/PollutantType.NOx_total_emissions.csv",
-                     "output_copert_cold/PollutantType.CO_cold_emissions.csv",
-                     "output_copert_cold/PollutantType.CO_hot_emissions.csv",
-                     "output_copert_cold/PollutantType.CO_total_emissions.csv"]:
+        for file in ["output_copert_cold/cold_PollutantType.NOx_cold_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.NOx_total_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.CO_cold_emissions.csv",
+                     "output_copert_cold/cold_PollutantType.CO_total_emissions.csv"]:
             with open(file) as fp:
                 file_header = fp.readline()
                 self.assertEqual(file_header.split(',')[:4], ["LinkID", "DayType", "Dir", "Hour"])

@@ -3,12 +3,13 @@ CopertColdStrategy
 
 This module implements emission calculation with the COPERT methodology for cold start emissions.
 """
-from typing import Any, Dict, Iterable, Tuple, Union, List
 import collections
+from typing import Any, Dict, Iterable, Tuple, Union, List
 
 import pandas as pd
 
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
+from code.script_helpers.dynamic_import_from import dynamic_import_from
 
 
 class CopertColdStrategy:
@@ -34,7 +35,6 @@ class CopertColdStrategy:
         self.veh_mapping = None
         self.los_speeds_dict = None
         self.los_speeds_data = None
-        self.hot_emission_factor_data = None
         self.vehicle_dict = None
 
         self.vehicles_pc_petrol_pre_euro = []
@@ -48,7 +48,8 @@ class CopertColdStrategy:
         self.vehicles_lcv_diesel = []
         self.vehicles_other = []
 
-        self.hot_strategy = CopertHotStrategy()
+        self.hot_strategy = None
+
         self.ltrip = None  # average length of a trip as specified in config
         self.temperature= None
         self.ABC_dict = None
@@ -71,14 +72,15 @@ class CopertColdStrategy:
                             **kwargs):
         """
         required kwargs:
-        - unified_cold_ef_table
-        - unified_los_speeds
-        - unified_emission_factors
-        - unified_vehicle_mapping
+        - yeti_format_cold_ef_table
+        - yeti_format_los_speeds
+        - yeti_format_emission_factors
+        - yeti_format_vehicle_mapping
         - ltrip
         - temperature
         - exclude_road_types
         - exclude_area_types
+        - hot_emissions
 
         Returns a Dict with:
             - "hot" : hot emissions data frame
@@ -86,11 +88,11 @@ class CopertColdStrategy:
             - "total" : total emissions data frame
         """
 
-        self.initialize_if_necessary(kwargs, vehicle_dict)
+        self.initialize_if_necessary(vehicle_dict, **kwargs)
         self.store_row_data_in_attribute(traffic_and_link_data_row)
         self.delete_emissions_from_last_call_to_this_function()
 
-        hot_emissions = self.calculate_hot_emissions(pollutants)
+        hot_emissions = kwargs["emissions_from_hot_strategy"]
 
         for pollutant in pollutants:
 
@@ -103,36 +105,44 @@ class CopertColdStrategy:
                 cold_emissions = self.calculate_cold_emissions(pollutant, hot_ef_dict)
 
             total_emissions = self.calculate_total_emissions(hot_emissions_for_pollutant, cold_emissions)
-            self.add_emissions_to_assembly_attribute(pollutant, hot_emissions_for_pollutant, cold_emissions, total_emissions)
-
+            self.add_emissions_to_assembly_attribute(pollutant, cold_emissions, total_emissions)
 
         return self.emissions
 
-    def initialize_if_necessary(self, kwargs, vehicle_dict):
+    def initialize_if_necessary(self, vehicle_dict, **kwargs):
 
         if self.is_not_initialized():
+            self.initialize_hot_strategy(**kwargs)
             self.store_data_in_attributes(vehicle_dict, **kwargs)
             self.split_vehicles_into_groups(vehicle_dict)
 
     def is_not_initialized(self) -> bool:
 
         data_attributes = [self.cold_ef_table, self.veh_mapping, self.los_speeds_dict,
-                           self.los_speeds_data, self.hot_emission_factor_data, self.ltrip, self.temperature]
+                           self.los_speeds_data, self.ltrip, self.temperature]
         return any(att is None for att in data_attributes)
+
+    def initialize_hot_strategy(self, **kwargs):
+
+        if kwargs.get("hot_strategy") is None:
+            self.hot_strategy = CopertHotStrategy()
+        else:
+            path_to_strategy_class = kwargs["hot_strategy"]
+            strategy_class = dynamic_import_from(path_to_strategy_class)
+            self.hot_strategy = strategy_class()
 
     def store_data_in_attributes(self, vehicle_dict: Dict[str, str], **kwargs):
 
         self.vehicle_dict = vehicle_dict
 
-        self.initialize_cold_ef_table(kwargs["unified_cold_ef_table"])
-        self.veh_mapping = kwargs["unified_vehicle_mapping"].set_index("VehName")
-        self.los_speeds_data = kwargs["unified_los_speeds"]
-        self.hot_emission_factor_data = kwargs["unified_emission_factors"]
+        self.initialize_cold_ef_table(kwargs["yeti_format_cold_ef_table"])
+        self.veh_mapping = kwargs["yeti_format_vehicle_mapping"].set_index("VehName")
+        self.los_speeds_data = kwargs["yeti_format_los_speeds"]
         self.los_speeds_dict = self.los_speeds_data.set_index(["LinkID", "VehicleCategory"]).to_dict(orient="index")
 
         self.ltrip = kwargs["ltrip"]
         self.temperature = kwargs["temperature"]
-        self.initialize_ABC_dict_if_necessary(kwargs["unified_cold_ef_table"])
+        self.initialize_ABC_dict_if_necessary(kwargs["yeti_format_cold_ef_table"])
         self.initialize_max_min_cold_ef_stats_if_necessary()
         self.initialize_corresponding_euro1_vehicles_if_necessary()
         self.initialize_euro_category_for_vehicles_if_necessary()
@@ -237,11 +247,9 @@ class CopertColdStrategy:
     def add_emissions_to_assembly_attribute(
             self,
             pollutant: str,
-            hot_emissions: Dict[str, float],
             cold_emissions: Dict[str, float],
             total_emissions: Dict[str, float]) -> Dict[str, Dict[str, float]]:
 
-        self.emissions[f"{pollutant}_hot"] = hot_emissions
         self.emissions[f"{pollutant}_cold"] = cold_emissions
         self.emissions[f"{pollutant}_total"] = total_emissions
 
@@ -309,13 +317,6 @@ class CopertColdStrategy:
                 self.vehicles_lcv_petrol_pre_euro.append(veh_name)
         else:
             self.vehicles_lcv_diesel.append(veh_name)
-
-    def calculate_hot_emissions(self, pollutant: str) -> Dict[str, Dict[str, float]]:
-
-        return self.hot_strategy.calculate_emissions(
-            self.row, self.vehicle_dict, pollutant, los_speeds_data=self.los_speeds_data,
-            emission_factor_data=self.hot_emission_factor_data
-        )
 
     def calculate_cold_emissions(self, pollutant: str, hot_ef: Dict[str, float]) -> Dict[str, float]:
 

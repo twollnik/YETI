@@ -1,19 +1,19 @@
 from unittest import TestCase, main
 from unittest.mock import MagicMock
-import os
-import pandas as pd
-import numpy as np
-import logging
 
+import numpy as np
+from code.strategy_helpers.validate_yeti_format_data import validate_yeti_format_link_data, \
+    validate_yeti_format_vehicle_data, \
+    validate_yeti_format_traffic_data
+
+from code.copert_cold_strategy.validate import validate_cold_ef_table, validate_veh_mapping, \
+    validate_copert_cold_yeti_format_files
+from code.copert_hot_fixed_speed_strategy.validate import validate_copert_fixed_speed_yeti_format_files
+from code.copert_hot_strategy.validate import validate_yeti_format_copert_ef_data, validate_yeti_format_los_speeds_data, \
+    validate_copert_yeti_format_files
+from code.hbefa_hot_strategy.validate import validate_yeti_format_hbefa_emission_factor_data
+from code.pm_non_exhaust_strategy.validate import validate_pm_non_exhaust_yeti_format_files
 from code.strategy_helpers.validation_helpers import *
-from code.strategy_helpers.validate_unified_data import validate_unified_link_data, validate_unified_vehicle_data, \
-    validate_unified_traffic_data
-from code.copert_hot_strategy.validate import validate_unified_copert_ef_data, validate_unified_los_speeds_data, \
-    validate_copert_unified_files
-from code.copert_hot_fixed_speed_strategy.validate import validate_copert_fixed_speed_unified_files
-from code.copert_cold_strategy.validate import validate_cold_ef_table, validate_veh_mapping, validate_copert_cold_unified_files
-from code.hbefa_hot_strategy.validate import validate_unified_hbefa_emission_factor_data
-from code.pm_non_exhaust_strategy.validate import validate_pm_non_exhaust_unified_files
 
 
 class TestDataValidation(TestCase):
@@ -181,63 +181,63 @@ class TestDataValidation(TestCase):
         self.assertTrue(check_column_values_above_zero("abc", df, ["e", "f"]))
         logging.warning.assert_not_called()
 
-    def test_validate_unified_link_data(self):
+    def test_validate_yeti_format_link_data(self):
 
         logging.warning = MagicMock()
 
-        validate_unified_link_data(f"{self.init_path}/test_data/unified_data/link_data.csv")
+        validate_yeti_format_link_data(f"{self.init_path}/test_data/yeti_format_data/link_data.csv")
         logging.warning.assert_not_called()
 
-    def test_validate_unified_vehicle_data(self):
+    def test_validate_yeti_format_vehicle_data(self):
 
         logging.warning = MagicMock()
 
-        validate_unified_vehicle_data(f"{self.init_path}/test_data/unified_data/vehicle_data.csv")
+        validate_yeti_format_vehicle_data(f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv")
         logging.warning.assert_not_called()
 
-    def test_validate_unified_traffic_data(self):
+    def test_validate_yeti_format_traffic_data(self):
 
         logging.warning = MagicMock()
 
-        validate_unified_traffic_data(f"{self.init_path}/test_data/unified_data/traffic_data.csv")
+        validate_yeti_format_traffic_data(f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv")
         logging.warning.assert_not_called()
 
-    def test_validate_unified_copert_ef_data(self):
+    def test_validate_yeti_format_copert_ef_data(self):
 
         logging.warning = MagicMock()
 
-        validate_unified_copert_ef_data(f"{self.init_path}/test_data/unified_data/emission_factor_data.csv")
+        validate_yeti_format_copert_ef_data(f"{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv")
         logging.warning.assert_called_once()
 
-    def test_validate_unified_los_speeds_data(self):
+    def test_validate_yeti_format_los_speeds_data(self):
 
         logging.warning = MagicMock()
 
-        validate_unified_los_speeds_data(f"{self.init_path}/test_data/unified_data/los_speeds_data.csv")
+        validate_yeti_format_los_speeds_data(f"{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv")
         logging.warning.assert_not_called()
 
-    def test_validate_copert_unified_files(self):
+    def test_validate_copert_yeti_format_files(self):
 
         logging.warning = MagicMock()
 
-        validate_copert_unified_files(
-            unified_emission_factors = f"{self.init_path}/test_data/unified_data/emission_factor_data.csv",
-            unified_los_speeds = f"{self.init_path}/test_data/unified_data/los_speeds_data.csv",
-            unified_vehicle_data = f"{self.init_path}/test_data/unified_data/vehicle_data.csv",
-            unified_link_data = f"{self.init_path}/test_data/unified_data/link_data.csv",
-            unified_traffic_data = f"{self.init_path}/test_data/unified_data/traffic_data.csv"
+        validate_copert_yeti_format_files(
+            yeti_format_emission_factors = f"{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv",
+            yeti_format_los_speeds = f"{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv",
+            yeti_format_vehicle_data = f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv",
+            yeti_format_link_data = f"{self.init_path}/test_data/yeti_format_data/link_data.csv",
+            yeti_format_traffic_data = f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv"
         )
         logging.warning.assert_called_once()
 
-    def test_validate_copert_fixed_speed_unified_files(self):
+    def test_validate_copert_fixed_speed_yeti_format_files(self):
 
         logging.warning = MagicMock()
 
-        validate_copert_fixed_speed_unified_files(
-            unified_emission_factors = f"{self.init_path}/test_data/unified_data/emission_factor_data.csv",
-            unified_vehicle_data = f"{self.init_path}/test_data/unified_data/vehicle_data.csv",
-            unified_link_data = f"{self.init_path}/test_data/unified_data/link_data.csv",
-            unified_traffic_data = f"{self.init_path}/test_data/unified_data/traffic_data.csv"
+        validate_copert_fixed_speed_yeti_format_files(
+            yeti_format_emission_factors = f"{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv",
+            yeti_format_vehicle_data = f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv",
+            yeti_format_link_data = f"{self.init_path}/test_data/yeti_format_data/link_data.csv",
+            yeti_format_traffic_data = f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv"
         )
         logging.warning.assert_called_once()
 
@@ -245,47 +245,47 @@ class TestDataValidation(TestCase):
 
         logging.warning = MagicMock()
 
-        validate_cold_ef_table(f"{self.init_path}/test_data/input_data/TableColdEF_minmax.csv")
+        validate_cold_ef_table(f"{self.init_path}/test_data/berlin_format_data/TableColdEF_minmax.csv")
         logging.warning.assert_not_called()
 
     def test_validate_veh_mapping(self):
 
         logging.warning = MagicMock()
 
-        validate_veh_mapping(f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv")
+        validate_veh_mapping(f"{self.init_path}/test_data/berlin_format_data/vehicle_emissions_category_mapping_data.csv")
         logging.warning.assert_not_called()
 
-    def test_validate_copert_cold_unified_files(self):
+    def test_validate_copert_cold_yeti_format_files(self):
 
         logging.warning = MagicMock()
 
-        validate_copert_cold_unified_files(
-            unified_emission_factors = f"{self.init_path}/test_data/unified_data/emission_factor_data.csv",
-            unified_vehicle_data = f"{self.init_path}/test_data/unified_data/vehicle_data.csv",
-            unified_link_data = f"{self.init_path}/test_data/unified_data/link_data.csv",
-            unified_traffic_data = f"{self.init_path}/test_data/unified_data/traffic_data.csv",
-            unified_los_speeds=f"{self.init_path}/test_data/unified_data/los_speeds_data.csv",
-            unified_cold_ef_table = f"{self.init_path}/test_data/input_data/TableColdEF_minmax.csv",
-            unified_vehicle_mapping = f"{self.init_path}/test_data/input_data/vehicle_emissions_category_mapping_data.csv"
+        validate_copert_cold_yeti_format_files(
+            yeti_format_emission_factors = f"{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv",
+            yeti_format_vehicle_data = f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv",
+            yeti_format_link_data = f"{self.init_path}/test_data/yeti_format_data/link_data.csv",
+            yeti_format_traffic_data = f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv",
+            yeti_format_los_speeds=f"{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv",
+            yeti_format_cold_ef_table = f"{self.init_path}/test_data/berlin_format_data/TableColdEF_minmax.csv",
+            yeti_format_vehicle_mapping = f"{self.init_path}/test_data/berlin_format_data/vehicle_emissions_category_mapping_data.csv"
         )
         logging.warning.assert_called_once()
 
-    def test_validate_unified_hbefa_emission_factor_data(self):
+    def test_validate_yeti_format_hbefa_emission_factor_data(self):
 
         logging.warning = MagicMock()
 
-        validate_unified_hbefa_emission_factor_data(f"{self.init_path}/test_data/unified_data/hbefa_ef_data.csv")
+        validate_yeti_format_hbefa_emission_factor_data(f"{self.init_path}/test_data/yeti_format_data/hbefa_ef_data.csv")
         logging.warning.assert_not_called()
 
-    def test_validate_pm_non_exhaust_unified_files(self):
+    def test_validate_pm_non_exhaust_yeti_format_files(self):
 
         logging.warning = MagicMock()
 
-        validate_pm_non_exhaust_unified_files(
-            unified_los_speeds=f"{self.init_path}/test_data/unified_data/los_speeds_data.csv",
-            unified_vehicle_data=f"{self.init_path}/test_data/unified_data/vehicle_data.csv",
-            unified_link_data=f"{self.init_path}/test_data/unified_data/link_data.csv",
-            unified_traffic_data=f"{self.init_path}/test_data/unified_data/traffic_data.csv"
+        validate_pm_non_exhaust_yeti_format_files(
+            yeti_format_los_speeds=f"{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv",
+            yeti_format_vehicle_data=f"{self.init_path}/test_data/yeti_format_data/vehicle_data.csv",
+            yeti_format_link_data=f"{self.init_path}/test_data/yeti_format_data/link_data.csv",
+            yeti_format_traffic_data=f"{self.init_path}/test_data/yeti_format_data/traffic_data.csv"
         )
         logging.warning.assert_not_called()
 

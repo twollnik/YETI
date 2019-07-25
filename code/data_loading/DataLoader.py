@@ -12,10 +12,10 @@ from code.data_loading.VehicleDataLoader import VehicleDataLoader
 
 
 class DataLoader:
-    """ Load and transform input data.
+    """ Load and transform input data in berlin_format.
 
     This class implements the high-level algorithm to load and transform the data,
-    so that it fits the format of the unified_data class. DataLoader relies on other
+    so that it fits the yeti_format. DataLoader relies on other
     data loaders to implement the concrete logic (e.g. loading the datasets
     from file and converting them to the right format).
     """
@@ -39,20 +39,20 @@ class DataLoader:
         self.filenames_dict = kwargs
 
     def load_data(self, use_nh3_ef: bool = True, **kwargs):
-        """ Load and transform input data.
+        """ Load and transform input data in berlin_format.
 
         This method will delegate responsibilities to other classes to perform all
-        relevant operations to convert the input_data to unified_data.
+        relevant operations to convert the data in berlin_format to data in yeti_format.
         It will use the file locations that were passed to the constructor ('__init__').
 
-        :return: unified_link_data, vehicle_data, traffic_data, los_speeds_data, emission_factor_data and missing_ef_data
-                 as pd.Dataframes
+        :return: link_data, vehicle_data, traffic_data, los_speeds_data, emission_factor_data and missing_ef_data
+                 in yeti_format as pd.DataFrames
         """
 
         print("[data_loading] 1/7: Loading data from file.")
         (emission_factor_data, fleet_comp_data, los_speeds_data, link_data, traffic_count_data,
          vehicle_name_emissions_category_mapping_data, nh3_ef_data, nh3_mapping_data) = \
-            self.load_input_data(use_nh3_ef)
+            self.load_berlin_format_data(use_nh3_ef)
 
         print("[data_loading] 2/7: Filtering unmatched links.")
         traffic_count_data, unused_links = self.filter_unused_links(traffic_count_data, link_data)
@@ -60,7 +60,7 @@ class DataLoader:
         print(f"\tNumber of links in traffic_count_data with no corresponding link in shape_data: {len(unused_links)}")
 
         print("[data_loading] 3/7: Building link_and_traffic_data.")
-        unified_link_data = self.load_link_data(link_data)
+        yeti_format_link_data = self.load_link_data(link_data)
 
         print("[data_loading] 4/7: Building vehicle_data.")
         vehicle_data = self.load_vehicle_data(fleet_comp_data=fleet_comp_data)
@@ -82,7 +82,7 @@ class DataLoader:
         traffic_data = self.load_traffic_data(fleet_comp_data, link_data, traffic_count_data)
 
         print("[data_loading] Done.")
-        return unified_link_data, vehicle_data, traffic_data, los_speeds_data, ef_data, missing_ef_data
+        return yeti_format_link_data, vehicle_data, traffic_data, los_speeds_data, ef_data, missing_ef_data
 
     def filter_unused_links(self, traffic_count_data, shape_data):
         """ From traffic_count_data remove all rows with a LinkID that is not in shape_data.
@@ -106,7 +106,7 @@ class DataLoader:
             fleet_comp_data=fleet_comp_data, link_data=link_data, traffic_count_data=traffic_data
         ).load_data()
 
-    def load_input_data(self, use_nh3_ef: bool):  # -> 8 - tuple of pd.DataFrames
+    def load_berlin_format_data(self, use_nh3_ef: bool):  # -> 8 - tuple of pd.DataFrames
 
         return FileDataLoader(**self.filenames_dict).load_data(use_nh3_ef, use_hbefa_ef=False)
 

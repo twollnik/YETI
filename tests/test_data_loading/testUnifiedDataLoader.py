@@ -1,45 +1,45 @@
-from unittest import TestCase, main
 import os
+from unittest import TestCase, main
 
-from code.copert_hot_strategy.load_unified_data import load_copert_unified_data
+from code.copert_hot_strategy.load_yeti_format_data import load_copert_hot_yeti_format_data
 
 
-class TestUnifiedDataLoader(TestCase):
+class TestYetiFormatDataLoader(TestCase):
 
     def setUp(self) -> None:
 
-        if os.path.isfile("./tests/test_data/unified_data/emission_factor_data.csv"):
+        if os.path.isfile("./tests/test_data/yeti_format_data/emission_factor_data.csv"):
             self.init_path = "./tests"
         else:
             self.init_path = ".."
 
-        unified_data = load_copert_unified_data(
-            unified_emission_factors=f'{self.init_path}/test_data/unified_data/emission_factor_data.csv',
-            unified_los_speeds=f'{self.init_path}/test_data/unified_data/los_speeds_data.csv',
-            unified_vehicle_data=f'{self.init_path}/test_data/unified_data/vehicle_data.csv',
-            unified_link_data=f'{self.init_path}/test_data/unified_data/link_data.csv',
-            unified_traffic_data=f'{self.init_path}/test_data/unified_data/traffic_data.csv',
+        yeti_format_data = load_copert_hot_yeti_format_data(
+            yeti_format_emission_factors=f'{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv',
+            yeti_format_los_speeds=f'{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv',
+            yeti_format_vehicle_data=f'{self.init_path}/test_data/yeti_format_data/vehicle_data.csv',
+            yeti_format_link_data=f'{self.init_path}/test_data/yeti_format_data/link_data.csv',
+            yeti_format_traffic_data=f'{self.init_path}/test_data/yeti_format_data/traffic_data.csv',
         )
-        self.link_data = unified_data["link_data"]
-        self.vehicle_data = unified_data["vehicle_data"]
-        self.traffic_data = unified_data["traffic_data"]
-        self.los_speeds_data = unified_data["los_speeds_data"]
-        self.emission_factor_data = unified_data["emission_factor_data"]
+        self.link_data = yeti_format_data["link_data"]
+        self.vehicle_data = yeti_format_data["vehicle_data"]
+        self.traffic_data = yeti_format_data["traffic_data"]
+        self.los_speeds_data = yeti_format_data["los_speeds_data"]
+        self.emission_factor_data = yeti_format_data["emission_factor_data"]
 
-        unified_data = load_copert_unified_data(
-            unified_emission_factors=f'{self.init_path}/test_data/unified_data/emission_factor_data.csv',
-            unified_los_speeds=f'{self.init_path}/test_data/unified_data/los_speeds_data.csv',
-            unified_vehicle_data=f'{self.init_path}/test_data/unified_data/vehicle_data.csv',
-            unified_link_data=f"{self.init_path}/test_data/unified_data/link_data_with_speed.csv",
-            unified_traffic_data=f'{self.init_path}/test_data/unified_data/traffic_data.csv',
+        yeti_format_data = load_copert_hot_yeti_format_data(
+            yeti_format_emission_factors=f'{self.init_path}/test_data/yeti_format_data/emission_factor_data.csv',
+            yeti_format_los_speeds=f'{self.init_path}/test_data/yeti_format_data/los_speeds_data.csv',
+            yeti_format_vehicle_data=f'{self.init_path}/test_data/yeti_format_data/vehicle_data.csv',
+            yeti_format_link_data=f"{self.init_path}/test_data/yeti_format_data/link_data_with_speed.csv",
+            yeti_format_traffic_data=f'{self.init_path}/test_data/yeti_format_data/traffic_data.csv',
         )
-        self.link_data_speed = unified_data["link_data"]
-        self.vehicle_data_speed = unified_data["vehicle_data"]
-        self.traffic_data_speed = unified_data["traffic_data"]
-        self.los_speeds_data_speed = unified_data["los_speeds_data"]
-        self.emission_factor_data_speed = unified_data["emission_factor_data"]
+        self.link_data_speed = yeti_format_data["link_data"]
+        self.vehicle_data_speed = yeti_format_data["vehicle_data"]
+        self.traffic_data_speed = yeti_format_data["traffic_data"]
+        self.los_speeds_data_speed = yeti_format_data["los_speeds_data"]
+        self.emission_factor_data_speed = yeti_format_data["emission_factor_data"]
 
-    def test_unified_data_loader_columns(self):
+    def test_yeti_format_data_loader_columns(self):
 
         self.assertTrue({
             "VehicleName", "Pollutant", "MinSpeed", "MaxSpeed",

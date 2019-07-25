@@ -2,35 +2,37 @@
 
 # -------- run configurations ----------
 
-mode:                       input_data  # feel free to change the mode to unified_data. (Don't forget to change the validation function)
+mode:           berlin_format  # feel free to change the mode to yeti_format. (Don't forget to change the validation function)
 
 pollutants:                 [PollutantType.NOx]
 
-strategy:                   code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-load_input_data_function:   code.hbefa_hot_strategy.load_input_data.load_hbefa_input_data
-load_unified_data_function: code.hbefa_hot_strategy.load_unified_data.load_hbefa_unified_data
-validation_function:        code.hbefa_hot_strategy.validate.validate_hbefa_input_files
+strategy:                   code.hbefa_strategy.HbefaStrategy.HbefaStrategy
+load_berlin_format_data_function:   code.hbefa_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
+load_yeti_format_data_function: code.hbefa_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
+validation_function:        code.hbefa_hot_strategy.validate.validate_hbefa_berlin_format_files
 
 # -------- file names -----------
 
-input_link_data:            example/example_input_data/link_data.csv
-input_fleet_composition:    example/example_input_data/fleet_composition.csv
-input_emission_factors:     example/example_input_data/hbefa_emission_factors.csv
-input_traffic_data:         example/example_input_data/traffic_data.csv
+berlin_format_link_data:            example/example_berlin_format_data/link_data.csv
+berlin_format_fleet_composition:    example/example_berlin_format_data/fleet_composition.csv
+berlin_format_emission_factors:     example/example_berlin_format_data/hbefa_emission_factors.csv
+berlin_format_traffic_data:         example/example_berlin_format_data/traffic_data.csv
 
-unified_emission_factors:   example/example_unified_data/hbefa_emission_factors.csv
-unified_vehicle_data:       example/example_unified_data/vehicle_data.csv
-unified_link_data:          example/example_unified_data/link_data.csv
-unified_traffic_data:       example/example_unified_data/traffic_data.csv
+yeti_format_emission_factors:   example/example_yeti_format_data/hbefa_emission_factors.csv
+yeti_format_vehicle_data:       example/example_yeti_format_data/vehicle_data.csv
+yeti_format_link_data:          example/example_yeti_format_data/link_data.csv
+yeti_format_traffic_data:       example/example_yeti_format_data/traffic_data.csv
 
 # -------- output folder(s) --------------
 
 output_folder:              example_output_hbefa_hot
 
-# Optional parameter, only relevant for mode input_data:
-# output_folder_for_unified_data:     unified_data_new
+# Optional parameter, only relevant for mode berlin_format:
+# output_folder_for_yeti_format_data:     yeti_format_data_new
 
 # -------- strategy specific arguments -----------
+
+only_hot:                   yes
 
 # -------- optional arguments ------------
 

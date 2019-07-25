@@ -1,6 +1,11 @@
 CopertColdStrategy
 ==================
 
+.. note::
+
+    It is recommended to use the :doc:`CopertStrategy <copert_strategy>` to calculate Copert cold emissions
+    instead of this Strategy.
+
 The ``CopertColdStrategy`` implements emission calculation with the
 `COPERT methodology for cold start emissions <https://www.eea.europa.eu/publications/emep-eea-guidebook-2016/>`_.
 It uses global assumptions about the average length of a trip (in km/h) and the average ambient temperature
@@ -12,10 +17,11 @@ to the road types or area types that you want to exclude.
 Possible road types to be excluded are: ``MW_Nat``, ``MW_City``, ``Trunk_Nat``, ``Trunk_City``, ``Distr``,
 ``Local``, and ``Access``. Area types that can be excluded are ``Rural`` and ``Urban``.
 
-During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy`` because
-cold emissions depend on hot emissions.
+During the cold emission calculation hot emissions are calculated using the ``CopertHotStrategy``. The hot emissions
+are used to derive emission factors for hot emissions to be used in the cold emission calculation.
+Advanced users can specify a different Strategy to be used for the hot emission calculation. See :ref:`here <use-different-hot-strategy>`.
 
-Output of a model run with this Strategy are three csv files:
+Output of a model run with this Strategy are three csv files per pollutant:
 
 - cold start emissions
 - hot emissions
@@ -26,10 +32,10 @@ Data requirements
 
 What data the ``CopertColdStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
-Data requirements for mode ``input_data``
-'''''''''''''''''''''''''''''''''''''''''
+Data requirements for mode ``berlin_format``
+''''''''''''''''''''''''''''''''''''''''''''
 
-All ``input_data`` required by the ``CopertHotStrategy`` is also required for the ``CopertColdStrategy``.
+All input data in ``berlin_format`` required by the ``CopertHotStrategy`` is also required for the ``CopertColdStrategy``.
 
 .. _cold-ef-data-explained:
 
@@ -63,10 +69,10 @@ CO        Mini       26       45       -20     15      0.842 -0.349 3.485
 CO        Mini       5        45       15              0.222 -0.876 10.12
 ========= ========== ======== ======== ======= ======= ===== ====== =====
 
-Data requirements for mode ``unified_data``
+Data requirements for mode ``yeti_format``
 '''''''''''''''''''''''''''''''''''''''''''
 
-All ``unified_data`` required by the ``CopertHotStrategy`` is also required for the ``CopertColdStrategy``.
+All data in ``yeti_format`` required by the ``CopertHotStrategy`` is also required for the ``CopertColdStrategy``.
 
 Additional requirements:
 
@@ -98,48 +104,77 @@ If you want to use the ``CopertColdStrategy`` for your calculations, you need to
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
-If using mode ``input_data``:
-'''''''''''''''''''''''''''''
+If using mode ``berlin_format``:
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.copert_cold_strategy.CopertColdStrategy.CopertColdStrategy
-    load_input_data_function:     code.copert_cold_strategy.load_input_data.load_copert_cold_input_data
-    load_unified_data_function:   code.copert_cold_strategy.load_unified_data.load_copert_cold_unified_data
-    validation_function:          code.copert_cold_strategy.validate.validate_copert_cold_input_files
+    load_berlin_format_data_function:     code.copert_cold_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data
+    load_yeti_format_data_function:   code.copert_cold_strategy.load_yeti_format_data.load_copert_cold_yeti_format_data
+    validation_function:          code.copert_cold_strategy.validate.validate_copert_cold_berlin_format_files
 
-    input_link_data:              path/to/link_data.csv
-    input_fleet_composition:      path/to/fleet_composition_data.csv
-    input_emission_factors:       path/to/emission_factor_data.csv
-    input_los_speeds:             path/to/los_speeds_data.csv
-    input_traffic_data:           path/to/traffic_data.csv
-    input_vehicle_mapping:        path/to/vehicle_mapping_data.csv
-    input_cold_ef_table:          path/to/cold_ef_table.csv
+    berlin_format_link_data:              path/to/link_data.csv
+    berlin_format_fleet_composition:      path/to/fleet_composition_data.csv
+    berlin_format_emission_factors:       path/to/emission_factor_data.csv
+    berlin_format_los_speeds:             path/to/los_speeds_data.csv
+    berlin_format_traffic_data:           path/to/traffic_data.csv
+    berlin_format_vehicle_mapping:        path/to/vehicle_mapping_data.csv
+    berlin_format_cold_ef_table:          path/to/cold_ef_table.csv
 
     ltrip:                        12  # the average length of a trip in km/h
     temperature:                  15  # the average ambient temperature in °C
     exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, TrunkCity]
     exclude_area_types:           [Rural]    # Or: [Urban]
 
-If using mode ``unified_data``:
+If using mode ``yeti_format``:
 '''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.copert_cold_strategy.CopertColdStrategy.CopertColdStrategy
-    load_input_data_function:     code.copert_cold_strategy.load_input_data.load_copert_cold_input_data
-    load_unified_data_function:   code.copert_cold_strategy.load_unified_data.load_copert_cold_unified_data
-    validation_function:          code.copert_cold_strategy.validate.validate_copert_cold_unified_files
+    load_berlin_format_data_function:     code.copert_cold_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data
+    load_yeti_format_data_function:   code.copert_cold_strategy.load_yeti_format_data.load_copert_cold_yeti_format_data
+    validation_function:          code.copert_cold_strategy.validate.validate_copert_cold_yeti_format_files
 
-    unified_emission_factors:     path/to/unified_ef_data.csv
-    unified_los_speeds:           path/to/unified_los_speed_data.csv
-    unified_vehicle_data:         path/to/unified_vehicle_data.csv
-    unified_link_data:            path/to/unified_link_data.csv
-    unified_traffic_data:         path/to/unified_traffic_data.csv
-    unified_cold_ef_table:        path/to/cold_ef_table.csv
-    unified_vehicle_mapping:      path/to/vehicle_mapping_data.csv
+    yeti_format_emission_factors:     path/to/yeti_format_ef_data.csv
+    yeti_format_los_speeds:           path/to/yeti_format_los_speed_data.csv
+    yeti_format_vehicle_data:         path/to/yeti_format_vehicle_data.csv
+    yeti_format_link_data:            path/to/yeti_format_link_data.csv
+    yeti_format_traffic_data:         path/to/yeti_format_traffic_data.csv
+    yeti_format_cold_ef_table:        path/to/cold_ef_table.csv
+    yeti_format_vehicle_mapping:      path/to/vehicle_mapping_data.csv
 
     ltrip:                        12  # the average length of a trip in km/g
     temperature:                  15  # the average ambient temperature in °C
     exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, Trunk-City]
     exclude_area_types:           [Rural]    # Or: [Urban]
+
+.. _use-different-hot-strategy:
+
+Change the hot strategy to be used
+----------------------------------
+
+During the cold emission calculation hot emissions are calculated using a Strategy. By default the ``CopertHotStrategy`` is used.
+Advanced users can change the Strategy to be used for the hot emission calculation.
+
+You can do so by setting a ``hot_strategy`` in the config.yaml:
+
+.. code-block:: yaml
+
+    hot_strategy:           path.to.strategy
+
+For example:
+
+.. code-block:: yaml
+
+    hot_strategy:           code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy
+
+**Important Note:**
+
+The ``hot_strategy`` specified in the config file will likely use different data than the ``CopertColdStrategy``.
+This means that you need to write and specify a ``load_berlin_format_data_function``, a ``load_yeti_format_data_function``,
+and a ``validation_function`` that are fit to work with the data required for both the ``hot_strategy`` and
+the ``CopertColdStrategy``. For example you will likely need to load and convert additional datasets in the
+``load_berlin_format_data_function``. Also there may be naming conflicts between the data requirements of the Strategies
+that you will have to deal with.

@@ -11,10 +11,10 @@ Data Requirements
 
 What data the ``HbefaHotStrategy`` requires depends on the ``mode`` set in the configuration file for the run.
 
-Data requirements for mode ``input_data``
-'''''''''''''''''''''''''''''''''''''''''
+Data requirements for mode ``berlin_format``
+''''''''''''''''''''''''''''''''''''''''''''
 
-.. image:: ../../diagrams/hbefa_hot_input_data_requirements.png
+.. image:: ../../diagrams/hbefa_hot_berlin_format_data_requirements.png
 
 :ref:`how-to-read-er`
 
@@ -89,10 +89,10 @@ NOx       URB/MW-City/70/Satur.   PC petrol <1.4L Euro-1 1.7
 NOx       URB/MW-City/70/St+Go    PC petrol <1.4L Euro-1 1.8
 ========= ======================= ====================== ===
 
-Data requirements for mode ``unified_data``
-'''''''''''''''''''''''''''''''''''''''''''
+Data requirements for mode ``yeti_format``
+''''''''''''''''''''''''''''''''''''''''''
 
-.. image:: ../../diagrams/hbefa_hot_unified_data_requirements.png
+.. image:: ../../diagrams/hbefa_hot_yeti_format_data_requirements.png
     :height: 500
     :width:  500
 
@@ -100,22 +100,22 @@ Data requirements for mode ``unified_data``
 
 --------
 
-**unified link data** |br|
-Just like the unified link data required for the other Strategies. See :ref:`here <unified-link-data-explained>`.
+**yeti_format link data** |br|
+Just like the yeti_format link data required for the other Strategies. See :ref:`here <yeti-format-link-data-explained>`.
 
 --------
 
-**unified traffic data** |br|
-Just like the unified traffic data required for the other strategies. See :ref`here <unified-traffic-data-explained>`.
+**yeti_format traffic data** |br|
+Just like the yeti_format traffic data required for the other strategies. See :ref`here <yeti-format-traffic-data-explained>`.
 
 --------
 
-**unified vehicle data** |br|
-Just like the unified link data required for the other Strategies. See :ref:`here <unified-vehicle-data-explained>`.
+**yeti_format vehicle data** |br|
+Just like the yeti_format link data required for the other Strategies. See :ref:`here <yeti-format-vehicle-data-explained>`.
 
 --------
 
-**unified hbefa emission factor data** |br|
+**yeti_format hbefa emission factor data** |br|
 A dataset with HBEFA emission factors.
 
 Note that this dataset needs to contain values for the pollutants you are using, otherwise you
@@ -131,10 +131,10 @@ will encounter errors in the emission calculation.
     PollutantType.VOC
     PollutantType.PM_Exhaust
 
-- *TrafficSituation*: Just like the column TrafficSit in the hbefa emission factor data for mode ``input_data``
+- *TrafficSituation*: Just like the column TrafficSit in the hbefa emission factor data for mode ``berlin_format``
 
 - *VehicleName*: A vehicle name. The values in this column need to match the values in
-  ``unified vehicel data >> VehicleName`` exactly.
+  ``yeti_format vehicel data >> VehicleName`` exactly.
 - *EF*: The emission factor for the pollutant, traffic situation and vehicle name in the same row.
 
 *Example*
@@ -176,34 +176,34 @@ If you want to use the ``HbefaHotStrategy`` for your calculations, you need to s
 the following options in your ``config.yaml``.
 Don't forget to add the parameters specified here: :doc:`config`
 
-If using mode ``input_data``:
-'''''''''''''''''''''''''''''
+If using mode ``berlin_format``:
+''''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-    load_input_data_function:     code.hbefa_hot_strategy.load_input_data.load_hbefa_input_data
-    load_unified_data_function:   code.hbefa_hot_strategy.load_unified_data.load_hbefa_unified_data
-    validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_input_files
+    load_berlin_format_data_function:     code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data
+    load_yeti_format_data_function:   code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
+    validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_berlin_format_files
 
-    input_link_data:              path/to/link_data.csv
-    input_fleet_composition:      path/to/fleet_composition_data.csv
-    input_emission_factors:       path/to/hbefa_emission_factor_data.csv
-    input_traffic_data:           path/to/traffic_data.csv
+    berlin_format_link_data:              path/to/link_data.csv
+    berlin_format_fleet_composition:      path/to/fleet_composition_data.csv
+    berlin_format_emission_factors:       path/to/hbefa_emission_factor_data.csv
+    berlin_format_traffic_data:           path/to/traffic_data.csv
 
-If using mode ``unified_data``:
+If using mode ``yeti_format``:
 '''''''''''''''''''''''''''''''
 
 .. code-block:: yaml
 
     strategy:                     code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-    load_unified_data_function:   code.hbefa_hot_strategy.load_unified_data.load_hbefa_unified_data
-    validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_unified_files
+    load_yeti_format_data_function:   code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
+    validation_function:          code.hbefa_hot_strategy.validate.validate_hbefa_yeti_format_files
 
-    unified_emission_factors:     path/to/unified_hbefa_ef_data.csv
-    unified_vehicle_data:         path/to/unified_vehicle_data.csv
-    unified_link_data:            path/to/unified_link_data.csv
-    unified_traffic_data:         path/to/unified_traffic_data.csv
+    yeti_format_emission_factors:     path/to/yeti_format_hbefa_ef_data.csv
+    yeti_format_vehicle_data:         path/to/yeti_format_vehicle_data.csv
+    yeti_format_link_data:            path/to/yeti_format_link_data.csv
+    yeti_format_traffic_data:         path/to/yeti_format_traffic_data.csv
 
 .. |br| raw:: html
 
