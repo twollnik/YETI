@@ -1,10 +1,9 @@
 import os
 from unittest import TestCase, main
 
-from code.pm_non_exhaust_strategy.load_yeti_format_data import load_pm_non_exhaust_yeti_format_data
-
 from code.data_loading.PMNonExhaustDataLoader import PMNonExhaustDataLoader
-from tests.helper import df_equal
+from code.pm_non_exhaust_strategy.load_yeti_format_data import load_pm_non_exhaust_yeti_format_data
+from tests.helpers_and_mocks import df_equal
 
 
 class TestPMNonExhaustDataLoader(TestCase):

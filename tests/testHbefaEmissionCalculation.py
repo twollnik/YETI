@@ -6,7 +6,7 @@ import pandas as pd
 
 from code.StrategyInvoker import StrategyInvoker
 from code.hbefa_strategy.HbefaStrategy import HbefaStrategy
-from tests.helper import df_equal
+from tests.helpers_and_mocks import df_equal
 
 
 class testHbefaEmissionCalculation(TestCase):

@@ -5,7 +5,7 @@ import pandas as pd
 
 from code.constants.enumerations import PollutantType
 from code.data_loading.EmissionFactorDataLoader import EmissionFactorDataLoader
-from tests.helper import df_equal
+from tests.helpers_and_mocks import df_equal
 
 
 class TestEmissionFactorDataLoader(TestCase):

@@ -8,7 +8,7 @@ from code.copert_hot_strategy.load_yeti_format_data import load_copert_hot_yeti_
 from code.data_loading.DataLoader import DataLoader
 from code.data_loading.HbefaDataLoader import HbefaDataLoader
 from code.hbefa_hot_strategy.load_yeti_format_data import load_hbefa_hot_yeti_format_data
-from tests.helper import df_equal
+from tests.helpers_and_mocks import df_equal
 
 
 class TestDataLoader(TestCase):

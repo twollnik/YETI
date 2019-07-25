@@ -4,7 +4,7 @@ from unittest import TestCase, main
 import pandas as pd
 
 from code.data_loading.LinkDataLoader import LinkDataLoader
-from tests.helper import df_equal
+from tests.helpers_and_mocks import df_equal
 
 
 class TestLinkDataLoader(TestCase):

@@ -6,7 +6,7 @@ import pandas as pd
 
 from code.hbefa_cold_strategy.load_berlin_format_data import load_hbefa_cold_berlin_format_data
 from code.hbefa_cold_strategy.load_yeti_format_data import load_hbefa_cold_yeti_format_data
-from tests.helper import df_equal
+from tests.helpers_and_mocks import df_equal
 
 
 class TestHbefaColdDataLoading(TestCase):
