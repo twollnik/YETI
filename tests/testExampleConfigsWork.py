@@ -55,7 +55,7 @@ class TestCalcAvgDailyEmissions(TestCase):
         logging.warning.assert_not_called()
 
         # ------- test that the hot emissions data does not have the same values in all rows --------
-        hot_emissions = pd.read_csv(f"{self.output_dir}/PollutantType.CO_hot_emissions.csv")
+        hot_emissions = pd.read_csv(f"{self.output_dir}/cold_PollutantType.CO_hot_emissions.csv")
         emission_values = [(row["pc vehicle_a"], row["lcv vehicle_b"]) for _, row in hot_emissions.iterrows()]
         unique_emission_values = set(emission_values)
         self.assertGreater(len(unique_emission_values), 2)
