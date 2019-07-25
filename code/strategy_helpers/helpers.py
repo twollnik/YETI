@@ -1,3 +1,4 @@
+import logging
 import os
 from copy import copy
 from datetime import datetime
@@ -30,25 +31,24 @@ def get_timestamp(short: bool = False) -> str:
         return datetime.now().strftime("%Y-%m-%d_%Hh-%Mmin")
 
 
-def drop_keys_starting_with(starting_chars, dict):
+def load_berlin_format_data_for_composed_strategy(default_cold_load_function, default_hot_load_function, **kwargs):
 
-    return {key: value for key, value in dict.items() if not key.startswith(starting_chars)}
+    create_output_folder_if_necessary(**kwargs)
 
+    if kwargs.get("only_hot") is True:
+        kwargs = remove_prefix_from_keys("hot_", kwargs)
+        return default_hot_load_function(**kwargs)
 
-def remove_prefix_from_keys(prefix, dict):
+    logging.debug("Converting berlin_format data to yeti_format data for the hot Strategy.")
+    paths_to_hot_yeti_format_data = load_berlin_format_hot_data(default_hot_load_function, **kwargs)
 
-    output_dict = copy(dict)
+    logging.debug("Converting berlin_format data to yeti_format data for the cold Strategy.")
+    paths_to_cold_yeti_format_data = load_berlin_format_cold_data(default_cold_load_function, **kwargs)
 
-    for key, value in list(output_dict.items()):
-        if key.startswith(prefix):
-            del output_dict[key]
-            output_dict[key[len(prefix):]] = value
-    return output_dict
-
-
-def add_prefix_to_keys(prefix, paths_to_cold_yeti_format_data):
-
-    return {f"{prefix}_{key}": value for key, value in list(paths_to_cold_yeti_format_data.items())}
+    return {
+        **paths_to_cold_yeti_format_data,
+        **paths_to_hot_yeti_format_data
+    }
 
 
 def create_output_folder_if_necessary(**kwargs):
@@ -119,3 +119,24 @@ def load_yeti_format_cold_data(default_load_data_function, **kwargs):
     cold_data = add_prefix_to_keys("cold", cold_data)
 
     return cold_data
+
+
+def drop_keys_starting_with(starting_chars, dict):
+
+    return {key: value for key, value in dict.items() if not key.startswith(starting_chars)}
+
+
+def remove_prefix_from_keys(prefix, dict):
+
+    output_dict = copy(dict)
+
+    for key, value in list(output_dict.items()):
+        if key.startswith(prefix):
+            del output_dict[key]
+            output_dict[key[len(prefix):]] = value
+    return output_dict
+
+
+def add_prefix_to_keys(prefix, paths_to_cold_yeti_format_data):
+
+    return {f"{prefix}_{key}": value for key, value in list(paths_to_cold_yeti_format_data.items())}
