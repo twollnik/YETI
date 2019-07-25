@@ -102,16 +102,17 @@ class TestCopertColdStrategy(TestCase):
             yeti_format_vehicle_mapping=self.veh_mapping_no_index_set,
             yeti_format_emission_factors=self.emission_factor_data,
             ltrip=7,
-            temperature=10
+            temperature=10,
+            emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
         emissions2 = strategy.calculate_emissions(
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
-            pollutants=self.pollutants
+            pollutants=self.pollutants,
+            emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
 
-        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
-        self.assertTrue(all(item in emissions1[f"{self.pollutant}_hot"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_cold"] for item in ["vehA", "vehB"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
@@ -162,16 +163,17 @@ class TestCopertColdStrategy(TestCase):
             yeti_format_vehicle_mapping=veh_mapping_no_index_set,
             yeti_format_emission_factors=self.emission_factor_data,
             ltrip=7,
-            temperature=10
+            temperature=10,
+            emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
         emissions2 = strategy.calculate_emissions(
             traffic_and_link_data_row=self.row_dict,
             vehicle_dict=self.vehicle_dict,
-            pollutants=self.pollutants
+            pollutants=self.pollutants,
+            emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
 
-        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
-        self.assertTrue(all(item in emissions1[f"{self.pollutant}_hot"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_cold"] for item in ["vehA", "vehB"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
@@ -235,16 +237,15 @@ class TestCopertColdStrategy(TestCase):
             yeti_format_cold_ef_table=self.cold_ef_table,
             yeti_format_los_speeds=self.los_speeds_data,
             yeti_format_vehicle_mapping=self.veh_mapping_no_index_set,
-            yeti_format_emission_factors=self.emission_factor_data,
             ltrip=7,
             temperature=10,
             exclude_road_types=["RoadType.MW_City"],
-            exclude_area_types=["AreaType.Urban"]
+            exclude_aarea_types=["AreaType.Urban"],
+            emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
 
-        self.assertTrue(all(item in emissions for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
+        self.assertTrue(all(item in emissions for item in [f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
         self.assertTrue(all(emissions[f"{self.pollutant}_cold"][item] == 0 for item in ["vehA", "vehB"]))
-        self.assertEqual(emissions[f"{self.pollutant}_hot"], emissions[f"{self.pollutant}_total"])
 
     def test_zero_emissions_for_all_vehicles(self):
 
@@ -291,11 +292,10 @@ class TestCopertColdStrategy(TestCase):
     def test_join_emissions_into_one_dict(self):
 
         expected = {
-            'Poll_hot': {'a': 1},
             'Poll_cold': {'b': 2},
             'Poll_total': {'c': 3}
         }
-        self.strategy.add_emissions_to_assembly_attribute("Poll", {'a': 1}, {'b': 2}, {'c': 3})
+        self.strategy.add_emissions_to_assembly_attribute("Poll", {'b': 2}, {'c': 3})
         self.assertEqual(expected, self.strategy.emissions)
 
     def test_calculate_cold_emissions(self):
@@ -597,16 +597,6 @@ class TestCopertColdStrategy(TestCase):
         self.assertEqual(self.strategy.vehicles_lcv_petrol_euro, ["vehH"])
         self.assertEqual(self.strategy.vehicles_lcv_diesel, ["vehI"])
         self.assertEqual(self.strategy.vehicles_other, ["vehJ"])
-
-    def test_calculate_hot_emissions(self):
-
-        emissions_expected = {
-            "vehA": 1156.8796043417367,
-            "vehB": 85.46364280124679
-        }
-        emissions_actual = self.strategy.calculate_hot_emissions(self.pollutants)
-
-        self.assertEqual(emissions_expected, emissions_actual[self.pollutant])
 
     def test_calculate_cold_emissions_diesel_pc(self):
 

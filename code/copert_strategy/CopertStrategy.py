@@ -78,15 +78,14 @@ class CopertStrategy:
             return self.hot_strategy.calculate_emissions(
                 traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 
-        if "cold_strategy" in kwargs:
-            hot_emissions = self.calculate_hot_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
-            cold_emissions = self.calculate_cold_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, kwargs)
-            return {**hot_emissions, **cold_emissions}
-
-        if kwargs.get("fixed_speed") is True:
-            kwargs["hot_strategy"] = "code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy.CopertHotFixedSpeedStrategy"
-        return self.cold_strategy.calculate_emissions(
+        hot_emissions = self.calculate_hot_emissions(
             traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
+        cold_emissions = self.calculate_cold_emissions(
+            traffic_and_link_data_row, vehicle_dict, pollutants, emissions_from_hot_strategy=hot_emissions, **kwargs)
+
+        hot_emissions = add_prefix_to_keys("hot", hot_emissions)
+
+        return {**hot_emissions, **cold_emissions}
 
     def initialize_if_necessary(self, **kwargs):
 
@@ -110,11 +109,9 @@ class CopertStrategy:
         hot_emissions = self.hot_strategy.calculate_emissions(
             traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs_for_hot)
 
-        hot_emissions = add_prefix_to_keys("hot", hot_emissions)
-
         return hot_emissions
 
-    def calculate_cold_emissions(self, traffic_and_link_data_row, vehicle_dict, pollutants, kwargs):
+    def calculate_cold_emissions(self, traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs):
 
         kwargs_for_cold = drop_keys_starting_with("hot_", kwargs)
         kwargs_for_cold = remove_prefix_from_keys("cold_", kwargs_for_cold)

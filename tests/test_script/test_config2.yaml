@@ -27,14 +27,16 @@ run_history:                ./run_history.json
 # ------ run configurations -------
 
 pollutants:                 [PollutantType.NOx, PollutantType.CO]
-strategy:                   code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy
-load_berlin_format_data_function:        code.hbefa_hot_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data
-load_yeti_format_data_function:      code.hbefa_hot_strategy.load_yeti_format_data.load_hbefa_hot_yeti_format_data
+strategy:                   code.hbefa_strategy.HbefaStrategy.HbefaStrategy
+load_berlin_format_data_function:        code.hbefa_strategy.load_berlin_format_data.load_hbefa_berlin_format_data
+load_yeti_format_data_function:      code.hbefa_strategy.load_yeti_format_data.load_hbefa_yeti_format_data
 #validation_function:    code.copert_hot_strategy.validate.validate_copert_yeti_format_files
 links_to_use:               []
 output_folder:              ./output_hbefa
 output_folder_for_yeti_format_data: temp_yeti_format_data
 use_nh3_tier2_ef:           yes
+
+only_hot:                   yes
 
 # The mode determines which datasets are used.
 # 'berlin_format':   The files prefixed input_.. are used to construct new data in yeti_format and run the model on the new
