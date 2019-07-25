@@ -110,6 +110,11 @@ class CopertColdStrategy(Strategy):
 
         return self.emissions
 
+    def calculates_hot_and_cold_emissions(self):
+        """Override the default behaviour to signal that this Strategy calculates and returns
+        both hot and cold emissions."""
+        return True
+
     def initialize_if_necessary(self, vehicle_dict, **kwargs):
 
         if self.is_not_initialized():

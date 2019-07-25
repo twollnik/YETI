@@ -117,6 +117,10 @@ class TestCopertColdStrategy(TestCase):
 
         self.assertEqual(emissions1, emissions2)
 
+    def test_overrides_calculates_hot_and_cold_emissions(self):
+
+        self.assertTrue(CopertColdStrategy().calculates_hot_and_cold_emissions())
+
     def test_configure_hot_strategy_hot_strategy_given(self):
 
         strategy = CopertColdStrategy()
