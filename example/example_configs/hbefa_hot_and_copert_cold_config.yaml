@@ -24,7 +24,7 @@ yeti_format_traffic_data:           example/example_yeti_format_data/traffic_dat
 
 # -------- output folder(s) --------------
 
-output_folder:              example_output_hbefa
+output_folder:              example_output_hbefa_hot_and_copert_cold
 
 # Optional parameter, only relevant for mode berlin_format:
 # output_folder_for_yeti_format_data:     yeti_format_data_new

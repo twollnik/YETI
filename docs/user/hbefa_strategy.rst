@@ -23,6 +23,17 @@ By default the ``HbefaColdStrategy`` is used to calculate cold emissions. In the
 given in the config file it will be used instead of the ``HbefaColdStrategy``. Note that cold emissions are only
 calculated if the config argument ``only_hot`` is not set to True.
 
+A note on the data loading process
+----------------------------------
+
+The conversion of berlin_format data to yeti_format data is conducted independently for the hot
+and the cold Strategies. This is done to keep the dependencies between the hot and cold Strategies
+to a minimum. It enables the ``HbefaStrategy`` to work with any cold Strategy you want.
+
+The consequence is that some computations may be done twice, because they are done by both
+the hot and the cold ``load_berlin_format_data_function`` s. The constructed yeti_format files
+will be in two subfolders of the output folder (the output folder is specified in the config file).
+
 Data Requirements
 -----------------
 The data required for the ``HbefaHotStrategy`` is required for the ``HbefaStrategy`` in all cases.
