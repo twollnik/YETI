@@ -112,8 +112,7 @@ class TestCopertColdStrategy(TestCase):
             emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
 
-        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
-        self.assertTrue(all(item in emissions1[f"{self.pollutant}_hot"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_cold"] for item in ["vehA", "vehB"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
@@ -174,8 +173,7 @@ class TestCopertColdStrategy(TestCase):
             emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
 
-        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
-        self.assertTrue(all(item in emissions1[f"{self.pollutant}_hot"] for item in ["vehA", "vehB"]))
+        self.assertTrue(all(item in emissions1 for item in [f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_cold"] for item in ["vehA", "vehB"]))
         self.assertTrue(all(item in emissions1[f"{self.pollutant}_total"] for item in ["vehA", "vehB"]))
 
@@ -246,9 +244,8 @@ class TestCopertColdStrategy(TestCase):
             emissions_from_hot_strategy={f"{self.pollutant}": {"vehA": 5, "vehB": 7}}
         )
 
-        self.assertTrue(all(item in emissions for item in [f"{self.pollutant}_hot", f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
+        self.assertTrue(all(item in emissions for item in [f"{self.pollutant}_cold", f"{self.pollutant}_total"]))
         self.assertTrue(all(emissions[f"{self.pollutant}_cold"][item] == 0 for item in ["vehA", "vehB"]))
-        self.assertEqual(emissions[f"{self.pollutant}_hot"], emissions[f"{self.pollutant}_total"])
 
     def test_zero_emissions_for_all_vehicles(self):
 
@@ -295,11 +292,10 @@ class TestCopertColdStrategy(TestCase):
     def test_join_emissions_into_one_dict(self):
 
         expected = {
-            'Poll_hot': {'a': 1},
             'Poll_cold': {'b': 2},
             'Poll_total': {'c': 3}
         }
-        self.strategy.add_emissions_to_assembly_attribute("Poll", {'a': 1}, {'b': 2}, {'c': 3})
+        self.strategy.add_emissions_to_assembly_attribute("Poll", {'b': 2}, {'c': 3})
         self.assertEqual(expected, self.strategy.emissions)
 
     def test_calculate_cold_emissions(self):

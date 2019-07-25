@@ -105,7 +105,7 @@ class CopertColdStrategy:
                 cold_emissions = self.calculate_cold_emissions(pollutant, hot_ef_dict)
 
             total_emissions = self.calculate_total_emissions(hot_emissions_for_pollutant, cold_emissions)
-            self.add_emissions_to_assembly_attribute(pollutant, hot_emissions_for_pollutant, cold_emissions, total_emissions)
+            self.add_emissions_to_assembly_attribute(pollutant, cold_emissions, total_emissions)
 
         return self.emissions
 
@@ -247,11 +247,9 @@ class CopertColdStrategy:
     def add_emissions_to_assembly_attribute(
             self,
             pollutant: str,
-            hot_emissions: Dict[str, float],
             cold_emissions: Dict[str, float],
             total_emissions: Dict[str, float]) -> Dict[str, Dict[str, float]]:
 
-        self.emissions[f"{pollutant}_hot"] = hot_emissions
         self.emissions[f"{pollutant}_cold"] = cold_emissions
         self.emissions[f"{pollutant}_total"] = total_emissions
 
