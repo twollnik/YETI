@@ -55,7 +55,7 @@ class TestHbefaStrategy(TestCase):
         strategy = HbefaStrategy()
         emis_actual = strategy.calculate_emissions(
             traffic_and_link_data_row={"some": "data"}, vehicle_dict={"vehA": "catA"}, pollutants=["poll"],
-            cold_strategy="tests.test_copert_strategy.MockStrategy.MockStrategy", test_arg1="abc",
+            cold_strategy="tests.helpers_and_mocks.MockStrategy", test_arg1="abc",
             hot_test_arg2=3, cold_test_arg3=True
         )
 

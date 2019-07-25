@@ -1,4 +1,8 @@
+from typing import Dict, Any, List
+
 import pandas as pd
+
+from code.Strategy import Strategy
 
 
 def df_equal(actual: pd.DataFrame, expected: pd.DataFrame):
@@ -42,3 +46,14 @@ def df_equal(actual: pd.DataFrame, expected: pd.DataFrame):
 def mock_load_data_function(**kwargs):
 
     return kwargs
+
+
+class MockStrategy(Strategy):
+
+    def calculate_emissions(self,
+                            traffic_and_link_data_row: Dict[str, Any],
+                            vehicle_dict: Dict[str, str],
+                            pollutants: List[str],
+                            **kwargs):
+
+        return {"poll": {"vehA": 100}}

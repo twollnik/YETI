@@ -33,8 +33,8 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
     def test_hot_and_cold_hbefa_hot_and_arbitrary_cold(self, mocked_load_function):
 
         actual_return_value = load_hbefa_berlin_format_data(
-            cold_strategy="tests.test_copert_strategy.MockStrategy.MockStrategy",
-            cold_load_berlin_format_data_function="tests.helper.mock_load_data_function",
+            cold_strategy="tests.helpers_and_mocks.MockStrategy",
+            cold_load_berlin_format_data_function="tests.helpers_and_mocks.mock_load_data_function",
             test_arg1=1, cold_test_arg2="abc", hot_test_arg3=4, output_folder="tests"
         )
 
@@ -43,8 +43,8 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
 
         self.assertEqual(actual_return_value,
                          {"hot_some": "return", "hot_value": "here",
-                          "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
-                          "cold_load_berlin_format_data_function": "tests.helper.mock_load_data_function",
+                          "cold_strategy": "tests.helpers_and_mocks.MockStrategy",
+                          "cold_load_berlin_format_data_function": "tests.helpers_and_mocks.mock_load_data_function",
                           "cold_output_folder": "tests/yeti_format_data_for_cold_strategy",
                           "cold_test_arg1": 1, "cold_test_arg2": "abc"
                           })
