@@ -4,13 +4,14 @@ HbefaHotStrategy
 This Module implements emission calculation with the HBEFA methodology for hot exhaust emissions.
 It works with emission factors that are dependent on the vehicle and the traffic situation.
 """
-from typing import Any, Dict, List
 import collections
+from typing import Any, Dict, List
 
+from code.Strategy import Strategy
 from code.constants.mappings import ROAD_CAT_FROM_ENUM
 
 
-class HbefaHotStrategy:
+class HbefaHotStrategy(Strategy):
     """
     Calculates hot emissions using the HBEFA methodology.
 

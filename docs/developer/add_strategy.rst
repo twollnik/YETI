@@ -13,11 +13,11 @@ Strategies are classes
 ----------------------
 
 A Strategy is a Python class that is defined in a ``.py`` file. Each Strategy needs to contain the function
-``calculate_emissions``.
+``calculate_emissions`` and be derived from the class ``Strategy``.
 
 .. code-block:: python
 
-    class MyStrategy:
+    class MyStrategy(Strategy):
 
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
@@ -133,7 +133,7 @@ use it to iterate over all vehicles. For example:
 .. code-block:: python
 
     # MyStrategy.py
-    class MyStrategy:
+    class MyStrategy(Strategy):
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],
@@ -172,7 +172,7 @@ config options for your Strategy. An example for using a config parameter in the
 .. code-block:: python
 
     # MyStrategy.py
-    class MyStrategy:
+    class MyStrategy(Strategy):
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],
@@ -207,7 +207,7 @@ An example for using a return value of the ``load_yeti_format_data_function`` in
 .. code-block:: python
 
     # MyStrategy.py
-    class MyStrategy:
+    class MyStrategy(Strategy):
         def calculate_emissions(self,
                                 traffic_and_link_data_row: Dict[str, Any],
                                 vehicle_dict: Dict[str, str],

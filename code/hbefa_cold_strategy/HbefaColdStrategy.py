@@ -7,11 +7,13 @@ It uses fixed emission factors for each vehicle and pollutant. The emission fact
 "veh a" and a pollutant "poll" is the total amount of cold emissions emitted from "veh a" for a single
 cold start with respect to pollutant "poll".
 """
-from typing import Dict, Any, List, Tuple
 import collections
+from typing import Dict, Any, List, Tuple
+
+from code.Strategy import Strategy
 
 
-class HbefaColdStrategy:
+class HbefaColdStrategy(Strategy):
     """
     Calculates cold emissions using the HBEFA methodology.
 

@@ -31,6 +31,7 @@ The output of this Strategy depends on the config arguments. There are three cas
 """
 from typing import Any, Dict, List
 
+from code.Strategy import Strategy
 from code.copert_cold_strategy.CopertColdStrategy import CopertColdStrategy
 from code.copert_hot_fixed_speed_strategy.CopertHotFixedSpeedStrategy import CopertHotFixedSpeedStrategy
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
@@ -38,7 +39,7 @@ from code.script_helpers.dynamic_import_from import dynamic_import_from
 from code.strategy_helpers.helpers import drop_keys_starting_with, remove_prefix_from_keys, add_prefix_to_keys
 
 
-class CopertStrategy:
+class CopertStrategy(Strategy):
     """
     Calculates hot and (optionally) cold emissions focusing on calculation with the copert methodology.
 

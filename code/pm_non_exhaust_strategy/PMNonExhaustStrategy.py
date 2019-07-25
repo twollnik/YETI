@@ -6,8 +6,10 @@ Sources for PM non-exhaust emissions are tyre wear, brake wear and road surface 
 """
 from typing import Any, Dict, Iterable, Tuple, List
 
+from code.Strategy import Strategy
 
-class PMNonExhaustStrategy:
+
+class PMNonExhaustStrategy(Strategy):
     """
     Calculates PM non-exhaust emissions.
 

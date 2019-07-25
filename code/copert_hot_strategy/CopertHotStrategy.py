@@ -7,13 +7,15 @@ It uses speed-dependent emission factors based on
 - the los percentages and
 - the los speeds attributed to the links.
 """
-from typing import Any, Dict, List
 import collections
+from typing import Any, Dict, List
 
 import pandas as pd
 
+from code.Strategy import Strategy
 
-class CopertHotStrategy:
+
+class CopertHotStrategy(Strategy):
     """
     Calculates hot emissions using the COPERT methodology.
 

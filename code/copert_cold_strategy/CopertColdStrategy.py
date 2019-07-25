@@ -8,11 +8,12 @@ from typing import Any, Dict, Iterable, Tuple, Union, List
 
 import pandas as pd
 
+from code.Strategy import Strategy
 from code.copert_hot_strategy.CopertHotStrategy import CopertHotStrategy
 from code.script_helpers.dynamic_import_from import dynamic_import_from
 
 
-class CopertColdStrategy:
+class CopertColdStrategy(Strategy):
     """
     Calculates cold start emissions using the COPERT methodology.
 
