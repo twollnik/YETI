@@ -41,7 +41,7 @@ class TestHbefaStrategy(TestCase):
         )
         mock_cold_function.assert_called_once_with(
             {"some": "data"}, {"vehA": "catA"}, ["pollA"],
-            test_arg1="abc", test_arg3=True
+            test_arg1="abc", test_arg3=True, emissions_from_hot_strategy={"poll_a": {"some": "data"}, "poll_b": {"some": "other data"}}
         )
         mock_hot_function.assert_called_once_with(
             {"some": "data"}, {"vehA": "catA"}, ["pollA"],

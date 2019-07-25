@@ -81,6 +81,7 @@ class CopertColdStrategy:
         - temperature
         - exclude_road_types
         - exclude_area_types
+        - hot_emissions
 
         Returns a Dict with:
             - "hot" : hot emissions data frame
@@ -92,7 +93,7 @@ class CopertColdStrategy:
         self.store_row_data_in_attribute(traffic_and_link_data_row)
         self.delete_emissions_from_last_call_to_this_function()
 
-        hot_emissions = self.calculate_hot_emissions(pollutants)
+        hot_emissions = kwargs["emissions_from_hot_strategy"]
 
         for pollutant in pollutants:
 
@@ -320,13 +321,6 @@ class CopertColdStrategy:
                 self.vehicles_lcv_petrol_pre_euro.append(veh_name)
         else:
             self.vehicles_lcv_diesel.append(veh_name)
-
-    def calculate_hot_emissions(self, pollutants: List[str]) -> Dict[str, Dict[str, float]]:
-
-        return self.hot_strategy.calculate_emissions(
-            self.row, self.vehicle_dict, pollutants, los_speeds_data=self.los_speeds_data,
-            emission_factor_data=self.hot_emission_factor_data
-        )
 
     def calculate_cold_emissions(self, pollutant: str, hot_ef: Dict[str, float]) -> Dict[str, float]:
 

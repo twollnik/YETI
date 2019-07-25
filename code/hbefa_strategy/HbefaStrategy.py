@@ -33,7 +33,7 @@ from code.copert_strategy.CopertStrategy import CopertStrategy
 from code.hbefa_cold_strategy.HbefaColdStrategy import HbefaColdStrategy
 from code.hbefa_hot_strategy.HbefaHotStrategy import HbefaHotStrategy
 from code.script_helpers.dynamic_import_from import dynamic_import_from
-from code.strategy_helpers.helpers import remove_prefix_from_keys
+from code.strategy_helpers.helpers import remove_prefix_from_keys, add_prefix_to_keys
 
 
 class HbefaStrategy(CopertStrategy):
@@ -73,8 +73,13 @@ class HbefaStrategy(CopertStrategy):
             kwargs = remove_prefix_from_keys("hot_", kwargs)
             return self.hot_strategy.calculate_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 
-        hot_emissions = self.calculate_hot_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
-        cold_emissions = self.calculate_cold_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, kwargs)
+        hot_emissions = self.calculate_hot_emissions(
+            traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
+        cold_emissions = self.calculate_cold_emissions(
+            traffic_and_link_data_row, vehicle_dict, pollutants, emissions_from_hot_strategy=hot_emissions, **kwargs)
+
+        hot_emissions = add_prefix_to_keys("hot", hot_emissions)
+
         return {**hot_emissions, **cold_emissions}
 
     def initialize_cold_strategy_if_necessary(self, **kwargs):
