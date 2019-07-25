@@ -12,14 +12,10 @@ def load_copert_berlin_format_data(**kwargs):
         kwargs = remove_prefix_from_keys("hot_", kwargs)
         return load_copert_hot_berlin_format_data(**kwargs)
 
-    if "cold_strategy" in kwargs:
+    paths_to_hot_yeti_format_data = load_berlin_format_hot_data(load_copert_hot_berlin_format_data, **kwargs)
+    paths_to_cold_yeti_format_data = load_berlin_format_cold_data(load_copert_cold_berlin_format_data, **kwargs)
 
-        paths_to_hot_yeti_format_data = load_berlin_format_hot_data(load_copert_hot_berlin_format_data, **kwargs)
-        paths_to_cold_yeti_format_data = load_berlin_format_cold_data(load_copert_cold_berlin_format_data, **kwargs)
-
-        return {
-            **paths_to_cold_yeti_format_data,
-            **paths_to_hot_yeti_format_data
-        }
-
-    return load_copert_cold_berlin_format_data(**kwargs)
+    return {
+        **paths_to_cold_yeti_format_data,
+        **paths_to_hot_yeti_format_data
+    }
