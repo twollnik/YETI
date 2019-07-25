@@ -123,7 +123,7 @@ If using mode ``berlin_format``:
 
     ltrip:                        12  # the average length of a trip in km/h
     temperature:                  15  # the average ambient temperature in °C
-    exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, TrunkCity]
+    exclude_road_types:           [MW_City]  # Exclude multiple road types like this: [MW_City, Trunk_City]
     exclude_area_types:           [Rural]    # Or: [Urban]
 
 If using mode ``yeti_format``:
