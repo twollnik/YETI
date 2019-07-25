@@ -3,10 +3,10 @@ How to support more pollutants, area types, ...
 
 There are some restrictions on the data requirements:
 
-- The number of supported pollutants is quite small.
-- There can only be two directions and two area types in the link data: R/L and 0/1 respectively.
-- There are four day types: 1,2,3,7.
-- The number of vehicle types is limited and their names are set.
+1. The number of supported pollutants is quite small.
+2. There can only be two directions and two area types in the link data: R/L and 0/1 respectively.
+3. There are four day types: 1,2,3,7.
+4. The number of vehicle types is limited and their names are set.
 
 These restrictions are in place because of the hard-coding of some values in the conversion from berlin_format
 to yeti_format. Also some Strategies use hard-coded values. Most Strategies don't use hard-coded values.
