@@ -73,6 +73,10 @@ class HbefaStrategy(CopertStrategy):
             kwargs = remove_prefix_from_keys("hot_", kwargs)
             return self.hot_strategy.calculate_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
 
+        if self.cold_strategy.calculates_hot_and_cold_emissions() is True:
+            kwargs["hot_strategy"] = "code.hbefa_hot_strategy.HbefaHotStrategy.HbefaHotStrategy"
+            return self.cold_strategy.calculate_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
+
         hot_emissions = self.calculate_hot_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, **kwargs)
         cold_emissions = self.calculate_cold_emissions(traffic_and_link_data_row, vehicle_dict, pollutants, kwargs)
         return {**hot_emissions, **cold_emissions}

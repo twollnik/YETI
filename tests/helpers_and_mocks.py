@@ -57,3 +57,39 @@ class MockStrategy(Strategy):
                             **kwargs):
 
         return {"poll": {"vehA": 100}}
+
+
+class MockStrategyCalculatingBothHotAndCold(Strategy):
+
+    def calculates_hot_and_cold_emissions(self):
+
+        return True
+
+    def calculate_emissions(self,
+                            traffic_and_link_data_row: Dict[str, Any],
+                            vehicle_dict: Dict[str, str],
+                            pollutants: List[str],
+                            **kwargs):
+
+        if "hot_strategy" not in kwargs:
+            raise AssertionError("Expected the keyword argument 'hot_strategy'.")
+
+        return {
+            "poll_hot": {"some": "hot emissions"},
+            "poll_cold": {"now": "cold_emissions"}
+        }
+
+
+class MockStrategyCalculatingBothHotAndColdReturnsArguments(Strategy):
+
+    def calculates_hot_and_cold_emissions(self):
+
+        return True
+
+    def calculate_emissions(self,
+                            traffic_and_link_data_row: Dict[str, Any],
+                            vehicle_dict: Dict[str, str],
+                            pollutants: List[str],
+                            **kwargs):
+
+        return kwargs
