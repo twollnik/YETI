@@ -98,7 +98,25 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_link_data.csv"))
         self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_cold_starts_data.csv"))
 
+    @patch("code.copert_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data",
+           return_value={"some": "return", "value": "for mocking"})
+    @patch("code.copert_strategy.load_berlin_format_data.load_copert_hot_berlin_format_data",
+           return_value={"hot": "return", "data": "for mocking"})
+    def test_use_output_folder_for_yeti_format_data(self, mocked_hot_load_function, mocked_cold_load_function):
 
+        actual_return_value = load_copert_berlin_format_data(
+            hot_test_arg1=1, cold_test_arg2="abc", test_arg3=1,
+            output_folder="tests", output_folder_for_yeti_format_data="docs")
+
+        self.assertEqual(actual_return_value,
+                         {"cold_some": "return", "cold_value": "for mocking", "hot_hot": "return",
+                          "hot_data": "for mocking"})
+        mocked_cold_load_function.assert_called_once_with(
+            test_arg2="abc", test_arg3=1, output_folder="tests",
+            output_folder_for_yeti_format_data="docs/yeti_format_data_for_cold_strategy")
+        mocked_hot_load_function.assert_called_once_with(
+            test_arg1=1, test_arg3=1, output_folder="tests",
+            output_folder_for_yeti_format_data="docs/yeti_format_data_for_hot_strategy")
 
 if __name__ == '__main__':
     main()
