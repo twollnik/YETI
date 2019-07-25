@@ -94,6 +94,24 @@ def load_berlin_format_cold_data(default_load_data_function, **kwargs):
     return paths_to_cold_yeti_format_data
 
 
+def load_yeti_format_data_for_composed_strategy(default_cold_load_function, default_hot_load_function, **kwargs):
+
+    if kwargs.get("only_hot") is True:
+        kwargs = remove_prefix_from_keys("hot_", kwargs)
+        return default_hot_load_function(**kwargs)
+
+    logging.debug("Loading yeti_format data for the hot Strategy.")
+    hot_data = load_yeti_format_hot_data(default_hot_load_function, **kwargs)
+
+    logging.debug("Loading yeti_format data for the cold Strategy.")
+    cold_data = load_yeti_format_cold_data(default_cold_load_function, **kwargs)
+
+    return {
+        **hot_data,
+        **cold_data
+    }
+
+
 def load_yeti_format_hot_data(load_data_function, **kwargs):
 
     kwargs_for_hot = drop_keys_starting_with("cold_", kwargs)
