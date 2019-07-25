@@ -10,10 +10,10 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
            return_value={"some": "return", "value": "here"})
     def test_only_hot(self, mocked_load_function):
 
-        val = load_hbefa_berlin_format_data(only_hot=True, arg1=1, hot_arg2="abc", cold_arg3=7)
+        val = load_hbefa_berlin_format_data(only_hot=True, arg1=1, hot_arg2="abc", cold_arg3=7, output_folder="tests")
 
         self.assertEqual(val, {"some": "return", "value": "here"})
-        mocked_load_function.assert_called_once_with(only_hot=True, arg1=1, arg2="abc", cold_arg3=7)
+        mocked_load_function.assert_called_once_with(only_hot=True, arg1=1, arg2="abc", cold_arg3=7, output_folder="tests")
 
     @patch("code.hbefa_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data",
            return_value={"some": "return", "value": "here"})
@@ -25,8 +25,10 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
 
         self.assertEqual(val,{"hot_some": "return", "hot_value": "here",
                               "cold_another": "return", "cold_parameter": "here"})
-        mocked_cold_load_function.assert_called_once_with(arg1=1, arg3=7, output_folder="tests/yeti_format_data_for_cold_strategy")
-        mocked_hot_load_function.assert_called_once_with(arg1=1, arg2="abc", output_folder="tests/yeti_format_data_for_hot_strategy")
+        mocked_cold_load_function.assert_called_once_with(arg1=1, arg3=7, output_folder="tests",
+                                                          output_folder_for_yeti_format_data="tests/yeti_format_data_for_cold_strategy")
+        mocked_hot_load_function.assert_called_once_with(arg1=1, arg2="abc", output_folder="tests",
+                                                         output_folder_for_yeti_format_data="tests/yeti_format_data_for_hot_strategy")
 
     @patch("code.hbefa_strategy.load_berlin_format_data.load_hbefa_hot_berlin_format_data",
            return_value={"some": "return", "value": "here"})
@@ -39,13 +41,15 @@ class TestLoadBerlinFormatDataForHbefaStrategy(TestCase):
         )
 
         mocked_load_function.assert_called_once_with(
-            test_arg1=1, test_arg3=4, output_folder='tests/yeti_format_data_for_hot_strategy')
+            test_arg1=1, test_arg3=4, output_folder="tests",
+            output_folder_for_yeti_format_data='tests/yeti_format_data_for_hot_strategy')
 
         self.assertEqual(actual_return_value,
                          {"hot_some": "return", "hot_value": "here",
                           "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
                           "cold_load_berlin_format_data_function": "tests.helper.mock_load_data_function",
-                          "cold_output_folder": "tests/yeti_format_data_for_cold_strategy",
+                          "cold_output_folder": "tests",
+                          "cold_output_folder_for_yeti_format_data": "tests/yeti_format_data_for_cold_strategy",
                           "cold_test_arg1": 1, "cold_test_arg2": "abc"
                           })
 

@@ -19,10 +19,10 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
            return_value={"some": "return", "value": "for mocking"})
     def test_case_only_hot(self, mocked_copert_hot_load_function):
 
-        actual_return_value = load_copert_berlin_format_data(only_hot=True, hot_test_arg1=1, cold_test_arg2="abc")
+        actual_return_value = load_copert_berlin_format_data(only_hot=True, hot_test_arg1=1, cold_test_arg2="abc", output_folder="tests")
 
         self.assertEqual(actual_return_value, {"some": "return", "value": "for mocking"})
-        mocked_copert_hot_load_function.assert_called_once_with(only_hot=True, test_arg1=1, cold_test_arg2="abc")
+        mocked_copert_hot_load_function.assert_called_once_with(only_hot=True, test_arg1=1, cold_test_arg2="abc", output_folder="tests")
 
     @patch("code.copert_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data",
            return_value={"some": "return", "value": "for mocking"})
@@ -33,8 +33,10 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         actual_return_value = load_copert_berlin_format_data(hot_test_arg1=1, cold_test_arg2="abc", test_arg3=1, output_folder="tests")
 
         self.assertEqual(actual_return_value, {"cold_some": "return", "cold_value": "for mocking", "hot_hot": "return", "hot_data": "for mocking"})
-        mocked_cold_load_function.assert_called_once_with(test_arg2="abc", test_arg3=1, output_folder="tests/yeti_format_data_for_cold_strategy")
-        mocked_hot_load_function.assert_called_once_with(test_arg1=1, test_arg3=1, output_folder="tests/yeti_format_data_for_hot_strategy")
+        mocked_cold_load_function.assert_called_once_with(test_arg2="abc", test_arg3=1, output_folder="tests",
+                                                          output_folder_for_yeti_format_data="tests/yeti_format_data_for_cold_strategy")
+        mocked_hot_load_function.assert_called_once_with(test_arg1=1, test_arg3=1, output_folder="tests",
+                                                         output_folder_for_yeti_format_data="tests/yeti_format_data_for_hot_strategy")
 
     @patch("code.copert_strategy.load_berlin_format_data.load_copert_hot_berlin_format_data",
            return_value={"some": "return", "value": "for mocking"})
@@ -47,13 +49,15 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         )
 
         mocked_copert_hot_load_function.assert_called_once_with(
-            test_arg1=1, test_arg2="abc", test_arg3=4, output_folder='tests/yeti_format_data_for_hot_strategy')
+            test_arg1=1, test_arg2="abc", test_arg3=4, output_folder="tests",
+            output_folder_for_yeti_format_data='tests/yeti_format_data_for_hot_strategy')
 
         self.assertEqual(actual_return_value,
                          {"hot_some": "return", "hot_value": "for mocking",
                           "cold_strategy": "tests.test_copert_strategy.MockStrategy.MockStrategy",
                           "cold_load_berlin_format_data_function": "tests.helper.mock_load_data_function",
-                          "cold_output_folder": "tests/yeti_format_data_for_cold_strategy",
+                          "cold_output_folder": "tests",
+                          "cold_output_folder_for_yeti_format_data": "tests/yeti_format_data_for_cold_strategy",
                           "cold_test_arg1": 1, "cold_test_arg2": "abc"
         })
 
@@ -98,7 +102,25 @@ class TestLoadBerlinFormatDataForCopertStrategy(TestCase):
         self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_link_data.csv"))
         self.assertTrue(os.path.isfile(f"{self.init_path}/output_yeti_format_data/yeti_format_data_for_cold_strategy/yeti_format_cold_starts_data.csv"))
 
+    @patch("code.copert_strategy.load_berlin_format_data.load_copert_cold_berlin_format_data",
+           return_value={"some": "return", "value": "for mocking"})
+    @patch("code.copert_strategy.load_berlin_format_data.load_copert_hot_berlin_format_data",
+           return_value={"hot": "return", "data": "for mocking"})
+    def test_use_output_folder_for_yeti_format_data(self, mocked_hot_load_function, mocked_cold_load_function):
 
+        actual_return_value = load_copert_berlin_format_data(
+            hot_test_arg1=1, cold_test_arg2="abc", test_arg3=1,
+            output_folder="tests", output_folder_for_yeti_format_data="docs")
+
+        self.assertEqual(actual_return_value,
+                         {"cold_some": "return", "cold_value": "for mocking", "hot_hot": "return",
+                          "hot_data": "for mocking"})
+        mocked_cold_load_function.assert_called_once_with(
+            test_arg2="abc", test_arg3=1, output_folder="tests",
+            output_folder_for_yeti_format_data="docs/yeti_format_data_for_cold_strategy")
+        mocked_hot_load_function.assert_called_once_with(
+            test_arg1=1, test_arg3=1, output_folder="tests",
+            output_folder_for_yeti_format_data="docs/yeti_format_data_for_hot_strategy")
 
 if __name__ == '__main__':
     main()
