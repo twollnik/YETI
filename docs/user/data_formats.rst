@@ -120,7 +120,7 @@ columns:
     - Moped = mopeds
     - M = motorcycles
 
-- *VehPercOfCat*: The percentage of the vehicle with regard to all vehicles of its category.
+- *VehPercOfCat*: The percentage of the vehicle with regard to all vehicles of its category. Should be between 0 and 1.
 - *NumberOfAxles*: The number of axles for the given vehicle. This is only relevant for vehicles belonging to one of
   these categories: ``S``, ``R``, or ``B``. This column needs to be present, however its contents are only used
   for the Strategy ``PMNonExhaustStrategy``. So if you don't have the number of axles data, you can leave the
