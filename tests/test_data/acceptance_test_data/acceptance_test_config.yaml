@@ -1,0 +1,37 @@
+# This is a configuration file for the YETI model
+
+# -------- run configurations ----------
+
+mode:                       berlin_format
+
+pollutants:                 [PollutantType.NOx]
+
+strategy:                   code.copert_strategy.CopertStrategy.CopertStrategy
+load_berlin_format_data_function:   code.copert_strategy.load_berlin_format_data.load_copert_berlin_format_data
+load_yeti_format_data_function:    code.copert_strategy.load_yeti_format_data.load_copert_yeti_format_data
+
+# -------- file names -----------
+
+berlin_format_link_data:            tests/test_data/acceptance_test_data/link_data_artificial.csv
+berlin_format_fleet_composition:    tests/test_data/acceptance_test_data/fleet_composition_artificial.csv
+berlin_format_emission_factors:     tests/test_data/acceptance_test_data/emission_factor_artificialdata.csv
+berlin_format_los_speeds:           tests/test_data/acceptance_test_data/los_speeds_artificial.csv
+berlin_format_traffic_data:         tests/test_data/acceptance_test_data/traffic_data_artificial.csv
+berlin_format_vehicle_mapping:      tests/test_data/acceptance_test_data/veh_mapping_artificial.csv
+
+# -------- output folder(s) --------------
+
+output_folder:              tests/test_acceptance_tests/output
+
+# Optional parameter, only relevant for mode input_data:
+# output_folder_for_unified_data:     unified_data_new
+
+# -------- strategy specific arguments -----------
+
+use_nh3_tier2_ef:           no
+only_hot:                   yes
+
+# -------- optional arguments ------------
+
+# links_to_use:               [link_a]
+# use_n_traffic_data_rows:    100

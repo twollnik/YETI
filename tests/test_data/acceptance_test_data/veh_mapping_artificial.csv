@@ -1,0 +1,22 @@
+VehName,VehCat,Fuel,EuroStandard,VehSegment,Technology
+"PC petrol 1,4-<2L Euro-4",Passenger Cars,Petrol,Euro 4,Medium,GDI
+"PC petrol 1,4-<2L Euro-5",Passenger Cars,Petrol,Euro 5,Medium,GDI
+"PC diesel 1,4-<2L Euro-4 (DPF)",Passenger Cars,Diesel,Euro 4,Medium,DPF
+"PC diesel 1,4-<2L Euro-5 DPF",Passenger Cars,Diesel,Euro 5,Medium,DPF
+LCV petrol N1-II Euro-3,Light Commercial Vehicles,Petrol,Euro 3,N1-II,PFI
+LCV petrol N1-II Euro-6,Light Commercial Vehicles,Petrol,Euro 6 up to 2017,N1-II,PFI
+LCV diesel N1-II Euro-4,Light Commercial Vehicles,Diesel,Euro 4,N1-II,DPF
+LCV diesel N1-II Euro-5 DPF,Light Commercial Vehicles,Diesel,Euro 5,N1-II,DPF
+RT >12-14t Euro-III,Heavy Duty Trucks,Diesel,Euro III,Rigid 12 - 14 t,
+RT >12-14t Euro-IV SCR,Heavy Duty Trucks,Diesel,Euro IV,Rigid 12 - 14 t,SCR
+RT >12-14t Euro-IV EGR,Heavy Duty Trucks,Diesel,Euro IV,Rigid 12 - 14 t,EGR
+UBus Midi <=15t Euro-IV SCR,Buses,Diesel,Euro IV,Urban Buses Midi <=15 t,SCR
+UBus Midi <=15t Euro-IV EGR,Buses,Diesel,Euro IV,Urban Buses Midi <=15 t,EGR
+UBus Midi <=15t Euro-V SCR,Buses,Diesel,Euro V,Urban Buses Midi <=15 t,SCR
+UBus Midi <=15t Euro-V EGR,Buses,Diesel,Euro V,Urban Buses Midi <=15 t,EGR
+Coach 3-Axes >18t Euro-IV EGR,Buses,Diesel,Euro IV,Coaches Articulated >18 t,SCR
+Coach 3-Axes >18t Euro-IV SCR,Buses,Diesel,Euro IV,Coaches Articulated >18 t,EGR
+Coach 3-Axes >18t Euro-V EGR,Buses,Diesel,Euro V,Coaches Articulated >18 t,SCR
+Coach 3-Axes >18t Euro-V SCR,Buses,Diesel,Euro V,Coaches Articulated >18 t,EGR
+MC 2S <=150cc Euro-4,L-Category,Petrol,Euro 4,Mopeds 2-stroke <50 cm?
+MC 4S 151-250cc Euro-3,L-Category,Petrol,Euro 3,Motorcycles 4-stroke <250 cm?
