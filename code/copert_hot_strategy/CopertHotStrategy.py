@@ -143,7 +143,12 @@ class CopertHotStrategy:
         return los_weighted_speed_dependant_ef
 
     def get_ef_dict_for_vehicle(self, vehicle_name: str, pollutant: str) -> Dict[str, float]:
-
+        
+        # If you ever want to use load or slope values other than zero, include the following line of code.
+        # Also make sure that load and slope are input arguments to this function.
+        #
+        # return self.ef_dict[(vehicle_name, pollutant, slope, load)]
+        
         return self.ef_dict[(vehicle_name, pollutant, 0.0, 0.0)]
 
     def calculate_ef_copert(self, speed: float, concrete_ef_dict: Dict[str, float]) -> float:
