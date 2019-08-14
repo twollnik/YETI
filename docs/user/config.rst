@@ -3,7 +3,7 @@
 Configuring YETI
 ================
 
-The configuration arguments for a YETI run are stored in a `YAML file <https://en.wikipedia.org/wiki/YAML>`_.
+ The configuration arguments for a YETI run are stored in a `YAML file <https://en.wikipedia.org/wiki/YAML>`_.
 The configuration file (sometimes referred to as "config file" or "config.yaml") contains all the configurations
 for a model run.
 
