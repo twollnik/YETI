@@ -106,7 +106,7 @@ Just like the yeti_format link data required for the other Strategies. See :ref:
 --------
 
 **yeti_format traffic data** |br|
-Just like the yeti_format traffic data required for the other strategies. See :ref`here <yeti-format-traffic-data-explained>`.
+Just like the yeti_format traffic data required for the other strategies. See :ref:`here <yeti-format-traffic-data-explained>`.
 
 --------
 
