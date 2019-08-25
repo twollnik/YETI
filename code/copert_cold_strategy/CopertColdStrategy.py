@@ -74,7 +74,6 @@ class CopertColdStrategy:
         required kwargs:
         - yeti_format_cold_ef_table
         - yeti_format_los_speeds
-        - yeti_format_emission_factors
         - yeti_format_vehicle_mapping
         - ltrip
         - temperature
