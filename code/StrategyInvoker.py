@@ -41,6 +41,8 @@ class StrategyInvoker:
 
         self.strategy = None
         self.emissions_store = []
+        
+        self.last_progress_message = None
 
     def calculate_and_save_emissions(self, emissions_output_folder, save_interval_in_rows: int = 10000, **kwargs):
         """
@@ -127,9 +129,15 @@ class StrategyInvoker:
             yield i, row
 
     def display_progress(self, current_row):
-
-        perc_done = current_row / len(self.traffic_and_link_data) * 100
-        print("%.1f percent done" % perc_done, end='\r')
+        
+        total_rows = len(self.traffic_and_link_data)
+        perc_done = current_row / total_rows * 100
+        perc_done_message = "%.1f percent done" % perc_done
+        
+        # Print each progress value only once to reduce the visual noise in log files.
+        if perc_done_message != self.last_progress_message:
+          self.last_progress_message = perc_done_message
+          print(perc_done_message, end='\r')
 
     def associate_emissions_with_time_and_location_info(self, emissions, row):
 
